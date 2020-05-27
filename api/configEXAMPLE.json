@@ -1,0 +1,15 @@
+{
+  "server": {
+    "port": 3001
+  },
+  "database": {
+    "database": "FIXME",
+    "user": "FIXME",
+    "password": "FIXME",
+    "host": "FIXME",
+    "ssl": {
+      "require": true,
+      "rejectUnauthorized": false
+    }
+  }
+}

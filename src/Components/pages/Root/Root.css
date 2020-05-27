@@ -1,0 +1,15 @@
+body {
+  background-color: #282c34;
+  min-height: 100vh;
+  color: white;
+}
+
+.appWrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.contentWrapper {
+  display: flex;
+  flex-direction: row;
+}
