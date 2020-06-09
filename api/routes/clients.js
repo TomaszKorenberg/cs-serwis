@@ -2,7 +2,7 @@ const Client = require("./../models/client");
 
 
 module.exports = (app) => {
-    app.get("/clients/addclient", (req, res) => {
+    app.post("/clients/addclient", (req, res) => {
         Client.create({
             name: "Imię",      //todo:podminić na dane wysyłane z frontendu
             lastName: "Nazwisko",

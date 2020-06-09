@@ -6,8 +6,10 @@ const config = require('./config');
 
 
 app.use(cors());
+app.use(express.json());
 
-
+require('./routes/clients')(app);
+require('./routes/repairs')(app);
 
 sequelize
     .sync()
@@ -25,5 +27,4 @@ const runSerer = port => {
 
 runSerer(config.server.port);
 
-require('./routes/clients')(app);
-require('./routes/repairs')(app);
+

@@ -1,16 +1,17 @@
-const Repair = require("./../models/repair");
+const Repairs = require("./../models/repair");
+
 
 
 module.exports = (app) => {
-    app.get("/repairs/addrepair", (req, res) => {
-        Repair.create({
-                manufacturer: "Producent",      //todo:podminić na dane wysyłane z frontendu
-                model: "Model urządzenia",
-                serialNumber: "Numer seryjny",
-                faultDescription: "Opis usterki",
-                // dateOfAdd: "Da-ta-2020r.",
-                clientID: 1,
-                isWarranty: true,
+    app.post("/repairs/addrepair", (req, res) => {
+        Repairs.create({
+                manufacturer: req.body.manufacturer,      //todo:podminić na dane wysyłane z frontendu
+                model: req.body.model,
+                serialNumber: req.body.serialNumber,
+                faultDescription: req.body.faultDescription,
+                dateOfAdd: new Date(Date.parse(req.body.dateOfAdd)),
+                // clientID: req.body.clientID,
+                isWarranty: req.body.isWarranty,
             }
         )
             .then(() => {
@@ -20,5 +21,12 @@ module.exports = (app) => {
                 throw new Error(err);
             })
     });
-};
 
+    app.get("/repairs", (req, res) => {
+        Repairs.findAll()
+            .then(response => res.status(200).send(response))
+            .catch(err => {
+                throw new Error(err)
+            })
+    })
+};

@@ -10,6 +10,7 @@ const sequelize = new Sequelize(config.database.database, config.database.user, 
         dialectOptions: {
             ssl: config.database.ssl
         },
+        logging: false
     });
 
 module.exports = sequelize;

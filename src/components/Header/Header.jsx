@@ -1,6 +1,6 @@
 import React from "react";
 import "./Header.scss"
-import HeaderNavigation from "../../molecules/HeaderNavigation/HeaderNavigation";
+import HeaderNavigation from "../HeaderNavigation/HeaderNavigation";
 
 const Header = () => {
     return(

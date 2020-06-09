@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize')
 const sequelize = require('../utils/database')
 
-const Repair = sequelize.define('repair', {
+const Repairs = sequelize.define('repair', {
     repairID: {
         type: Sequelize.INTEGER,
         autoIncrement: true,
@@ -27,11 +27,12 @@ const Repair = sequelize.define('repair', {
     dateOfAdd: {
         type: Sequelize.DATE,
         allowNull: false,
-        defaultValue: new Date().toLocaleString()
+        defaultValue: Sequelize.NOW
     },
     clientID:{
         type: Sequelize.INTEGER,
-        allowNull: true
+        allowNull: true,
+        defaultValue: 0,
     },
     isWarranty:{
         type: Sequelize.BOOLEAN,
@@ -45,5 +46,6 @@ const Repair = sequelize.define('repair', {
 //     repair.dateOfAdd = date.toLocaleString()
 // });
 
-module.exports = Repair;
+
+module.exports = Repairs;
 
