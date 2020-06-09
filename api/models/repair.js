@@ -38,13 +38,23 @@ const Repairs = sequelize.define('repair', {
         type: Sequelize.BOOLEAN,
         allowNull: false,
         defaultValue: false
-    }
+    },
+    comments: {
+        type: Sequelize.TEXT,
+        allowNull: true
+    },
+    assignedEmployee: {
+        type: Sequelize.TEXT,
+        allowNull: true
+    },
 });
+
 
 // Repair.beforeCreate((repair, options) =>{
 //     const date = new Date()
 //     repair.dateOfAdd = date.toLocaleString()
 // });
+
 
 
 module.exports = Repairs;

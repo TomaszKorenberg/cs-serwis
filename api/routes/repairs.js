@@ -12,6 +12,8 @@ module.exports = (app) => {
                 dateOfAdd: new Date(Date.parse(req.body.dateOfAdd)),
                 // clientID: req.body.clientID,
                 isWarranty: req.body.isWarranty,
+                //comments: req.body.comments,
+                //assignedEmployee: req.body.assignedEmployee,
             }
         )
             .then(() => {

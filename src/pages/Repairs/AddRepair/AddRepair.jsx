@@ -24,20 +24,43 @@ const reducer = (state, {field, value}) => {
     }
 };
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles({
     wrapper: {
         display: "flex",
         flexDirection: "column",
         backgroundColor: "#282c34",
-        width: "600px",
+        width: "40%",
         padding: '25px'
     },
     input: {
         backgroundColor: "#4e5052",
         marginTop: "10px",
         borderRadius: "5px",
+        '& label.Mui-focused': {
+            color: 'none',
+        },
+        '& .MuiInput-underline:after': {
+            borderBottomColor: 'yellow',
+        },
+        '& .MuiOutlinedInput-root': {
+            '& fieldset': {
+                borderColor: 'none',
+            },
+            '&:hover fieldset': {
+                borderColor: 'gray',
+            },
+            '&.Mui-focused fieldset': {
+                borderColor: 'gray',
+            },
+        },
+    },
+    inputLabel: {
+        color: "white",
+        "&$focused": { // increase the specificity for the pseudo class
+            color: "white"
+        }
     }
-}));
+});
 
 
 export default function AddRepair() {
@@ -70,36 +93,60 @@ export default function AddRepair() {
 
         <div className={classes.wrapper}>
             <h2 id="transition-modal-title">Dodaj nową naprawę</h2>
+
+            <div>
+                <TextField
+                    name={"clientID"}
+                    size={"small"}
+                    classes={{root: classes.input}}
+                    onChange={onChange}
+                    id="clientInput" label="Klient"
+                    variant="outlined"
+                    InputLabelProps={{className: classes.inputLabel}}/>
+            </div>
+
             <TextField
                 name={"manufacturer"}
+                size={"small"}
                 classes={{root: classes.input}}
                 onChange={onChange}
                 id="manufacturerInput"
                 label="Producent"
-                variant="outlined"/>
+                variant="outlined"
+                InputLabelProps={{className: classes.inputLabel}}/>
             <TextField
                 name={"model"}
+                size={"small"}
                 classes={{root: classes.input}}
                 onChange={onChange}
                 id="modelInput"
                 label="Model"
-                variant="outlined"/>
+                variant="outlined"
+                InputLabelProps={{className: classes.inputLabel}}/>
             <TextField
                 name={"serialNumber"}
+                size={"small"}
                 classes={{root: classes.input}}
                 onChange={onChange}
                 id="serialNumberInput"
                 label="Numer seryjny"
-                variant="outlined"/>
+                variant="outlined"
+                InputLabelProps={{className: classes.inputLabel}}/>
             <TextField
                 name={"faultDescription"}
+                size={"small"}
+                multiline={true}
+                rows={4}
                 classes={{root: classes.input}}
                 onChange={onChange}
                 id="faultDesctiptionInput"
                 label="Opis usterki"
-                variant="outlined"/>
-            <TextField
+                variant="outlined"
+                InputLabelProps={{className: classes.inputLabel}}/>
+            <div>
+                <TextField
                 name={"dateOfAdd"}
+                size={"small"}
                 classes={{root: classes.input}}
                 onChange={onChange}
                 id="dateOfAddInput"
@@ -108,18 +155,29 @@ export default function AddRepair() {
                 type="datetime-local"
                 InputLabelProps={{
                     shrink: true,
+                    className: classes.inputLabel
                 }}/>
-            <TextField
-                name={"clientID"}
-                classes={{root: classes.input}}
-                onChange={onChange}
-                id="clientInput" label="Klient"
-                variant="outlined"/>
+
+                <TextField
+                    name={"dateOfEnd"}
+                    size={"small"}
+                    classes={{root: classes.input}}
+                    id="dateOfEnd"
+                    label="Przewidywana data zakończenia"
+                    variant="outlined"
+                    type="datetime-local"
+                    InputLabelProps={{
+                        shrink: true,
+                        className: classes.inputLabel
+                    }}/>
+            </div>
             <FormControlLabel
                 name={"isWarranty"}
+                size={"small"}
                 onChange={onChange}
                 control={<Checkbox name="checkedC"/>}
-                label="Naprawa gwarancyjna"/>
+                label="Naprawa gwarancyjna"
+                InputLabelProps={{className: classes.inputLabel}}/>
             <Button
                 fullWidth={false}
                 href={"/repairs"}
