@@ -6,6 +6,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import {Checkbox} from "@material-ui/core";
+import NewClient from "../NewClient/NewClient";
 
 const initialState = {
     manufacturer: "",
@@ -27,10 +28,24 @@ const reducer = (state, {field, value}) => {
 const useStyles = makeStyles({
     wrapper: {
         display: "flex",
+        flexDirection: "row",
+        backgroundColor: "#282c34",
+        width: "100%",
+    },
+    inputsWrapper: {
+        display: "flex",
         flexDirection: "column",
         backgroundColor: "#282c34",
-        width: "40%",
-        padding: '25px'
+        width: "500px",
+        padding: '25px',
+        border: "1px solid gray",
+        borderRadius: "10px",
+        margin: "10px"
+
+    },
+    clientWrapper: {
+        backgroundColor: "#282c34",
+        margin:"10px"
     },
     input: {
         backgroundColor: "#4e5052",
@@ -56,9 +71,6 @@ const useStyles = makeStyles({
     },
     inputLabel: {
         color: "white",
-        "&$focused": { // increase the specificity for the pseudo class
-            color: "white"
-        }
     }
 });
 
@@ -90,20 +102,12 @@ export default function AddRepair() {
     };
 
     return (
-
+        <div>
+        <h2 id="transition-modal-title">Dodaj nową naprawę</h2>
         <div className={classes.wrapper}>
-            <h2 id="transition-modal-title">Dodaj nową naprawę</h2>
 
-            <div>
-                <TextField
-                    name={"clientID"}
-                    size={"small"}
-                    classes={{root: classes.input}}
-                    onChange={onChange}
-                    id="clientInput" label="Klient"
-                    variant="outlined"
-                    InputLabelProps={{className: classes.inputLabel}}/>
-            </div>
+            <div className={classes.inputsWrapper}>
+
 
             <TextField
                 name={"manufacturer"}
@@ -152,6 +156,7 @@ export default function AddRepair() {
                 id="dateOfAddInput"
                 label="Data przyjęcia"
                 variant="outlined"
+                required={true}
                 type="datetime-local"
                 InputLabelProps={{
                     shrink: true,
@@ -176,8 +181,7 @@ export default function AddRepair() {
                 size={"small"}
                 onChange={onChange}
                 control={<Checkbox name="checkedC"/>}
-                label="Naprawa gwarancyjna"
-                InputLabelProps={{className: classes.inputLabel}}/>
+                label="Naprawa gwarancyjna"/>
             <Button
                 fullWidth={false}
                 href={"/repairs"}
@@ -188,5 +192,10 @@ export default function AddRepair() {
             >Dodaj</Button>
         </div>
 
+            <div className={classes.clientWrapper}>
+                <NewClient onChange={onChange}/>
+            </div>
+        </div>
+</div>
     );
 }
