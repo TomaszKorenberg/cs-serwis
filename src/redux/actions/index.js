@@ -1,9 +1,15 @@
 import {bindActionCreators} from "redux";
 import {store} from "../store/store";
+import {SET_REPAIRS, ADD_REPAIR} from '../reducers/repairsTypes'
 
 const addRepair = (repair) => ({
-    type: 'ADD_REPAIR',
-    repair:repair
+    type: ADD_REPAIR,
+    repair
+});
+//todo: rodzielić akcje na osobne moduły
+const setRepairs = (repairs) => ({
+    type: SET_REPAIRS,
+    repairs
 });
 
 const addClient = (client) => ({
@@ -11,8 +17,15 @@ const addClient = (client) => ({
     client
 });
 
-const repairActions = bindActionCreators({addRepair}, store.dispatch);
+const setLeftMenu = (menuItems) => (
+    {
+    type: "SET_MENU",
+    leftMenu: menuItems
+});
+
+const repairActions = bindActionCreators({addRepair, setRepairs}, store.dispatch);
 const clientActions = bindActionCreators({addClient}, store.dispatch);
+const leftMenuActions = bindActionCreators({setLeftMenu}, store.dispatch);
 
 
-export {repairActions, clientActions}
+export {repairActions, clientActions, leftMenuActions}

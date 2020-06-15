@@ -1,6 +1,16 @@
-import React from 'react';
+import React, {useEffect} from 'react';
+import {leftMenuActions} from "../../redux/actions";
 
-const Messages = () => {
+const leftMenuItems = [
+    {path: "/warehouse", text:"Wszystkie"},
+    {path: "/warehouse/wfirma", text:"wFirma"},
+    {path: "/warehouse/quadra", text:"Quadra"},
+];
+
+const Warehouse = () => {
+    useEffect(() => {
+        leftMenuActions.setLeftMenu([...leftMenuItems]);
+    }, []);
     return (
         <>
             Hello from messages!
@@ -8,4 +18,4 @@ const Messages = () => {
     );
 };
 
-export default Messages;
+export default Warehouse;

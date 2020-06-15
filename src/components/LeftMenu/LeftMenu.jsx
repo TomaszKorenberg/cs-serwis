@@ -15,24 +15,30 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function LeftMenu() {
+
+export default function LeftMenu({links}) {
     const classes = useStyles();
 
+    if (!links) {
+        return (<p>Ładuję...</p>)
+    }
     return (
         <List component="nav" className={classes.root}  aria-label="mailbox folders">
+            {
+                console.log(links)
+            }
 
-            <NavLink exact className={"navLink"} activeClassName={"navLinkActive"} to={"/repairs"}>
-                <ListItem button>Aktualne naprawy</ListItem>
-            </NavLink>
-            <Divider/>
-
-            <NavLink className={"navLink"} activeClassName={"navLinkActive"} to={"/repairs/newrepair"}>
-                <ListItem button divider>Dodaj naprawę</ListItem>
-            </NavLink>
-
-            <NavLink className={"navLink"} activeClassName={"navLinkActive"} to={"/repairs/clients"}>
-                <ListItem button>Klienci</ListItem>
-            </NavLink>
+            {
+                links.map(link =>(
+                    <>
+                        <NavLink exact className={"navLink"} activeClassName={"navLinkActive"} to={link.path}>
+                            <ListItem button>{link.text}</ListItem>
+                        </NavLink>
+                        <Divider/>
+                    </>
+                )
+                    )
+            }
 
             <Divider light/>
         </List>

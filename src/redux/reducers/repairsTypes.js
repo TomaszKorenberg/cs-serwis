@@ -1,0 +1,7 @@
+const SET_REPAIRS = 'SET_REPAIRS'
+const ADD_REPAIR =  'ADD_REPAIR'
+
+export  {
+    SET_REPAIRS,
+    ADD_REPAIR
+}

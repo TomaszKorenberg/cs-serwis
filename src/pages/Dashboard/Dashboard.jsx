@@ -1,6 +1,18 @@
-import React from "react";
+import React, {useEffect} from "react";
+import {leftMenuActions} from "../../redux/actions";
+
+const leftMenuItems = [
+    {path: "/dashboard", text:"Pulpit"},
+    {path: "/dashboard/todo", text:"Zadania"},
+    {path: "/dashboard/settings", text:"Ustawiania"},
+
+];
 
 const Dashboard = () => {
+    useEffect(() => {
+        leftMenuActions.setLeftMenu([...leftMenuItems]);
+    }, []);
+
     return(
         //todo:
         //- wiadomości od innych użytkowników

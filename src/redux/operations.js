@@ -17,13 +17,13 @@ const fetchGetAllRepairs = async() => {
 
 
 export const getAllRepairs = () =>
-    async (dispatch) => {
+    async () => {
         const repairs = await fetchGetAllRepairs();
-        repairs.map(repair => repairActions.addRepair(repair))
+        repairActions.setRepairs(repairs)
     };
 
 export const addRepair = (data) =>
-    async (dispatch) => {
+    async () => {
         await fetchAddRepair(data);
         repairActions.addRepair(data)
     };

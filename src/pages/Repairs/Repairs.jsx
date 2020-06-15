@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {useSelector, useDispatch} from "react-redux";
 import {getAllRepairs} from "../../redux/operations";
-import AddRepairModal from "../../components/AddRepairModal/AddRepairModal";
+import {leftMenuActions} from "../../redux/actions/index"
 import {makeStyles} from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
@@ -19,6 +19,15 @@ const columns = [
     {id: 'serialNumber', label: 'Numer seryjny', minWidth: 100},
     {id: 'faultDescription', label: 'Opis usterki', minWidth: 400, align: 'left'},
     {id: 'dateOfAdd', label: 'Data przyjęcia', minWidth: 170},
+];
+
+const leftMenuItems = [
+    {path: "/repairs", text:"Aktualne naprawy"},
+    {path: "/repairs/newrepair", text:"Dodaj naprawę"},
+    {path: "/repairs/clients", text:"Baza klientow"},
+    {path: "/repairs/units", text:"Baza urządzeń"},
+    {path: "/repairs/faults", text:"Baza usterek"},
+
 ];
 
 const useStyles = makeStyles({
@@ -61,11 +70,17 @@ const Repairs = () => {
         setPage(0);
     };
 
+
     useEffect(() => {
         dispatch(getAllRepairs())
     }, [dispatch]);
 
+    useEffect(() => {
+        leftMenuActions.setLeftMenu([...leftMenuItems]);
+    }, []);
+
     const repairs = useSelector(state => state.repairs);
+
 
     return (
         //todo:
@@ -75,7 +90,6 @@ const Repairs = () => {
         //- Możliwość obserwacji statusu naprawy przez klienta po przez podanie np. numeru tel i imienia albo numeru seryjnego
         //- Dołączanie zdjęć do zlecenia
         <div>
-            <AddRepairModal/>
 
             Aktualne naprawy:
             <Paper className={classes.root}>
