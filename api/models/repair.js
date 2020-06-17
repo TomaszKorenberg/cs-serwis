@@ -47,13 +47,12 @@ const Repairs = sequelize.define('repair', {
         type: Sequelize.TEXT,
         allowNull: true
     },
+    status: {
+        type: Sequelize.TEXT,
+        allowNull: false,
+        defaultValue: "New"
+    }
 });
-
-
-// Repair.beforeCreate((repair, options) =>{
-//     const date = new Date()
-//     repair.dateOfAdd = date.toLocaleString()
-// });
 
 
 
