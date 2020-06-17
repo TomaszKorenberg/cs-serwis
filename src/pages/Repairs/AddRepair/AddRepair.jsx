@@ -8,15 +8,21 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import {Checkbox} from "@material-ui/core";
 import NewClient from "../NewClient/NewClient";
 import {Redirect} from "react-router";
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
 
-const initialState = {
+const initialRepairState = {
     manufacturer: "",
     model: "",
     serialNumber: "",
     faultDescription: "",
     dateOfAdd: "",
-    clientID: "",
+    clientID: 0,
     isWarranty: false,
+    comments: "",
+    assignedEmployee: ""
 };
 
 const useStyles = makeStyles({
@@ -46,10 +52,7 @@ const useStyles = makeStyles({
         marginTop: "10px",
         borderRadius: "5px",
         '& label.Mui-focused': {
-            color: 'none',
-        },
-        '& .MuiInput-underline:after': {
-            borderBottomColor: 'yellow',
+            color: 'white',
         },
         '& .MuiOutlinedInput-root': {
             '& fieldset': {
@@ -76,22 +79,29 @@ const reducer = (state, {field, value}) => {
 };
 
 
-export default function AddRepair(props) {
+export default function AddRepair() {
     const dispatch = useDispatch();
     const classes = useStyles();
-    const [state, dispatchState] = useReducer(reducer, initialState);
-    const [redirect, setRedirect] = useState(false)
+    const [state, dispatchState] = useReducer(reducer, initialRepairState);
+    const [redirect, setRedirect] = useState(false);
+    const [assignedEmployee, setAssignedEmployee] = React.useState('');
 
 
-    const onChange = e => {
+
+    const onRepairChange = e => {
         dispatchState({field: e.target.name, value: e.target.value});
-        console.log(e.target.value)
-
-
     };
 
+    const handleCheckboxClick = (e) => {
+        e.target.value = e.target.checked;
+    };
 
-    const handleAddRepair = () => {
+    const handleSelectChange = (e) => {
+        setAssignedEmployee(e.target.value);
+    };
+
+    const handleAddRepair = (e) => {
+        e.preventDefault();
         dispatch(addRepair(
             {
                 manufacturer: state.manufacturer,
@@ -101,12 +111,11 @@ export default function AddRepair(props) {
                 dateOfAdd: state.dateOfAdd,
                 clientID: state.clientID,
                 isWarranty: state.isWarranty,
+                comments: state.comments,
+                assignedEmployee: state.assignedEmployee
             })
         );
-
         setRedirect(true)
-
-
     };
 
     return (
@@ -124,10 +133,11 @@ export default function AddRepair(props) {
 
 
                     <TextField
+                        required={true}
                         name={"manufacturer"}
                         size={"small"}
                         classes={{root: classes.input}}
-                        onChange={onChange}
+                        onChange={onRepairChange}
                         id="manufacturerInput"
                         label="Producent"
                         variant="outlined"
@@ -136,7 +146,7 @@ export default function AddRepair(props) {
                         name={"model"}
                         size={"small"}
                         classes={{root: classes.input}}
-                        onChange={onChange}
+                        onChange={onRepairChange}
                         id="modelInput"
                         label="Model"
                         variant="outlined"
@@ -145,7 +155,7 @@ export default function AddRepair(props) {
                         name={"serialNumber"}
                         size={"small"}
                         classes={{root: classes.input}}
-                        onChange={onChange}
+                        onChange={onRepairChange}
                         id="serialNumberInput"
                         label="Numer seryjny"
                         variant="outlined"
@@ -156,7 +166,7 @@ export default function AddRepair(props) {
                         multiline={true}
                         rows={4}
                         classes={{root: classes.input}}
-                        onChange={onChange}
+                        onChange={onRepairChange}
                         id="faultDesctiptionInput"
                         label="Opis usterki"
                         variant="outlined"
@@ -166,7 +176,7 @@ export default function AddRepair(props) {
                             name={"dateOfAdd"}
                             size={"small"}
                             classes={{root: classes.input}}
-                            onChange={onChange}
+                            onChange={onRepairChange}
                             id="dateOfAddInput"
                             label="Data przyjęcia"
                             variant="outlined"
@@ -191,11 +201,43 @@ export default function AddRepair(props) {
                             }}/>
                     </div>
                     <FormControlLabel
-                        name={"isWarranty"}
+                        name={"isWarrantyLabel"}
                         size={"small"}
-                        onChange={onChange}
-                        control={<Checkbox name="checkedC"/>}
+                        onClick={handleCheckboxClick}
+                        onChange={onRepairChange}
+                        control={<Checkbox name="isWarranty"/>}
                         label="Naprawa gwarancyjna"/>
+
+                    <TextField
+                        name={"comments"}
+                        size={"small"}
+                        multiline={true}
+                        rows={4}
+                        classes={{root: classes.input}}
+                        onChange={onRepairChange}
+                        id="commentsInput"
+                        label="Uwagi"
+                        variant="outlined"
+                        InputLabelProps={{className: classes.inputLabel}}/>
+
+                    <FormControl className={classes.formControl}>
+                        <InputLabel id="Pracownik">Pracownik</InputLabel>
+                        <Select
+                            labelId="Pracownik"
+                            id="demo-simple-select"
+                            name={"assignedEmployee"}
+                            value={assignedEmployee}
+                            onChange={onRepairChange}
+                            onClick={handleSelectChange}
+                        >
+                            <MenuItem value={"Tomasz Korenberg"}>Tomasz Korenberg</MenuItem>
+                            <MenuItem value={"Jędrzej Artymiak"}>Jędrzej Artymiak</MenuItem>
+                        </Select>
+                    </FormControl>
+                </div>
+
+                <div className={classes.clientWrapper}>
+                    <NewClient/>
                     <Button
                         fullWidth={false}
                         disableElevation={true}
@@ -203,10 +245,6 @@ export default function AddRepair(props) {
                         variant="outlined"
                         size={"large"}
                     >Dodaj</Button>
-                </div>
-
-                <div className={classes.clientWrapper}>
-                    <NewClient onChange={onChange}/>
                 </div>
             </div>
         </div>

@@ -11,6 +11,8 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
+import { useHistory } from "react-router-dom";
+
 
 const columns = [
     {id: 'repairID', label: 'ID:', minWidth: 25},
@@ -56,13 +58,18 @@ const useStyles = makeStyles({
 
 const Repairs = () => {
     const dispatch = useDispatch();
-
+    const history = useHistory();
     const classes = useStyles();
+
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(100);
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
+    };
+
+    const handleRapairClick = (repairID) => {
+        history.push("/repairs/repair-" + repairID)
     };
 
     const handleChangeRowsPerPage = (event) => {
@@ -114,7 +121,11 @@ const Repairs = () => {
                         <TableBody>
                             {repairs.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((repair) => {
                                 return (
-                                    <TableRow hover role="checkbox" tabIndex={-1} key={repair.repairID}>
+                                    <TableRow hover
+                                              role="checkbox"
+                                              tabIndex={-1}
+                                              key={repair.repairID}
+                                    onClick={() => handleRapairClick(repair.repairID)}>
                                         {columns.map((column) => {
 
                                             const value = repair[column.id];

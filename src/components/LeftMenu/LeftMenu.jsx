@@ -24,18 +24,15 @@ export default function LeftMenu({links}) {
     }
     return (
         <List component="nav" className={classes.root}  aria-label="mailbox folders">
-            {
-                console.log(links)
-            }
 
             {
                 links.map(link =>(
-                    <>
+                    <div key={link.text}>
                         <NavLink exact className={"navLink"} activeClassName={"navLinkActive"} to={link.path}>
                             <ListItem button>{link.text}</ListItem>
                         </NavLink>
                         <Divider/>
-                    </>
+                    </div>
                 )
                     )
             }

@@ -52,8 +52,29 @@ const useStyles = makeStyles({
         backgroundColor: "#282c34",
         color: "white"
     },
+    input:{
+        backgroundColor: "#4e5052",
+        marginTop: "10px",
+        borderRadius: "5px",
+        '& label.Mui-focused': {
+            color: 'white',
+        },
+        '& .MuiOutlinedInput-root': {
+            '& fieldset': {
+                borderColor: 'none',
+            },
+            '&:hover fieldset': {
+                borderColor: 'gray',
+            },
+            '&.Mui-focused fieldset': {
+                borderColor: 'gray',
+            },
+        },
+
+    },
     inputLabel: {
         color: "white",
+
     },
 });
 
@@ -67,7 +88,7 @@ export default function NewClient({onChange}) {
 
     return (
         <div className={classes.root}>
-            Klient:
+            Dane klienta:
             <AppBar position="static" color="default">
                 <Tabs
                     value={value}
@@ -81,20 +102,69 @@ export default function NewClient({onChange}) {
 
                 </Tabs>
             </AppBar>
-            <TabPanel value={value} index={0}>
+            <TabPanel value={value}
+                      index={0}>
                 <TextField
-                    name={"clientID"}
+                    name={"firstName"}
                     size={"small"}
+                    fullWidth={true}
                     classes={{root: classes.input}}
                     onChange={onChange}
-                    id="clientInput" label="Klient ID"
+                    id="clientFirstNameInput"
+                    label="Imię"
+                    variant="outlined"
+                    InputLabelProps={{className: classes.inputLabel}}/>
+
+                <TextField
+                    name={"lastName"}
+                    size={"small"}
+                    fullWidth={true}
+                    classes={{root: classes.input}}
+                    onChange={onChange}
+                    id="clientLastNameInput"
+                    label="Nazwisko"
+                    variant="outlined"
+                    InputLabelProps={{className: classes.inputLabel}}/>
+
+                <TextField
+                    name={"phoneNumber"}
+                    size={"small"}
+                    fullWidth={true}
+                    classes={{root: classes.input}}
+                    onChange={onChange}
+                    id="clientPhoneNumberInput"
+                    label="Telefon"
+                    variant="outlined"
+                    InputLabelProps={{className: classes.inputLabel}}/>
+                <TextField
+                    name={"email"}
+                    size={"small"}
+                    fullWidth={true}
+                    classes={{root: classes.input}}
+                    onChange={onChange}
+                    id="clientEmailInput"
+                    label="Email"
+                    variant="outlined"
+                    InputLabelProps={{className: classes.inputLabel}}/>
+                <TextField
+                    name={"adress"}
+                    size={"small"}
+                    fullWidth={true}
+                    multiline={true}
+                    rows={3}
+                    classes={{root: classes.input}}
+                    onChange={onChange}
+                    id="clientAdressInput"
+                    label="Adres"
                     variant="outlined"
                     InputLabelProps={{className: classes.inputLabel}}/>
             </TabPanel>
-            <TabPanel value={value} index={1}>
+            <TabPanel value={value}
+                      index={1}>
                 Szukaj w bazie
             </TabPanel>
-            <TabPanel value={value} index={2}>
+            <TabPanel value={value}
+                      index={2}>
                 Klient anonimowy
             </TabPanel>
         </div>
