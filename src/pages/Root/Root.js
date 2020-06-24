@@ -29,7 +29,7 @@ function Root() {
                         <Route exact path={"/auctions"}><Auctions/></Route>
                         <Route exact path={"/warehouse"}><Warehouse/></Route>
                         <Route exact path={"/repairs/newrepair"}><AddRepair/></Route>
-                        <Route path={"/repairs/repair-:walkId"}><RepairDetails/></Route>
+                        <Route path={"/repairs/repair-:repairId"}><RepairDetails/></Route>
 
                     </Switch>
                 </div>

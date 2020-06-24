@@ -1,5 +1,6 @@
 import React, {useEffect} from "react";
 import {leftMenuActions} from "../../redux/actions";
+import Search from "../../components/Search/Search";
 
 const leftMenuItems = [
     {path: "/dashboard", text:"Pulpit"},
@@ -21,6 +22,7 @@ const Dashboard = () => {
         //- notatki
         <div className={"headerWrapper"}>
             Hello from dashboard!
+            <Search/>
         </div>
     )
 };

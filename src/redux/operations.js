@@ -15,12 +15,24 @@ const fetchGetAllRepairs = async() => {
         return json;
     };
 
+const fetchGetRepairById = async(id) => {
+    const response = await fetch("http://localhost:3001/repairs/repair-" + id, {method:"GET"});
+    const json = await response.json();
+    return json;
+};
+
 
 export const getAllRepairs = () =>
     async () => {
         const repairs = await fetchGetAllRepairs();
         repairActions.setRepairs(repairs)
     };
+
+export const getRepairById = (id) =>(
+    async () => {
+        const repairDetails = await fetchGetRepairById(id);
+        repairActions.setRepairDetails(repairDetails)
+    });
 
 export const addRepair = (data) =>
     async () => {

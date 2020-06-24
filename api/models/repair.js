@@ -1,19 +1,15 @@
-const Sequelize = require('sequelize')
-const sequelize = require('../utils/database')
+const Sequelize = require('sequelize');
+const sequelize = require('../utils/database');
 
 const Repairs = sequelize.define('repair', {
-    repairID: {
+    repairId: {
         type: Sequelize.INTEGER,
         autoIncrement: true,
         allowNull: false,
         primaryKey: true
     },
-    manufacturer: {
-        type: Sequelize.TEXT,
-        allowNull: false
-    },
-    model: {
-        type: Sequelize.TEXT,
+    deviceId: {
+        type: Sequelize.INTEGER,
         allowNull: false
     },
     serialNumber: {
@@ -29,7 +25,7 @@ const Repairs = sequelize.define('repair', {
         allowNull: false,
         defaultValue: Sequelize.NOW
     },
-    clientID:{
+    clientId:{
         type: Sequelize.INTEGER,
         allowNull: true,
         defaultValue: 0,

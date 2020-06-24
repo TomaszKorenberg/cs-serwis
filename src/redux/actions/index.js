@@ -12,6 +12,11 @@ const setRepairs = (repairs) => ({
     repairs
 });
 
+const setRepairDetails = (repairDetails) => ({
+    type: "SET_REPAIR_DETAILS",
+    repairDetails
+});
+
 const addClient = (client) => ({
     type: 'ADD_CLIENT',
     client
@@ -23,7 +28,9 @@ const setLeftMenu = (menuItems) => (
     leftMenu: menuItems
 });
 
-const repairActions = bindActionCreators({addRepair, setRepairs}, store.dispatch);
+
+
+const repairActions = bindActionCreators({addRepair, setRepairs, setRepairDetails}, store.dispatch);
 const clientActions = bindActionCreators({addClient}, store.dispatch);
 const leftMenuActions = bindActionCreators({setLeftMenu}, store.dispatch);
 

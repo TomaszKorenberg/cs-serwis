@@ -74,7 +74,6 @@ export default function AddRepairModal() {
 
     const onChange = e => {
         dispatchState({field: e.target.name, value: e.target.value});
-        console.log(e.target.value)
     };
 
 

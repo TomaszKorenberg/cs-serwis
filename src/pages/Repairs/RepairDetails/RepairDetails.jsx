@@ -1,30 +1,41 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {useParams} from "react-router-dom";
 import CircularProgress from '@material-ui/core/CircularProgress';
-
+import {getRepairById} from "../../../redux/operations";
+import {useDispatch, useSelector} from "react-redux";
 
 
 const RapairDetails = () => {
+    const dispatch = useDispatch();
+    const repairId = useParams().repairId;
 
-    const repairId = useParams();
+    const repairDetails = useSelector(state => state.repairDetails);
 
 
-    const [repairDetails, setRepairDetails] = useState(null);
+    useEffect(() => {
+        dispatch(getRepairById(repairId))
+    }, [dispatch]);
 
-
-    // useEffect(() => {
-    //     api.(repairId).then(response => setRepairDetails(response[0]));
-    // }, []);
 
     if (!repairDetails) {
         return (
-            <div>Ładuje... <CircularProgress /></div>
+            <div>
+                Ładuje... <CircularProgress/>
+
+            </div>
         )
     }
 
     return (
         <>
-            Hello from repair details!
+            Dane naprawy:
+            <ul>
+            <li>ID naprawy: {repairDetails.repairId}</li>
+            <li>Producent: {repairDetails.manufacturer}</li>
+            <li>Model: {repairDetails.model}</li>
+            <li> {repairDetails.repairId}</li>
+            <li>ID naprawy: {repairDetails.repairId}</li>
+            </ul>
         </>
     );
 };

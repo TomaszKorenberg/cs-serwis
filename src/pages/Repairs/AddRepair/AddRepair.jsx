@@ -14,12 +14,11 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 
 const initialRepairState = {
-    manufacturer: "",
-    model: "",
+    deviceId: 0,
     serialNumber: "",
     faultDescription: "",
     dateOfAdd: "",
-    clientID: 0,
+    clientId: 0,
     isWarranty: false,
     comments: "",
     assignedEmployee: ""
@@ -104,12 +103,11 @@ export default function AddRepair() {
         e.preventDefault();
         dispatch(addRepair(
             {
-                manufacturer: state.manufacturer,
-                model: state.model,
+                deviceId: state.deviceId,
                 serialNumber: state.serialNumber,
                 faultDescription: state.faultDescription,
                 dateOfAdd: state.dateOfAdd,
-                clientID: state.clientID,
+                clientId: state.clientId,
                 isWarranty: state.isWarranty,
                 comments: state.comments,
                 assignedEmployee: state.assignedEmployee

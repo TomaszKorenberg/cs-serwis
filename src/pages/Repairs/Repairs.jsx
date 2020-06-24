@@ -15,7 +15,7 @@ import { useHistory } from "react-router-dom";
 
 
 const columns = [
-    {id: 'repairID', label: 'ID:', minWidth: 25},
+    {id: 'repairId', label: 'ID:', minWidth: 25},
     {id: 'manufacturer', label: 'Producent', minWidth: 100},
     {id: 'model', label: 'Model', minWidth: 100},
     {id: 'serialNumber', label: 'Numer seryjny', minWidth: 100},
@@ -29,7 +29,6 @@ const leftMenuItems = [
     {path: "/repairs/clients", text:"Baza klientow"},
     {path: "/repairs/units", text:"Baza urządzeń"},
     {path: "/repairs/faults", text:"Baza usterek"},
-
 ];
 
 const useStyles = makeStyles({
@@ -68,8 +67,8 @@ const Repairs = () => {
         setPage(newPage);
     };
 
-    const handleRapairClick = (repairID) => {
-        history.push("/repairs/repair-" + repairID)
+    const handleRapairClick = (repairId) => {
+        history.push("/repairs/repair-" + repairId)
     };
 
     const handleChangeRowsPerPage = (event) => {
@@ -124,11 +123,19 @@ const Repairs = () => {
                                     <TableRow hover
                                               role="checkbox"
                                               tabIndex={-1}
-                                              key={repair.repairID}
-                                    onClick={() => handleRapairClick(repair.repairID)}>
+                                              key={repair.repairId}
+                                              onClick={() => handleRapairClick(repair.repairId)}>
                                         {columns.map((column) => {
-
-                                            const value = repair[column.id];
+                                            let value = null;
+                                            if (column.id === "model"){
+                                                value = repair.device.model
+                                            }
+                                            else if (column.id === "manufacturer"){
+                                                value = repair.device.manufacturer
+                                            }
+                                            else {
+                                                value = repair[column.id];
+                                            }
                                             return (
                                                 <TableCell key={column.id}
                                                            align={column.align}

@@ -10,6 +10,8 @@ app.use(express.json());
 
 require('./routes/clients')(app);
 require('./routes/repairs')(app);
+require('./routes/devices')(app);
+require('./routes/auth')(app);
 
 sequelize
     .sync()
