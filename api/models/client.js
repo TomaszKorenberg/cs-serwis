@@ -2,7 +2,7 @@ const Sequelize = require('sequelize');
 const sequelize = require('../utils/database');
 
 const Client = sequelize.define('client', {
-    clientID: {
+    clientId: {
         type: Sequelize.INTEGER,
         autoIncrement: true,
         allowNull: false,

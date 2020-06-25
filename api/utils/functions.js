@@ -1,21 +1,30 @@
 const Devices = require("./../models/device");
+const Clients = require("./../models/client");
 
-const changeDevicesIdToDevicesName = async (data) => {
 
-    // rename "deviceId" key to "device"
+const changeIdsToObjectWithData = async (data) => {
+
+    // rename keys
     let str = JSON.stringify(data);
     str = str.replace(/deviceId/g, 'device');
+    str = str.replace(/clientId/g, 'client');
     data = JSON.parse(str);
+    console.log(data)
 
-    // change device id to object with device details
+    // change id to object with details
     for (let item of data) {
         let deviceId = item.device;
+        let clientId = item.client;
         item.device = await Devices.findOne({
             where: {deviceId},
             raw: true,
-            nest: true})
+            nest: true});
+        item.client = await Clients.findOne({
+            where: {clientId},
+            raw: true,
+            nest: true});
     }
     return data
 };
 
-module.exports = {changeDevicesIdToDevicesName};
+module.exports = {changeIdsToObjectWithData};

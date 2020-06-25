@@ -1,5 +1,5 @@
 const Repairs = require("./../models/repair");
-const {changeDevicesIdToDevicesName} = require("../utils/functions")
+const {changeIdsToObjectWithData} = require("../utils/functions")
 
 
 module.exports = (app) => {
@@ -30,7 +30,7 @@ module.exports = (app) => {
 
     app.get("/repairs", (req, res) => {
         Repairs.findAll()
-            .then(changeDevicesIdToDevicesName)
+            .then(response => changeIdsToObjectWithData(response))
             .then(response => res.status(200).send(response))
             .catch(err => {
                 throw new Error(err)
@@ -41,6 +41,7 @@ module.exports = (app) => {
 
     app.get("/repairs/repair-:repairId", (req, res) => {
         Repairs.findOne({where: {repairId: req.params.repairId}})
+            .then(response => changeIdsToObjectWithData([response]))
             .then(response => res.status(200).send(response))
             .catch(err => {
                 throw new Error(err)
