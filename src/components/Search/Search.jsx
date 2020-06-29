@@ -1,33 +1,36 @@
-import React from 'react';
-class Search extends  React.Component {
-    constructor( props ) {
-        super( props );
-        this.state = {
-            query: '',
-            results: {},
-            loading: false,
-            message: '',
-        };
-    }
-    render() {
+import React, {useState} from 'react';
 
-        return (
-            <div className="container">
-                {/*Heading*/}
-                <h2 className="heading">Live Search: React Application</h2>
-                {/*Search Input*/}
-                <label className="search-label" htmlFor="search-input">
-                    <input
-                        type="text"
-                        value=""
-                        id="search-input"
-                        placeholder="Search..."
-                    />
-                    <i className="fa fa-search search-icon"/>
-                </label>
+const Search = () => {
+    const [value, setValue] = useState("")
+    const [list, setList] = useState([])
 
-            </div>
-        )
+    const handleInputChange = event =>{
+        setValue(event.target.value)
+        console.log(event.target.value)
+        const text = event.target.value
+        fetch(`http://127.0.0.1:3001/devices/search?text=${text}`,{
+            method:"GET"
+        })
+            .then(res =>{
+                if(res.ok){
+                    return res.json()
+                }
+            })
+            .then(data =>{
+                console.log(data)
+            })
+
     }
-}
-export default Search;
+
+    return(
+        <div>
+            <input
+                type={"search"}
+                onChange={handleInputChange}
+                value={value}
+            />
+        </div>
+    )
+};
+
+export default Search

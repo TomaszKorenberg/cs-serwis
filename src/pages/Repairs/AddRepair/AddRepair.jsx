@@ -29,7 +29,7 @@ const useStyles = makeStyles({
         display: "flex",
         flexDirection: "row",
         backgroundColor: "#282c34",
-        width: "100%",
+        width: "90vw",
     },
     inputsWrapper: {
         display: "flex",
@@ -128,8 +128,7 @@ export default function AddRepair() {
             <div className={classes.wrapper}>
 
                 <div className={classes.inputsWrapper}>
-
-
+                    Dane urządzenia:
                     <TextField
                         required={true}
                         name={"manufacturer"}
@@ -158,6 +157,12 @@ export default function AddRepair() {
                         label="Numer seryjny"
                         variant="outlined"
                         InputLabelProps={{className: classes.inputLabel}}/>
+                </div>
+
+                <div className={classes.inputsWrapper}>
+
+                    Dane naprawy:
+
                     <TextField
                         name={"faultDescription"}
                         size={"small"}

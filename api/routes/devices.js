@@ -1,4 +1,6 @@
 const Device = require("./../models/device");
+const express = require("express")
+const router = express.Router()
 
 
 module.exports = (app) => {
@@ -15,6 +17,33 @@ module.exports = (app) => {
             .catch(err => {
                 throw new Error(err)
             })
-    });
+    })
+
+    app.get("/devices/search", (req,res)=>{
+        console.log("aaa")
+        const text = req.query.text.toLowerCase()
+
+        Device
+            .findAll()
+            .then(devices =>{
+                const searchObjects = devices
+                    .filter(device => (
+                        device.manufacturer.toLowerCase().includes(text) || device.model.toLowerCase().includes(text)
+                    ))
+                const searchText = []
+
+                searchObjects.forEach(device => {
+                    searchText.push(device.model)
+                    searchText.push(device.manufacturer)
+                })
+
+                res.json({searchText})
+            })
+
+
+
+
+
+    })
 };
 
