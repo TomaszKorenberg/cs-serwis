@@ -24,13 +24,12 @@ function Root() {
                     <LeftMenu links={leftMenu[0]}/>
                     <Switch>
                         <Route exact path={"/"}><Dashboard/></Route>
-                        <Route path={"/repairs"}><Repairs/></Route>
+                        <Route exact path={"/repairs"}><Repairs/></Route>
                         <Route exact path={"/messages"}><Messages/></Route>
                         <Route exact path={"/auctions"}><Auctions/></Route>
                         <Route exact path={"/warehouse"}><Warehouse/></Route>
                         <Route exact path={"/repairs/newrepair"}><AddRepair/></Route>
                         <Route path={"/repairs/repair-:repairId"}><RepairDetails/></Route>
-
                     </Switch>
                 </div>
             </div>

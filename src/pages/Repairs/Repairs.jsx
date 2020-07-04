@@ -11,7 +11,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
-import { useHistory } from "react-router-dom";
+import {useHistory} from "react-router-dom";
 
 
 const columns = [
@@ -24,11 +24,11 @@ const columns = [
 ];
 
 const leftMenuItems = [
-    {path: "/repairs", text:"Aktualne naprawy"},
-    {path: "/repairs/newrepair", text:"Dodaj naprawę"},
-    {path: "/repairs/clients", text:"Baza klientow"},
-    {path: "/repairs/units", text:"Baza urządzeń"},
-    {path: "/repairs/faults", text:"Baza usterek"},
+    {path: "/repairs", text: "Aktualne naprawy"},
+    {path: "/repairs/newrepair", text: "Dodaj naprawę"},
+    {path: "/repairs/clients", text: "Baza klientow"},
+    {path: "/repairs/units", text: "Baza urządzeń"},
+    {path: "/repairs/faults", text: "Baza usterek"},
 ];
 
 const useStyles = makeStyles({
@@ -87,6 +87,7 @@ const Repairs = () => {
 
     const repairs = useSelector(state => state.repairs);
 
+    if (repairs.length === 0) return (<>Loading...</>);
 
     return (
         //todo:
@@ -127,13 +128,11 @@ const Repairs = () => {
                                               onClick={() => handleRapairClick(repair.repairId)}>
                                         {columns.map((column) => {
                                             let value = null;
-                                            if (column.id === "model"){
+                                            if (column.id === "model") {
                                                 value = repair.device.model
-                                            }
-                                            else if (column.id === "manufacturer"){
+                                            } else if (column.id === "manufacturer") {
                                                 value = repair.device.manufacturer
-                                            }
-                                            else {
+                                            } else {
                                                 value = repair[column.id];
                                             }
                                             return (

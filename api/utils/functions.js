@@ -9,7 +9,6 @@ const changeIdsToObjectWithData = async (data) => {
     str = str.replace(/deviceId/g, 'device');
     str = str.replace(/clientId/g, 'client');
     data = JSON.parse(str);
-    console.log(data)
 
     // change id to object with details
     for (let item of data) {

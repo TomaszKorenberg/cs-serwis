@@ -27,15 +27,17 @@ const initialRepairState = {
 const useStyles = makeStyles({
     wrapper: {
         display: "flex",
-        flexDirection: "row",
+        flexWrap: "wrap",
+        flexDirection: "column",
         backgroundColor: "#282c34",
         width: "90vw",
+        height: "1000px"
     },
     inputsWrapper: {
         display: "flex",
         flexDirection: "column",
         backgroundColor: "#282c34",
-        width: "500px",
+        width: "40%",
         padding: '25px',
         border: "1px solid gray",
         borderRadius: "10px",
@@ -239,7 +241,7 @@ export default function AddRepair() {
                     </FormControl>
                 </div>
 
-                <div className={classes.clientWrapper}>
+                <div className={classes.inputsWrapper}>
                     <NewClient/>
                     <Button
                         fullWidth={false}

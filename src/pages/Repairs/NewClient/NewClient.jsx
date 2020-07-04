@@ -43,9 +43,7 @@ function a11yProps(index) {
 const useStyles = makeStyles({
     root: {
         flexGrow: 1,
-        width: '500px',
         backgroundColor: "#282c34",
-        border: "1px solid gray",
         borderRadius: "10px",
     },
     tabs: {
