@@ -11,30 +11,34 @@ import AddRepair from "../Repairs/AddRepair/AddRepair";
 import Warehouse from "../Warehouse/Warehouse";
 import RepairDetails from "../Repairs/RepairDetails/RepairDetails"
 import Repairs from "../Repairs/Repairs";
+import {ThemeProvider} from '@material-ui/core/styles';
+import theme from "../../theme"
 
 
 function Root() {
     const leftMenu = useSelector(state => state.leftMenu);
 
     return (
-        <BrowserRouter>
-            <div className={"appWrapper"}>
-                <Header/>
-                <div className={"contentWrapper"}>
-                    <LeftMenu links={leftMenu[0]}/>
-                    <Switch>
-                        <Route exact path={"/"}><Dashboard/></Route>
-                        <Route exact path={"/repairs"}><Repairs/></Route>
-                        <Route exact path={"/messages"}><Messages/></Route>
-                        <Route exact path={"/auctions"}><Auctions/></Route>
-                        <Route exact path={"/warehouse"}><Warehouse/></Route>
-                        <Route exact path={"/repairs/newrepair"}><AddRepair/></Route>
-                        <Route path={"/repairs/repair-:repairId"}><RepairDetails/></Route>
-                    </Switch>
+        <ThemeProvider theme={theme}>
+            <BrowserRouter>
+                <div className={"appWrapper"}>
+                    <Header/>
+                    <div className={"contentWrapper"}>
+                        <LeftMenu links={leftMenu[0]}/>
+                        <Switch>
+                            <Route exact path={"/"}><Dashboard/></Route>
+                            <Route exact path={"/repairs"}><Repairs/></Route>
+                            <Route exact path={"/messages"}><Messages/></Route>
+                            <Route exact path={"/auctions"}><Auctions/></Route>
+                            <Route exact path={"/warehouse"}><Warehouse/></Route>
+                            <Route exact path={"/repairs/newrepair"}><AddRepair/></Route>
+                            <Route path={"/repairs/repair-:repairId"}><RepairDetails/></Route>
+                        </Switch>
+                    </div>
                 </div>
-            </div>
-        </BrowserRouter>
-    );
-}
+            </BrowserRouter>
+        </ThemeProvider>
+            );
+            }
 
-export default Root;
+            export default Root;

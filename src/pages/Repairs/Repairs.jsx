@@ -2,7 +2,6 @@ import React, {useEffect} from 'react';
 import {useSelector, useDispatch} from "react-redux";
 import {getAllRepairs} from "../../redux/operations";
 import {leftMenuActions} from "../../redux/actions/index"
-import {makeStyles} from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -31,34 +30,9 @@ const leftMenuItems = [
     {path: "/repairs/faults", text: "Baza usterek"},
 ];
 
-const useStyles = makeStyles({
-    root: {
-        width: '100%',
-        backgroundColor: "#424242",
-    },
-    head: {
-        backgroundColor: "#424242",
-        color: "white"
-    },
-    cell: {
-        borderBottom: "1px solid rgba(255, 255, 255, 0.12)",
-        padding: 1,
-        fontSize: 15,
-        color: "white"
-    },
-    container: {
-        maxHeight: 440,
-    },
-    tableFooter: {
-        color: "white"
-    }
-});
-
-
 const Repairs = () => {
     const dispatch = useDispatch();
     const history = useHistory();
-    const classes = useStyles();
 
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(100);
@@ -99,14 +73,14 @@ const Repairs = () => {
         <div>
 
             Aktualne naprawy:
-            <Paper className={classes.root}>
-                <TableContainer className={classes.container}>
+            <Paper>
+                <TableContainer>
                     <Table stickyHeader aria-label="sticky table">
                         <TableHead>
                             <TableRow>
                                 {columns.map((column) => (
                                     <TableCell
-                                        classes={{head: classes.head}}
+
                                         key={column.id}
                                         align={column.align}
                                         style={{minWidth: column.minWidth}}
@@ -138,7 +112,7 @@ const Repairs = () => {
                                             return (
                                                 <TableCell key={column.id}
                                                            align={column.align}
-                                                           classes={{root: classes.cell}}>
+                                                           >
 
                                                     {value}
 
@@ -152,7 +126,6 @@ const Repairs = () => {
                     </Table>
                 </TableContainer>
                 <TablePagination
-                    classes={{root: classes.tableFooter}}
                     rowsPerPageOptions={[10, 25, 100, 500]}
                     labelRowsPerPage={"Wyników na stronę:"}
                     labelDisplayedRows={({from, to, count}) => `Wyniki ${from}-${to} z ${count}`}

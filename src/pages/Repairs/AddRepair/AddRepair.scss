@@ -1,0 +1,18 @@
+.wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  background-color: #282c34;
+  width: 90vw;
+  height: 1000px;
+}
+
+.sectionWrapper {
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+  padding: 25px;
+  border: 1px solid gray;
+  border-radius: 10px;
+  margin: 10px;
+}
