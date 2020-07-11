@@ -2,20 +2,12 @@ import React, {useState} from 'react';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 
-const Search = () => {
-    const [selectedDeviceValue, setSelectedDeviceValue] = useState(null);
+const Search = ({searchUrl, handleDeviceSelect, error, handleValidate}) => {
     const [devicesList, setDevicesList] = useState([]);
-
-    const handleOnClose = (e) => {
-        let selectedDevice = (devicesList.filter(item => {
-            return item.manufacturer + " " + item.model === e.target.textContent
-        })[0]);
-        setSelectedDeviceValue(selectedDevice)
-    }
 
     const handleInputChange = event => {
         const text = event.target.value;
-        fetch(`http://127.0.0.1:3001/devices/search?text=${text}`, {
+        fetch(searchUrl + text, {
             method: "GET"
         })
             .then(res => {
@@ -24,19 +16,16 @@ const Search = () => {
                 }
             })
             .then(data => {
-
                 setDevicesList(data.devices)
             })
-
-    }
+    };
 
     return (
         <div>
 
             <Autocomplete
                 freeSolo
-                id="free-solo-2-demo"
-                onClose={handleOnClose}
+                onClose={(e) => handleDeviceSelect(e, devicesList)}
                 disableClearable
                 loading
                 loadingText={"Podaj producenta i model"}
@@ -46,13 +35,15 @@ const Search = () => {
                         {...params}
                         label="Producent i model"
                         margin="normal"
+                        // fixme: poprawić walidację aby działała
+                        // error={error}
+                        // onBlur={handleValidate}
                         onChange={handleInputChange}
                         variant="outlined"
                         InputProps={{...params.InputProps, type: 'search'}}
                     />
                 )}
             />
-            {(selectedDeviceValue) ? "Model: " + selectedDeviceValue.model + "Producent: " + selectedDeviceValue.manufacturer : "Brak"}
         </div>
     )
 };

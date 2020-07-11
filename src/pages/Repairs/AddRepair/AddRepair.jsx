@@ -2,18 +2,14 @@ import React, {useReducer, useState} from 'react';
 import {addRepair} from "../../../redux/operations";
 import {useDispatch} from "react-redux";
 import Button from '@material-ui/core/Button';
-import NewClient from "../NewClient/NewClient";
+import ClientData from "../ClientData/ClientData";
 import {Redirect} from "react-router";
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
 import DeviceData from "./DeviceData/DeviceData";
 import RepairData from "./RapairData/RepairData";
 import "./AddRepair.scss"
+import EmployeeData from "../EmployeeData/EmployeeData";
 
 const initialRepairState = {
-    deviceId: 0,
     serialNumber: "",
     faultDescription: "",
     dateOfAdd: "",
@@ -23,49 +19,27 @@ const initialRepairState = {
     assignedEmployee: ""
 };
 
-// const useStyles = makeStyles({
+const initialInputsErrorValue = {
+    firstName: false,
+    lastName: false,
+    phoneNumber: false,
+    deviceId: false,
+    serialNumber: false,
+    faultDescription: false,
+    dateOfAdd: false
+};
 
-//     },
-//     inputsWrapper: {
-//         display: "flex",
-//         flexDirection: "column",
-//         backgroundColor: "#282c34",
-//         width: "40%",
-//         padding: '25px',
-//         border: "1px solid gray",
-//         borderRadius: "10px",
-//         margin: "10px"
-//
-//     },
-//     clientWrapper: {
-//         backgroundColor: "#282c34",
-//         margin: "10px"
-//     },
-//     input: {
-//         backgroundColor: "#4e5052",
-//         marginTop: "10px",
-//         borderRadius: "5px",
-//         '& label.Mui-focused': {
-//             color: 'white',
-//         },
-//         '& .MuiOutlinedInput-root': {
-//             '& fieldset': {
-//                 borderColor: 'none',
-//             },
-//             '&:hover fieldset': {
-//                 borderColor: 'gray',
-//             },
-//             '&.Mui-focused fieldset': {
-//                 borderColor: 'gray',
-//             },
-//         },
-//     },
-//     inputLabel: {
-//         color: "white",
-//     }
-// });
+const addNewClient = async (data) => {
+    await fetch("http://localhost:3001/clients/addclient", {
+        method: "POST",
+        headers: {'Content-Type': "application/json"},
+        body: JSON.stringify(data),
+    });
+};
+
 
 const reducer = (state, {field, value}) => {
+    console.log(field + ": " + value);
     return {
         ...state,
         [field]: value
@@ -75,11 +49,30 @@ const reducer = (state, {field, value}) => {
 
 export default function AddRepair() {
     const dispatch = useDispatch();
-    // const classes = useStyles();
     const [state, dispatchState] = useReducer(reducer, initialRepairState);
     const [redirect, setRedirect] = useState(false);
-    const [assignedEmployee, setAssignedEmployee] = React.useState('');
+    const [assignedEmployee, setAssignedEmployee] = useState('');
+    const [newClientData, setNewClientData] = useState({});
+    const [inputsErrorValues, setInputsErrorValues] = useState(initialInputsErrorValue);
 
+
+    const handleClientChange = (e) => {
+        setNewClientData({
+            ...newClientData,
+            [e.target.name]: e.target.value,
+        });
+    };
+
+    const handleDeviceSelect = (e, devicesList) => {
+        let selectedDevice = (devicesList.filter(item => {
+            return item.manufacturer + " " + item.model === e.target.textContent
+        })[0]);
+        if (!selectedDevice) {
+            dispatchState({field: "deviceId", value: 0})
+        } else {
+            dispatchState({field: "deviceId", value: selectedDevice.deviceId})
+        }
+    };
 
 
     const onRepairChange = e => {
@@ -92,23 +85,43 @@ export default function AddRepair() {
 
     const handleSelectChange = (e) => {
         setAssignedEmployee(e.target.value);
+        onRepairChange(e)
     };
 
-    const handleAddRepair = (e) => {
-        e.preventDefault();
+    const handleAddRepair = async () => {
+        if (!state || !state.deviceId) {
+            return
+        }
+        await addNewClient(newClientData);
         dispatch(addRepair(
             {
                 deviceId: state.deviceId,
                 serialNumber: state.serialNumber,
                 faultDescription: state.faultDescription,
                 dateOfAdd: state.dateOfAdd,
+                dateOfEnd: state.dateOfEnd,
                 clientId: state.clientId,
                 isWarranty: state.isWarranty,
                 comments: state.comments,
                 assignedEmployee: state.assignedEmployee
             })
         );
-        setRedirect(true)
+        // setRedirect(true)
+    };
+
+    const handleValidate = (e) => {
+        console.log("KAKS")
+        if (!e.target.value) {
+            setInputsErrorValues({
+                ...inputsErrorValues,
+                [e.target.name]: true
+            })
+        } else {
+            setInputsErrorValues({
+                ...inputsErrorValues,
+                [e.target.name]: false
+            })
+        }
     };
 
     return (
@@ -123,142 +136,28 @@ export default function AddRepair() {
             <div className={"wrapper"}>
 
                 <DeviceData onRepairChange={onRepairChange}
-                            />
+                            handleDeviceSelect={handleDeviceSelect}
+                            inputsErrorValues={inputsErrorValues}
+                            handleValidate={handleValidate}/>
+                <RepairData handleCheckboxClick={handleCheckboxClick}
+                            onRepairChange={onRepairChange}
+                            inputsErrorValues={inputsErrorValues}
+                            handleValidate={handleValidate}/>
+                <EmployeeData handleSelectChange={handleSelectChange}
+                              assignedEmployee={assignedEmployee}/>
+                <ClientData handleClientChange={handleClientChange}
+                            inputsErrorValues={inputsErrorValues}
+                            handleValidate={handleValidate}/>
 
 
-                {/*<div className={classes.inputsWrapper}>*/}
-                {/*    (OLD)Dane urządzenia:*/}
-                {/*    <TextField*/}
-                {/*        required={true}*/}
-                {/*        name={"manufacturer"}*/}
-                {/*        size={"small"}*/}
-                {/*        classes={{root: classes.input}}*/}
-                {/*        onChange={onRepairChange}*/}
-                {/*        id="manufacturerInput"*/}
-                {/*        label="Producent"*/}
-                {/*        variant="outlined"*/}
-                {/*        InputLabelProps={{className: classes.inputLabel}}/>*/}
-                {/*    <TextField*/}
-                {/*        name={"model"}*/}
-                {/*        size={"small"}*/}
-                {/*        classes={{root: classes.input}}*/}
-                {/*        onChange={onRepairChange}*/}
-                {/*        id="modelInput"*/}
-                {/*        label="Model"*/}
-                {/*        variant="outlined"*/}
-                {/*        InputLabelProps={{className: classes.inputLabel}}/>*/}
-                {/*    <TextField*/}
-                {/*        name={"serialNumber"}*/}
-                {/*        size={"small"}*/}
-                {/*        classes={{root: classes.input}}*/}
-                {/*        onChange={onRepairChange}*/}
-                {/*        id="serialNumberInput"*/}
-                {/*        label="Numer seryjny"*/}
-                {/*        variant="outlined"*/}
-                {/*        InputLabelProps={{className: classes.inputLabel}}/>*/}
-                {/*</div>*/}
-
-                <RepairData/>
-
-                <div>
-
-                    {/*Dane naprawy:*/}
-
-                    {/*<TextField*/}
-                    {/*    name={"faultDescription"}*/}
-                    {/*    size={"small"}*/}
-                    {/*    multiline={true}*/}
-                    {/*    rows={4}*/}
-                    {/*    classes={{root: classes.input}}*/}
-                    {/*    onChange={onRepairChange}*/}
-                    {/*    id="faultDesctiptionInput"*/}
-                    {/*    label="Opis usterki"*/}
-                    {/*    variant="outlined"*/}
-                    {/*    InputLabelProps={{className: classes.inputLabel}}/>*/}
-                    {/*<div>*/}
-                    {/*    <TextField*/}
-                    {/*        name={"dateOfAdd"}*/}
-                    {/*        size={"small"}*/}
-                    {/*        classes={{root: classes.input}}*/}
-                    {/*        onChange={onRepairChange}*/}
-                    {/*        id="dateOfAddInput"*/}
-                    {/*        label="Data przyjęcia"*/}
-                    {/*        variant="outlined"*/}
-                    {/*        required={true}*/}
-                    {/*        type="datetime-local"*/}
-                    {/*        InputLabelProps={{*/}
-                    {/*            shrink: true,*/}
-                    {/*            className: classes.inputLabel*/}
-                    {/*        }}/>*/}
-
-                    {/*    <TextField*/}
-                    {/*        name={"dateOfEnd"}*/}
-                    {/*        size={"small"}*/}
-                    {/*        classes={{root: classes.input}}*/}
-                    {/*        id="dateOfEnd"*/}
-                    {/*        label="Przewidywana data zakończenia"*/}
-                    {/*        variant="outlined"*/}
-                    {/*        type="datetime-local"*/}
-                    {/*        InputLabelProps={{*/}
-                    {/*            shrink: true,*/}
-                    {/*            className: classes.inputLabel*/}
-                    {/*        }}/>*/}
-                    {/*</div>*/}
-                    {/*<FormControlLabel*/}
-                    {/*    name={"isWarrantyLabel"}*/}
-                    {/*    size={"small"}*/}
-                    {/*    onClick={handleCheckboxClick}*/}
-                    {/*    onChange={onRepairChange}*/}
-                    {/*    control={<Checkbox name="isWarranty"/>}*/}
-                    {/*    label="Naprawa gwarancyjna"/>*/}
-
-                    {/*<TextField*/}
-                    {/*    name={"comments"}*/}
-                    {/*    size={"small"}*/}
-                    {/*    multiline={true}*/}
-                    {/*    rows={4}*/}
-                    {/*    classes={{root: classes.input}}*/}
-                    {/*    onChange={onRepairChange}*/}
-                    {/*    id="commentsInput"*/}
-                    {/*    label="Uwagi"*/}
-                    {/*    variant="outlined"*/}
-                    {/*    InputLabelProps={{className: classes.inputLabel}}/>*/}
-
-
-                </div>
-
-                <div className={"sectionWrapper"}>
-                    Pracownik przypisany do naprawy:
-                    <FormControl >
-                        <InputLabel id="Pracownik">Wybierz pracownika</InputLabel>
-                        <Select
-                            labelId="Pracownik"
-                            id="demo-simple-select"
-                            name={"assignedEmployee"}
-                            value={assignedEmployee}
-                            onChange={onRepairChange}
-                            onClick={handleSelectChange}
-                        >
-                            <MenuItem value={"Tomasz Korenberg"}>Tomasz Korenberg</MenuItem>
-                            {
-                                //fixme: poprawić by pobierało pracowników z bazy danych - zapytanie do bazy przy ładownianu, a później .map()
-                            }
-                            <MenuItem value={"Jędrzej Artymiak"}>Jędrzej Artymiak</MenuItem>
-                        </Select>
-                    </FormControl>
-                </div>
-
-                <div className={"sectionWrapper"}>
-                    <NewClient/>
-                    <Button
-                        fullWidth={false}
-                        disableElevation={true}
-                        onClick={handleAddRepair}
-                        variant="outlined"
-                        size={"large"}
-                    >Dodaj</Button>
-                </div>
             </div>
+            <Button
+                fullWidth={false}
+                disableElevation={true}
+                onClick={handleAddRepair}
+                variant="outlined"
+                size={"medium"}
+            >Dodaj naprawę</Button>
         </div>
     );
 }

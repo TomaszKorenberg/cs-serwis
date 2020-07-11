@@ -2,23 +2,46 @@ import React from "react";
 import TextField from "@material-ui/core/TextField/TextField";
 import Search from "../../../../components/Search/Search";
 import "../AddRepair.scss"
+import FormControl from "@material-ui/core/FormControl";
+import FormHelperText from "@material-ui/core/FormHelperText";
 
-const DeviceData = ({onRepairChange}) => {
+
+const DeviceData = ({onRepairChange, handleDeviceSelect, inputsErrorValues, handleValidate}) => {
+    const searchUrl = "http://127.0.0.1:3001/devices/search?text=";
     return (
 
         <div className={"sectionWrapper"}>
             Dane urządzenia:
+            <FormControl
+                error={inputsErrorValues.deviceId}
+                fullWidth={true}>
+                <Search
+                    error={inputsErrorValues.deviceId}
+                    searchUrl={searchUrl}
+                    handleDeviceSelect={handleDeviceSelect}
+                    handleValidate={handleValidate}/>
+                {(inputsErrorValues.deviceId)
+                    ? (<FormHelperText>Wpowadź imię</FormHelperText>)
+                    : null}
+            </FormControl>
 
-            <Search/>
-
-            <TextField
-                name={"serialNumber"}
-                size={"small"}
-                onChange={onRepairChange}
-                id="serialNumberInput"
-                label="Numer seryjny"
-                variant="outlined"
+            <FormControl
+                error={inputsErrorValues.serialNumber}
+                fullWidth={true}>
+                <TextField
+                    name={"serialNumber"}
+                    size={"small"}
+                    onChange={onRepairChange}
+                    error={inputsErrorValues.serialNumber}
+                    onBlur={handleValidate}
+                    id="serialNumberInput"
+                    label="Numer seryjny"
+                    variant="outlined"
                 />
+                {(inputsErrorValues.serialNumber)
+                    ? (<FormHelperText>Wpowadź numer seryjny</FormHelperText>)
+                    : null}
+            </FormControl>
         </div>
     )
 };
