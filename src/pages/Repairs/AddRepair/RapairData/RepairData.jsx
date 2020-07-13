@@ -5,8 +5,15 @@ import {Checkbox} from "@material-ui/core";
 import "../AddRepair.scss"
 import FormControl from "@material-ui/core/FormControl";
 import FormHelperText from "@material-ui/core/FormHelperText";
+import moment from "moment";
+import settings from "../../../../settings"
+
+const dateNow = moment().format('YYYY-MM-DDTHH:MM:SS');
+const dateFuture = moment().add(settings.rapairs.daysToEndOfRepair, "days").format('YYYY-MM-DDTHH:MM:SS');
+
 
 const RepairData = ({onRepairChange, handleCheckboxClick, inputsErrorValues, handleValidate}) => {
+
     return (
         <>
             <div className={"sectionWrapper"}>
@@ -38,6 +45,7 @@ const RepairData = ({onRepairChange, handleCheckboxClick, inputsErrorValues, han
                         fullWidth={true}>
                     <TextField
                         name={"dateOfAdd"}
+                        defaultValue={dateNow}
                         size={"small"}
                         onChange={onRepairChange}
                         id="dateOfAddInput"
@@ -63,6 +71,7 @@ const RepairData = ({onRepairChange, handleCheckboxClick, inputsErrorValues, han
                         label="Przewidywana data zakończenia"
                         variant="outlined"
                         type="datetime-local"
+                        defaultValue={dateFuture}
                         InputLabelProps={{
                             shrink: true,
                         }}/>

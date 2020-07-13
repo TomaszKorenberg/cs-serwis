@@ -8,22 +8,26 @@ import DeviceData from "./DeviceData/DeviceData";
 import RepairData from "./RapairData/RepairData";
 import "./AddRepair.scss"
 import EmployeeData from "../EmployeeData/EmployeeData";
+import moment from "moment";
+
+const dateNow = moment().format('YYYY-MM-DDTHH:MM:SS');
 
 const initialRepairState = {
-    serialNumber: "",
-    faultDescription: "",
-    dateOfAdd: "",
+    serialNumber: null,
+    firstName: null,
+    lastName: null,
+    faultDescription: null,
+    dateOfAdd: dateNow,
     clientId: 0,
     isWarranty: false,
-    comments: "",
-    assignedEmployee: ""
+    comments: null,
+    assignedEmployee: null
 };
 
 const initialInputsErrorValue = {
     firstName: false,
     lastName: false,
     phoneNumber: false,
-    deviceId: false,
     serialNumber: false,
     faultDescription: false,
     dateOfAdd: false
@@ -61,6 +65,7 @@ export default function AddRepair() {
             ...newClientData,
             [e.target.name]: e.target.value,
         });
+        dispatchState({field: e.target.name, value: e.target.value})
     };
 
     const handleDeviceSelect = (e, devicesList) => {
@@ -88,10 +93,39 @@ export default function AddRepair() {
         onRepairChange(e)
     };
 
-    const handleAddRepair = async () => {
-        if (!state || !state.deviceId) {
-            return
+    const handleValidateInputOnBlur = (e) => {
+        if (!e.target.value) {
+            setInputsErrorValues({
+                ...inputsErrorValues,
+                [e.target.name]: true
+            })
+        } else {
+            setInputsErrorValues({
+                ...inputsErrorValues,
+                [e.target.name]: false
+            })
         }
+    };
+
+    const validateAllEmptyInputs = () => {
+        let isAnyRequiredInputIsEmpty = false;
+        const errorData = {...inputsErrorValues};
+
+        for (let item in errorData) {
+            if (!state || !state[item]) {
+                errorData[item] = true;
+                isAnyRequiredInputIsEmpty = true
+            }
+        }
+        setInputsErrorValues(errorData);
+
+        if (isAnyRequiredInputIsEmpty) {}
+    };
+
+    const handleOnSubmit = async () => {
+
+        validateAllEmptyInputs();
+
         await addNewClient(newClientData);
         dispatch(addRepair(
             {
@@ -106,23 +140,9 @@ export default function AddRepair() {
                 assignedEmployee: state.assignedEmployee
             })
         );
-        // setRedirect(true)
+        setRedirect(true)
     };
 
-    const handleValidate = (e) => {
-        console.log("KAKS")
-        if (!e.target.value) {
-            setInputsErrorValues({
-                ...inputsErrorValues,
-                [e.target.name]: true
-            })
-        } else {
-            setInputsErrorValues({
-                ...inputsErrorValues,
-                [e.target.name]: false
-            })
-        }
-    };
 
     return (
         <div>
@@ -138,23 +158,23 @@ export default function AddRepair() {
                 <DeviceData onRepairChange={onRepairChange}
                             handleDeviceSelect={handleDeviceSelect}
                             inputsErrorValues={inputsErrorValues}
-                            handleValidate={handleValidate}/>
+                            handleValidate={handleValidateInputOnBlur}/>
                 <RepairData handleCheckboxClick={handleCheckboxClick}
                             onRepairChange={onRepairChange}
                             inputsErrorValues={inputsErrorValues}
-                            handleValidate={handleValidate}/>
+                            handleValidate={handleValidateInputOnBlur}/>
                 <EmployeeData handleSelectChange={handleSelectChange}
                               assignedEmployee={assignedEmployee}/>
                 <ClientData handleClientChange={handleClientChange}
                             inputsErrorValues={inputsErrorValues}
-                            handleValidate={handleValidate}/>
+                            handleValidate={handleValidateInputOnBlur}/>
 
 
             </div>
             <Button
                 fullWidth={false}
                 disableElevation={true}
-                onClick={handleAddRepair}
+                onClick={handleOnSubmit}
                 variant="outlined"
                 size={"medium"}
             >Dodaj naprawę</Button>

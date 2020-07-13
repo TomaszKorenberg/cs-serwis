@@ -26,9 +26,11 @@ const DeviceData = ({onRepairChange, handleDeviceSelect, inputsErrorValues, hand
             </FormControl>
 
             <FormControl
+
                 error={inputsErrorValues.serialNumber}
                 fullWidth={true}>
                 <TextField
+                    m={200}
                     name={"serialNumber"}
                     size={"small"}
                     onChange={onRepairChange}
