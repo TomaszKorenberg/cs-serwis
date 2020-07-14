@@ -70,6 +70,10 @@ const Repairs = () => {
         //- Możliwość rejestrowania napraw online przez klienta
         //- Możliwość obserwacji statusu naprawy przez klienta po przez podanie np. numeru tel i imienia albo numeru seryjnego
         //- Dołączanie zdjęć do zlecenia
+
+        // -dołączanie dokumentacji do bazy modeli aby zawsze można było w zleceniu sobie ją ściągnąć
+        // - możliość opłacenia naprawy przez klienta
+        // - dodatek przy opłacaniu "A może jeszcze..." gdzie do ostateczneij kwoty naprawy można dokupić jakąś zużytą gałkę
         <div>
 
             Aktualne naprawy:
