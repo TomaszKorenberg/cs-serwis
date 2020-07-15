@@ -6,7 +6,6 @@ const config = require('./config');
 const path = require('path');
 
 
-
 app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '../build')));
@@ -29,11 +28,13 @@ sequelize
         throw new Error(err)
     });
 
+const PORT = process.env.PORT || config.server.port;
+
 const runSerer = port => {
     app.listen(port);
     console.log("Server started at http://localhost:" + port)
 };
 
-runSerer(config.server.port);
+runSerer(PORT);
 
 
