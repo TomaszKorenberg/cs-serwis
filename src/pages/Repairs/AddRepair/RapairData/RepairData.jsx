@@ -8,9 +8,8 @@ import FormHelperText from "@material-ui/core/FormHelperText";
 import moment from "moment";
 import settings from "../../../../settings"
 
-const dateNow = moment().format('YYYY-MM-DDTHH:MM:SS');
-const dateFuture = moment().add(settings.rapairs.daysToEndOfRepair, "days").format('YYYY-MM-DDTHH:MM:SS');
-
+const dateNow = moment().locale("pl").format("YYYY-MM-DD[T]HH:mm");
+const dateFuture = moment().locale("pl").add(settings.rapairs.daysToEndOfRepair, "days").format("YYYY-MM-DD[T]HH:mm");
 
 const RepairData = ({onRepairChange, handleCheckboxClick, inputsErrorValues, handleValidate}) => {
 

@@ -10,7 +10,7 @@ import "./AddRepair.scss"
 import EmployeeData from "../EmployeeData/EmployeeData";
 import moment from "moment";
 
-const dateNow = moment().format('YYYY-MM-DDTHH:MM:SS');
+const dateNow = moment().format("YYYY-MM-DD[T]HH:mm");
 
 const initialRepairState = {
     serialNumber: null,
