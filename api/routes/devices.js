@@ -45,8 +45,6 @@ module.exports = (app) => {
 
     app.get("/devices/search", (req, res) => {
         const text = req.query.text
-        console.log(`%${text}%`)
-
         Device.findAll({
             where: {
                 [Op.or]:{
