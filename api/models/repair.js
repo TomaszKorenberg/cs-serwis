@@ -46,7 +46,7 @@ const Repairs = sequelize.define('repair', {
     status: {
         type: Sequelize.TEXT,
         allowNull: false,
-        defaultValue: "New"
+        defaultValue: "new"
     }
 });
 
