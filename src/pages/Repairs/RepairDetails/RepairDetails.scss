@@ -1,0 +1,57 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  padding-left: 10px;
+
+}
+
+.repairDataWrapper {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 0 25px;
+
+
+}
+
+.clientData {
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid gray;
+  padding: 25px;
+  border-radius: 10px;
+  min-height: 150px;
+}
+
+.deviceData {
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid gray;
+  padding: 25px;
+  border-radius: 10px;
+  min-height: 150px;
+
+  &Content {
+    display: flex;
+    flex-direction: row;
+  }
+}
+
+.repairActionsWrapper {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 25px;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
