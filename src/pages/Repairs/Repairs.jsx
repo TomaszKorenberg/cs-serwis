@@ -11,6 +11,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import {useHistory} from "react-router-dom";
+import moment from "moment";
 
 
 const columns = [
@@ -18,8 +19,9 @@ const columns = [
     {id: 'manufacturer', label: 'Producent', minWidth: 100},
     {id: 'model', label: 'Model', minWidth: 100},
     {id: 'serialNumber', label: 'Numer seryjny', minWidth: 100},
-    {id: 'faultDescription', label: 'Opis usterki', minWidth: 400, align: 'left'},
-    {id: 'dateOfAdd', label: 'Data przyjęcia', minWidth: 170},
+    {id: 'faultDescription', label: 'Opis usterki', minWidth: 300, align: 'left'},
+    {id: 'dateOfAdd', label: 'Data przyjęcia', minWidth: 100},
+    {id: 'status', label: 'Status', minWidth: 100}
 ];
 
 const leftMenuItems = [
@@ -106,17 +108,34 @@ const Repairs = () => {
                                               onClick={() => handleRapairClick(repair.repairId)}>
                                         {columns.map((column) => {
                                             let value = null;
-                                            if (column.id === "model") {
-                                                value = repair.device.model
-                                            } else if (column.id === "manufacturer") {
-                                                value = repair.device.manufacturer
-                                            } else {
-                                                value = repair[column.id];
+
+                                            switch (column.id) {
+                                                case "model":
+                                                    value = repair.device.model;
+                                                    break;
+                                                case "manufacturer":
+                                                    value = repair.device.manufacturer;
+                                                    break;
+                                                case "dateOfAdd":
+                                                    value = moment(repair.device.dateOfAdd)
+                                                        .locale("pl")
+                                                        .format("YYYY-MM-DD HH:mm");
+                                                    break;
+                                                case "status":
+                                                    if (repair.status === "New") {
+                                                        value = "Przyjęte do serwisu";
+                                                        console.log("xxx")
+                                                    } else {
+                                                        value = "Nieznany"
+                                                    }
+                                                default:
+                                                    value = repair[column.id];
                                             }
+
                                             return (
                                                 <TableCell key={column.id}
                                                            align={column.align}
-                                                           >
+                                                >
 
                                                     {value}
 
