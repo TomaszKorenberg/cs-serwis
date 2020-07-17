@@ -7,7 +7,7 @@ import FormHelperText from "@material-ui/core/FormHelperText";
 
 
 const DeviceData = ({onRepairChange, handleDeviceSelect, inputsErrorValues, handleValidate}) => {
-    const searchUrl = "http://127.0.0.1:3001/devices/search?text=";
+    const searchUrl = "http://localhost:3001/devices/search?text=";
     return (
 
         <div className={"sectionWrapper"}>

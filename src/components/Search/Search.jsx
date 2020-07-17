@@ -6,6 +6,7 @@ const Search = ({searchUrl, handleDeviceSelect, error, handleValidate}) => {
     const [devicesList, setDevicesList] = useState([]);
 
     const handleInputChange = event => {
+
         const text = event.target.value;
         fetch(searchUrl + text, {
             method: "GET"

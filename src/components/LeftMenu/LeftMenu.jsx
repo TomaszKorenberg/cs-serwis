@@ -23,7 +23,7 @@ export default function LeftMenu({links}) {
         return (<p>Ładuję...</p>)
     }
     return (
-        <List component="nav" className={classes.root}  aria-label="mailbox folders">
+        <List component="nav" className={"leftMenuWrapper"}  aria-label="mailbox folders">
 
             {
                 links.map(link =>(
