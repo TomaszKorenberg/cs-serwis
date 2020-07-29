@@ -28,13 +28,19 @@ const Dashboard = () => {
             <div className={"box"}>
                 Zadania na dziś:<br/>
                 - (SYSTEMOWE) Naprawić zlecenie 82<br/>
-                - Zamówić laser KSS213 w Impelu<br/>
+                - Posprzątać recepcję<br/>
             </div>
             <div className={"box"}>
                 Statystyki:<br/>
                 - Naprawione dziś: 3<br/>
                 - Naprawioone w tym tygodniu: 15<br/>
                 - Naprawioone w tym miesiącu: 84<br/>
+            </div>
+            <div className={"box"}>
+                Lista zakupów:<br/>
+                - KSS-213 1szt.<br/>
+                - 2SC5200 10szt.<br/>
+                - DCV1010 3szt.<br/>
             </div>
 
         </div>
