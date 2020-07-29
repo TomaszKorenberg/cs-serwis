@@ -1,6 +1,6 @@
 import React from "react";
 import TextField from "@material-ui/core/TextField/TextField";
-import Search from "../../../../components/Search/Search";
+import SearchDeviceInDatabase from "./SearchDeviceInDatabase/SearchDeviceInDatabase";
 import "../AddRepair.scss"
 import FormControl from "@material-ui/core/FormControl";
 import FormHelperText from "@material-ui/core/FormHelperText";
@@ -15,7 +15,7 @@ const DeviceData = ({onRepairChange, handleDeviceSelect, inputsErrorValues, hand
             <FormControl
                 error={inputsErrorValues.deviceId}
                 fullWidth={true}>
-                <Search
+                <SearchDeviceInDatabase
                     error={inputsErrorValues.deviceId}
                     searchUrl={searchUrl}
                     handleDeviceSelect={handleDeviceSelect}

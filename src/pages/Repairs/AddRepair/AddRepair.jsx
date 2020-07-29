@@ -119,7 +119,8 @@ export default function AddRepair() {
         }
         setInputsErrorValues(errorData);
 
-        if (isAnyRequiredInputIsEmpty) {}
+        if (isAnyRequiredInputIsEmpty) {
+        }
     };
 
     const handleOnSubmit = async () => {
@@ -155,10 +156,12 @@ export default function AddRepair() {
             <h2 id="transition-modal-title">Dodaj nową naprawę</h2>
             <div className={"wrapper"}>
 
+
                 <DeviceData onRepairChange={onRepairChange}
                             handleDeviceSelect={handleDeviceSelect}
                             inputsErrorValues={inputsErrorValues}
                             handleValidate={handleValidateInputOnBlur}/>
+
                 <RepairData handleCheckboxClick={handleCheckboxClick}
                             onRepairChange={onRepairChange}
                             inputsErrorValues={inputsErrorValues}
