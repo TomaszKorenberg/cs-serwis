@@ -1,11 +1,34 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import React, {useState} from 'react';
+import {makeStyles} from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import TextField from "@material-ui/core/TextField/TextField";
 import FormControl from "@material-ui/core/FormControl";
 import Button from "@material-ui/core/Button";
+import FormHelperText from "@material-ui/core/FormHelperText";
+
+// walidacja obowiązkowych pól
+// stylowanie
+
+const initialInputsErrorValue = {
+    manufacturer: false,
+    model: false,
+};
+
+const initialNewDeviceInputValues = {
+    manufacturer: "",
+    model: ""
+};
+
+
+const addNewDevice = async (data) => {
+    return await fetch("http://localhost:3001/devices/adddevice", {
+        method: "POST",
+        headers: {'Content-Type': "application/json"},
+        body: JSON.stringify(data),
+    }).then(response => response.json());
+};
 
 
 const useStyles = makeStyles((theme) => ({
@@ -22,13 +45,65 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function AddNewDeviceModal({closeOrOpenModal, isModalOpen, setValue}) {
+export default function AddNewDeviceModal({openModal, isModalOpen, setValue, handleNewDeviceSelected}) {
+    const [newDeviceDataInputs, setNewDeviceDataInputs] = useState(initialNewDeviceInputValues);
+    const [inputsErrorValues, setInputsErrorValues] = useState(initialInputsErrorValue);
+    const [isAnyRequiredInputIsEmpty, setIsAnyRequiredInputIsEmpty] = useState(false);
+
+
     const classes = useStyles();
 
 
     const handleClose = () => {
-        closeOrOpenModal(false);
-        setValue("")
+        openModal(false);
+        setInputsErrorValues(initialInputsErrorValue);
+        setValue("");
+    };
+
+    const handleOnChange = (e) => {
+        setNewDeviceDataInputs({...newDeviceDataInputs, [e.target.name]: e.target.value});
+        console.log(newDeviceDataInputs);
+    };
+
+    const handleSave = async () => {
+        console.log(isAnyRequiredInputIsEmpty)
+        await validateAllEmptyInputs();
+        if(!isAnyRequiredInputIsEmpty){
+            return
+        }
+        console.log(isAnyRequiredInputIsEmpty)
+
+        const newDeviceData = await addNewDevice(newDeviceDataInputs);
+        setValue(newDeviceData[1].manufacturer + " " + newDeviceData[1].model);
+        handleNewDeviceSelected(newDeviceData[1].deviceId);
+        openModal(false);
+    };
+
+    const handleValidateInputOnBlur = (e) => {
+        if (!e.target.value) {
+            setInputsErrorValues({
+                ...inputsErrorValues,
+                [e.target.name]: true
+            })
+        } else {
+            setInputsErrorValues({
+                ...inputsErrorValues,
+                [e.target.name]: false
+            })
+        }
+    };
+
+    const validateAllEmptyInputs = () => {
+        setIsAnyRequiredInputIsEmpty(false);
+        const errorData = {...inputsErrorValues};
+
+        for (let item in errorData) {
+            if (!newDeviceDataInputs || !newDeviceDataInputs[item]) {
+                errorData[item] = true;
+                setInputsErrorValues(errorData)
+                setIsAnyRequiredInputIsEmpty(true)
+            }
+        }
     };
 
     return (
@@ -55,33 +130,37 @@ export default function AddNewDeviceModal({closeOrOpenModal, isModalOpen, setVal
                                 m={200}
                                 name={"manufacturer"}
                                 size={"small"}
-                                // onChange={onRepairChange}
-                                // error={inputsErrorValues.serialNumber}
-                                // onBlur={handleValidate}
+                                onChange={handleOnChange}
+                                error={inputsErrorValues.manufacturer}
+                                onBlur={handleValidateInputOnBlur}
                                 id="manufacturerInput"
                                 label="Producent"
                                 variant="outlined"
                             />
+                            {(inputsErrorValues.manufacturer)
+                                ? (<FormHelperText>Wpowadź producenta</FormHelperText>)
+                                : null}
 
                             <TextField
                                 m={200}
                                 name={"model"}
                                 size={"small"}
-                                // onChange={onRepairChange}
-                                // error={inputsErrorValues.serialNumber}
-                                // onBlur={handleValidate}
+                                onChange={handleOnChange}
+                                error={inputsErrorValues.model}
+                                onBlur={handleValidateInputOnBlur}
                                 id="modelInput"
                                 label="Model"
                                 variant="outlined"
                             />
+                            {(inputsErrorValues.model)
+                                ? (<FormHelperText>Wpowadź model</FormHelperText>)
+                                : null}
 
                             <TextField
                                 m={200}
                                 name={"type"}
                                 size={"small"}
-                                // onChange={onRepairChange}
-                                // error={inputsErrorValues.serialNumber}
-                                // onBlur={handleValidate}
+                                onChange={handleOnChange}
                                 id="typeInput"
                                 label="Typ urządzenie"
                                 variant="outlined"
@@ -91,9 +170,7 @@ export default function AddNewDeviceModal({closeOrOpenModal, isModalOpen, setVal
                                 m={200}
                                 name={"description"}
                                 size={"small"}
-                                // onChange={onRepairChange}
-                                // error={inputsErrorValues.serialNumber}
-                                // onBlur={handleValidate}
+                                onChange={handleOnChange}
                                 id="descriptionInput"
                                 label="Opis"
                                 variant="outlined"
@@ -104,7 +181,7 @@ export default function AddNewDeviceModal({closeOrOpenModal, isModalOpen, setVal
                         <Button
                             fullWidth={false}
                             disableElevation={true}
-                            // onClick={}
+                            onClick={handleSave}
                             variant="outlined"
                             size={"medium"}
                         >Dodaj</Button>

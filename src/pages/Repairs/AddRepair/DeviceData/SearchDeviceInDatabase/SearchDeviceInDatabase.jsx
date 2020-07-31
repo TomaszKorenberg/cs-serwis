@@ -5,7 +5,7 @@ import AddNewDeviceModal from "../AddNewDeviceModal/AddNewDeviceModal";
 
 const filter = createFilterOptions();
 
-const SearchDeviceInDatabase = ({searchUrl, handleDeviceSelect, error, handleValidate}) => {
+const SearchDeviceInDatabase = ({searchUrl, handleValidateInputOnBlur, handleExistDeviceSelected, handleNewDeviceSelected, error, handleValidate}) => {
     const [devicesList, setDevicesList] = useState([]);
     const [value, setValue] = useState(null);
     const [openNewDeviceModal, setOpenNewDeviceModal] = useState(false)
@@ -31,7 +31,7 @@ const SearchDeviceInDatabase = ({searchUrl, handleDeviceSelect, error, handleVal
 
             <Autocomplete
                 freeSolo
-                onClose={(e) => handleDeviceSelect(e, devicesList)}
+                onClose={(e) => handleExistDeviceSelected(e, devicesList)}
                 disableClearable
                 loading
                 value={value}
@@ -97,8 +97,10 @@ const SearchDeviceInDatabase = ({searchUrl, handleDeviceSelect, error, handleVal
             />
 
             <AddNewDeviceModal isModalOpen={openNewDeviceModal}
-                               closeOrOpenModal={setOpenNewDeviceModal}
-                               setValue={setValue}/>
+                               openModal={setOpenNewDeviceModal}
+                               setValue={setValue}
+                               handleNewDeviceSelected={handleNewDeviceSelected}
+                               onChange={handleInputChange}/>
 
         </div>
     )
