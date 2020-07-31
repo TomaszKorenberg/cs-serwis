@@ -6,7 +6,7 @@ import FormControl from "@material-ui/core/FormControl";
 import FormHelperText from "@material-ui/core/FormHelperText";
 
 
-const DeviceData = ({onRepairChange, handleDeviceSelect, inputsErrorValues, handleValidate}) => {
+const DeviceData = ({onRepairChange, handleExistDeviceSelected, handleNewDeviceSelected, inputsErrorValues, handleValidateInputOnBlur, handleValidate}) => {
     const searchUrl = "http://localhost:3001/devices/search?text=";
     return (
 
@@ -18,7 +18,8 @@ const DeviceData = ({onRepairChange, handleDeviceSelect, inputsErrorValues, hand
                 <SearchDeviceInDatabase
                     error={inputsErrorValues.deviceId}
                     searchUrl={searchUrl}
-                    handleDeviceSelect={handleDeviceSelect}
+                    handleExistDeviceSelected={handleExistDeviceSelected}
+                    handleNewDeviceSelected={handleNewDeviceSelected}
                     handleValidate={handleValidate}/>
                 {(inputsErrorValues.deviceId)
                     ? (<FormHelperText>Wpowadź imię</FormHelperText>)

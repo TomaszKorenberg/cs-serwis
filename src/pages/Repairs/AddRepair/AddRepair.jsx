@@ -68,7 +68,7 @@ export default function AddRepair() {
         dispatchState({field: e.target.name, value: e.target.value})
     };
 
-    const handleDeviceSelect = (e, devicesList) => {
+    const handleExistDeviceSelected = (e, devicesList) => {
         let selectedDevice = (devicesList.filter(item => {
             return item.manufacturer + " " + item.model === e.target.textContent
         })[0]);
@@ -77,6 +77,10 @@ export default function AddRepair() {
         } else {
             dispatchState({field: "deviceId", value: selectedDevice.deviceId})
         }
+    };
+
+    const handleNewDeviceSelected = (deviceId) => {
+        dispatchState({field: "deviceId", value: deviceId})
     };
 
 
@@ -90,7 +94,7 @@ export default function AddRepair() {
 
     const handleSelectChange = (e) => {
         setAssignedEmployee(e.target.value);
-        onRepairChange(e)
+        onRepairChange(e);
     };
 
     const handleValidateInputOnBlur = (e) => {
@@ -120,7 +124,7 @@ export default function AddRepair() {
         setInputsErrorValues(errorData);
 
         if (isAnyRequiredInputIsEmpty) {
-        }
+        }//fixme: poprawić walidację na wzór z komponentu AddNewDeviceModal
     };
 
     const handleOnSubmit = async () => {
@@ -158,7 +162,8 @@ export default function AddRepair() {
 
 
                 <DeviceData onRepairChange={onRepairChange}
-                            handleDeviceSelect={handleDeviceSelect}
+                            handleExistDeviceSelected={handleExistDeviceSelected}
+                            handleNewDeviceSelected={handleNewDeviceSelected}
                             inputsErrorValues={inputsErrorValues}
                             handleValidate={handleValidateInputOnBlur}/>
 

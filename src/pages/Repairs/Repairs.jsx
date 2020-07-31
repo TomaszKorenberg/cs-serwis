@@ -128,6 +128,7 @@ const Repairs = () => {
                                                     } else {
                                                         value = "Nieznany"
                                                     }
+                                                    break;
                                                 default:
                                                     value = repair[column.id];
                                             }
