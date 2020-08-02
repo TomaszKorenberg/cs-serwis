@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
 export default function AddNewDeviceModal({openModal, isModalOpen, setValue, handleNewDeviceSelected}) {
     const [newDeviceDataInputs, setNewDeviceDataInputs] = useState(initialNewDeviceInputValues);
     const [inputsErrorValues, setInputsErrorValues] = useState(initialInputsErrorValue);
-    const [isAnyRequiredInputIsEmpty, setIsAnyRequiredInputIsEmpty] = useState(false);
+    const [isAnyRequiredInputIsEmpty, setIsAnyRequiredInputIsEmpty] = useState(true);
 
 
     const classes = useStyles();
@@ -67,11 +67,12 @@ export default function AddNewDeviceModal({openModal, isModalOpen, setValue, han
 
     const handleSave = async () => {
         console.log(isAnyRequiredInputIsEmpty)
-        await validateAllEmptyInputs();
-        if(!isAnyRequiredInputIsEmpty){
+        validateAllEmptyInputs();
+        console.log(isAnyRequiredInputIsEmpty)
+
+        if(isAnyRequiredInputIsEmpty){
             return
         }
-        console.log(isAnyRequiredInputIsEmpty)
 
         const newDeviceData = await addNewDevice(newDeviceDataInputs);
         setValue(newDeviceData[1].manufacturer + " " + newDeviceData[1].model);
@@ -94,16 +95,21 @@ export default function AddNewDeviceModal({openModal, isModalOpen, setValue, han
     };
 
     const validateAllEmptyInputs = () => {
+        let emptyInput = false;
         setIsAnyRequiredInputIsEmpty(false);
         const errorData = {...inputsErrorValues};
+
+
 
         for (let item in errorData) {
             if (!newDeviceDataInputs || !newDeviceDataInputs[item]) {
                 errorData[item] = true;
-                setInputsErrorValues(errorData)
-                setIsAnyRequiredInputIsEmpty(true)
+                setInputsErrorValues(errorData);
+                emptyInput = true;
             }
         }
+        setIsAnyRequiredInputIsEmpty(emptyInput);
+
     };
 
     return (

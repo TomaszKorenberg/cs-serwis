@@ -122,9 +122,8 @@ const Repairs = () => {
                                                         .format("YYYY-MM-DD HH:mm");
                                                     break;
                                                 case "status":
-                                                    if (repair.status === "New") {
+                                                    if (repair.status === "new") {
                                                         value = "Przyjęte do serwisu";
-                                                        console.log("xxx")
                                                     } else {
                                                         value = "Nieznany"
                                                     }

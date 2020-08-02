@@ -58,6 +58,8 @@ export default function AddRepair() {
     const [assignedEmployee, setAssignedEmployee] = useState('');
     const [newClientData, setNewClientData] = useState({});
     const [inputsErrorValues, setInputsErrorValues] = useState(initialInputsErrorValue);
+    const [isAnyRequiredInputIsEmpty, setIsAnyRequiredInputIsEmpty] = useState(true);
+
 
 
     const handleClientChange = (e) => {
@@ -112,27 +114,29 @@ export default function AddRepair() {
     };
 
     const validateAllEmptyInputs = () => {
-        let isAnyRequiredInputIsEmpty = false;
+        let emptyInput = false;
+        setIsAnyRequiredInputIsEmpty(false);
         const errorData = {...inputsErrorValues};
 
         for (let item in errorData) {
             if (!state || !state[item]) {
                 errorData[item] = true;
-                isAnyRequiredInputIsEmpty = true
+                setInputsErrorValues(errorData);
+                emptyInput = true;
             }
         }
-        setInputsErrorValues(errorData);
-
-        if (isAnyRequiredInputIsEmpty) {
-        }//fixme: poprawić walidację na wzór z komponentu AddNewDeviceModal
+        setIsAnyRequiredInputIsEmpty(emptyInput)
     };
 
+
+
     const handleOnSubmit = async () => {
-
         validateAllEmptyInputs();
-
+        if(isAnyRequiredInputIsEmpty){
+            return
+        }
         await addNewClient(newClientData);
-        dispatch(addRepair(
+        dispatch(await addRepair(
             {
                 deviceId: state.deviceId,
                 serialNumber: state.serialNumber,
@@ -144,8 +148,7 @@ export default function AddRepair() {
                 comments: state.comments,
                 assignedEmployee: state.assignedEmployee
             })
-        );
-        setRedirect(true)
+        ).then(setRedirect(true))
     };
 
 

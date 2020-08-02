@@ -46,6 +46,27 @@
   }
 }
 
+.previewWrapper {
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid gray;
+  padding: 25px;
+  border-radius: 10px;
+  max-height: 180px;
+}
+.previewData {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  &Content{
+    flex-wrap: wrap;
+  }
+}
+
 .repairActionsWrapper {
   display: flex;
   flex-wrap: wrap;
