@@ -107,40 +107,68 @@ const Repairs = () => {
                                               key={repair.repairId}
                                               onClick={() => handleRapairClick(repair.repairId)}>
                                         {columns.map((column) => {
-                                            let value = null;
-
                                             switch (column.id) {
                                                 case "model":
-                                                    value = repair.device.model;
-                                                    break;
+                                                    return (
+                                                        <TableCell key={column.id}
+                                                                   align={column.align}>{repair.device.model}</TableCell>);
                                                 case "manufacturer":
-                                                    value = repair.device.manufacturer;
-                                                    break;
+                                                    return (
+                                                        <TableCell key={column.id}
+                                                                   align={column.align}>{repair.device.manufacturer}</TableCell>);
                                                 case "dateOfAdd":
-                                                    value = moment(repair.device.dateOfAdd)
-                                                        .locale("pl")
-                                                        .format("YYYY-MM-DD HH:mm");
-                                                    break;
+                                                    return (
+                                                        <TableCell key={column.id}
+                                                                   align={column.align}>{moment(repair.device.dateOfAdd)
+                                                            .locale("pl")
+                                                            .format("YYYY-MM-DD HH:mm")}</TableCell>);
                                                 case "status":
                                                     if (repair.status === "new") {
-                                                        value = "Przyjęte do serwisu";
-                                                    } else {
-                                                        value = "Nieznany"
+                                                        return (
+                                                            <TableCell key={column.id}
+                                                                       align={column.align}>Przyjęte do serwisu</TableCell>);
+
                                                     }
-                                                    break;
+                                                    if (repair.status === "start") {
+                                                        return (
+                                                            <TableCell key={column.id}
+                                                                       align={column.align}>Rozpoczęto</TableCell>);
+                                                    }
+                                                    if (repair.status === "expertise") {
+                                                        return (
+                                                            <TableCell key={column.id}
+                                                                       align={column.align}>Ekspertyza</TableCell>);
+                                                    }
+                                                    if (repair.status === "repair start") {
+                                                        return (
+                                                            <TableCell key={column.id}
+                                                                       align={column.align}>W trakcie naprawy</TableCell>);
+                                                    }
+                                                    if (repair.status === "waiting spare parts" || repair.status === "waiting forwarded") {
+                                                        return (
+                                                            <TableCell key={column.id}
+                                                                       align={column.align}>Oczekuje</TableCell>);
+                                                    }
+                                                    if (repair.status === "repair end") {
+                                                        return (
+                                                            <TableCell key={column.id}
+                                                                       align={column.align}>Naprawa zakończona</TableCell>);
+                                                    }
+                                                    if (repair.status === "end") {
+                                                        return (
+                                                            <TableCell key={column.id}
+                                                                       align={column.align}>Odebrane</TableCell>);
+                                                    }
+                                                        else {
+                                                        return (
+                                                            <TableCell key={column.id}
+                                                                       align={column.align}>Nieznany</TableCell>);
+                                                    }
                                                 default:
-                                                    value = repair[column.id];
+                                                    return (
+                                                        <TableCell key={column.id}
+                                                                   align={column.align}>{repair[column.id]}</TableCell>);
                                             }
-
-                                            return (
-                                                <TableCell key={column.id}
-                                                           align={column.align}
-                                                >
-
-                                                    {value}
-
-                                                </TableCell>
-                                            );
                                         })}
                                     </TableRow>
                                 );
