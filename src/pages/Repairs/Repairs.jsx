@@ -12,6 +12,7 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import {useHistory} from "react-router-dom";
 import moment from "moment";
+import Repairs2 from "./Repairs2";
 
 
 const columns = [
@@ -77,117 +78,118 @@ const Repairs = () => {
         // - możliość opłacenia naprawy przez klienta
         // - dodatek przy opłacaniu "A może jeszcze..." gdzie do ostateczneij kwoty naprawy można dokupić jakąś zużytą gałkę
         <div>
+            <Repairs2/>
 
-            Aktualne naprawy:
-            <Paper>
-                <TableContainer>
-                    <Table stickyHeader aria-label="sticky table">
-                        <TableHead>
-                            <TableRow>
-                                {columns.map((column) => (
-                                    <TableCell
+            {/*Aktualne naprawy:*/}
+            {/*<Paper>*/}
+            {/*    <TableContainer>*/}
+            {/*        <Table stickyHeader aria-label="sticky table">*/}
+            {/*            <TableHead>*/}
+            {/*                <TableRow>*/}
+            {/*                    {columns.map((column) => (*/}
+            {/*                        <TableCell*/}
 
-                                        key={column.id}
-                                        align={column.align}
-                                        style={{minWidth: column.minWidth}}
-                                    >
-                                        {column.label}
+            {/*                            key={column.id}*/}
+            {/*                            align={column.align}*/}
+            {/*                            style={{minWidth: column.minWidth}}*/}
+            {/*                        >*/}
+            {/*                            {column.label}*/}
 
 
-                                    </TableCell>
-                                ))}
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {repairs.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((repair) => {
-                                return (
-                                    <TableRow hover
-                                              role="checkbox"
-                                              tabIndex={-1}
-                                              key={repair.repairId}
-                                              onClick={() => handleRapairClick(repair.repairId)}>
-                                        {columns.map((column) => {
-                                            switch (column.id) {
-                                                case "model":
-                                                    return (
-                                                        <TableCell key={column.id}
-                                                                   align={column.align}>{repair.device.model}</TableCell>);
-                                                case "manufacturer":
-                                                    return (
-                                                        <TableCell key={column.id}
-                                                                   align={column.align}>{repair.device.manufacturer}</TableCell>);
-                                                case "dateOfAdd":
-                                                    return (
-                                                        <TableCell key={column.id}
-                                                                   align={column.align}>{moment(repair.device.dateOfAdd)
-                                                            .locale("pl")
-                                                            .format("YYYY-MM-DD HH:mm")}</TableCell>);
-                                                case "status":
-                                                    if (repair.status === "new") {
-                                                        return (
-                                                            <TableCell key={column.id}
-                                                                       align={column.align}>Przyjęte do serwisu</TableCell>);
+            {/*                        </TableCell>*/}
+            {/*                    ))}*/}
+            {/*                </TableRow>*/}
+            {/*            </TableHead>*/}
+            {/*            <TableBody>*/}
+            {/*                {repairs.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((repair) => {*/}
+            {/*                    return (*/}
+            {/*                        <TableRow hover*/}
+            {/*                                  role="checkbox"*/}
+            {/*                                  tabIndex={-1}*/}
+            {/*                                  key={repair.repairId}*/}
+            {/*                                  onClick={() => handleRapairClick(repair.repairId)}>*/}
+            {/*                            {columns.map((column) => {*/}
+            {/*                                switch (column.id) {*/}
+            {/*                                    case "model":*/}
+            {/*                                        return (*/}
+            {/*                                            <TableCell key={column.id}*/}
+            {/*                                                       align={column.align}>{repair.device.model}</TableCell>);*/}
+            {/*                                    case "manufacturer":*/}
+            {/*                                        return (*/}
+            {/*                                            <TableCell key={column.id}*/}
+            {/*                                                       align={column.align}>{repair.device.manufacturer}</TableCell>);*/}
+            {/*                                    case "dateOfAdd":*/}
+            {/*                                        return (*/}
+            {/*                                            <TableCell key={column.id}*/}
+            {/*                                                       align={column.align}>{moment(repair.device.dateOfAdd)*/}
+            {/*                                                .locale("pl")*/}
+            {/*                                                .format("YYYY-MM-DD HH:mm")}</TableCell>);*/}
+            {/*                                    case "status":*/}
+            {/*                                        if (repair.status === "new") {*/}
+            {/*                                            return (*/}
+            {/*                                                <TableCell key={column.id}*/}
+            {/*                                                           align={column.align}>Przyjęte do serwisu</TableCell>);*/}
 
-                                                    }
-                                                    if (repair.status === "start") {
-                                                        return (
-                                                            <TableCell key={column.id}
-                                                                       align={column.align}>Rozpoczęto</TableCell>);
-                                                    }
-                                                    if (repair.status === "expertise") {
-                                                        return (
-                                                            <TableCell key={column.id}
-                                                                       align={column.align}>Ekspertyza</TableCell>);
-                                                    }
-                                                    if (repair.status === "repair start") {
-                                                        return (
-                                                            <TableCell key={column.id}
-                                                                       align={column.align}>W trakcie naprawy</TableCell>);
-                                                    }
-                                                    if (repair.status === "waiting spare parts" || repair.status === "waiting forwarded") {
-                                                        return (
-                                                            <TableCell key={column.id}
-                                                                       align={column.align}>Oczekuje</TableCell>);
-                                                    }
-                                                    if (repair.status === "repair end") {
-                                                        return (
-                                                            <TableCell key={column.id}
-                                                                       align={column.align}>Naprawa zakończona</TableCell>);
-                                                    }
-                                                    if (repair.status === "end") {
-                                                        return (
-                                                            <TableCell key={column.id}
-                                                                       align={column.align}>Odebrane</TableCell>);
-                                                    }
-                                                        else {
-                                                        return (
-                                                            <TableCell key={column.id}
-                                                                       align={column.align}>Nieznany</TableCell>);
-                                                    }
-                                                default:
-                                                    return (
-                                                        <TableCell key={column.id}
-                                                                   align={column.align}>{repair[column.id]}</TableCell>);
-                                            }
-                                        })}
-                                    </TableRow>
-                                );
-                            })}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
-                <TablePagination
-                    rowsPerPageOptions={[10, 25, 100, 500]}
-                    labelRowsPerPage={"Wyników na stronę:"}
-                    labelDisplayedRows={({from, to, count}) => `Wyniki ${from}-${to} z ${count}`}
-                    component="div"
-                    count={repairs.length}
-                    rowsPerPage={rowsPerPage}
-                    page={page}
-                    onChangePage={handleChangePage}
-                    onChangeRowsPerPage={handleChangeRowsPerPage}
-                />
-            </Paper>
+            {/*                                        }*/}
+            {/*                                        if (repair.status === "start") {*/}
+            {/*                                            return (*/}
+            {/*                                                <TableCell key={column.id}*/}
+            {/*                                                           align={column.align}>Rozpoczęto</TableCell>);*/}
+            {/*                                        }*/}
+            {/*                                        if (repair.status === "expertise") {*/}
+            {/*                                            return (*/}
+            {/*                                                <TableCell key={column.id}*/}
+            {/*                                                           align={column.align}>Ekspertyza</TableCell>);*/}
+            {/*                                        }*/}
+            {/*                                        if (repair.status === "repair start") {*/}
+            {/*                                            return (*/}
+            {/*                                                <TableCell key={column.id}*/}
+            {/*                                                           align={column.align}>W trakcie naprawy</TableCell>);*/}
+            {/*                                        }*/}
+            {/*                                        if (repair.status === "waiting spare parts" || repair.status === "waiting forwarded") {*/}
+            {/*                                            return (*/}
+            {/*                                                <TableCell key={column.id}*/}
+            {/*                                                           align={column.align}>Oczekuje</TableCell>);*/}
+            {/*                                        }*/}
+            {/*                                        if (repair.status === "repair end") {*/}
+            {/*                                            return (*/}
+            {/*                                                <TableCell key={column.id}*/}
+            {/*                                                           align={column.align}>Naprawa zakończona</TableCell>);*/}
+            {/*                                        }*/}
+            {/*                                        if (repair.status === "end") {*/}
+            {/*                                            return (*/}
+            {/*                                                <TableCell key={column.id}*/}
+            {/*                                                           align={column.align}>Odebrane</TableCell>);*/}
+            {/*                                        }*/}
+            {/*                                            else {*/}
+            {/*                                            return (*/}
+            {/*                                                <TableCell key={column.id}*/}
+            {/*                                                           align={column.align}>Nieznany</TableCell>);*/}
+            {/*                                        }*/}
+            {/*                                    default:*/}
+            {/*                                        return (*/}
+            {/*                                            <TableCell key={column.id}*/}
+            {/*                                                       align={column.align}>{repair[column.id]}</TableCell>);*/}
+            {/*                                }*/}
+            {/*                            })}*/}
+            {/*                        </TableRow>*/}
+            {/*                    );*/}
+            {/*                })}*/}
+            {/*            </TableBody>*/}
+            {/*        </Table>*/}
+            {/*    </TableContainer>*/}
+            {/*    <TablePagination*/}
+            {/*        rowsPerPageOptions={[10, 25, 100, 500]}*/}
+            {/*        labelRowsPerPage={"Wyników na stronę:"}*/}
+            {/*        labelDisplayedRows={({from, to, count}) => `Wyniki ${from}-${to} z ${count}`}*/}
+            {/*        component="div"*/}
+            {/*        count={repairs.length}*/}
+            {/*        rowsPerPage={rowsPerPage}*/}
+            {/*        page={page}*/}
+            {/*        onChangePage={handleChangePage}*/}
+            {/*        onChangeRowsPerPage={handleChangeRowsPerPage}*/}
+            {/*    />*/}
+            {/*</Paper>*/}
         </div>
     );
 };
