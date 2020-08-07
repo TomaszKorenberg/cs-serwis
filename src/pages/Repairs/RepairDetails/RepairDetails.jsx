@@ -10,7 +10,6 @@ import {makeStyles, useTheme} from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Button from "@material-ui/core/Button";
 import Divider from '@material-ui/core/Divider';
@@ -28,8 +27,8 @@ function TabPanel(props) {
             {...other}
         >
             {value === index && (
-                <Box p={3}>
-                    <Typography>{children}</Typography>
+                <Box>
+                    {children}
                 </Box>
             )}
         </div>
@@ -142,8 +141,8 @@ export default function RapairDetails() {
                 onChangeIndex={handleChangeIndex}
             >
                 <TabPanel value={value} index={0} dir={theme.direction}>
-                    Status:<br/>
-                    - Przyjęto do serwisu/Oczekuje na rozpoczęcie naprawy<br/>
+                    Status "new":<br/>
+                    - Przyjęte do serwisu / Oczekuje na rozpoczęcie naprawy<br/>
                     <div className={"repairActionsWrapper"}>
 
                         {(repairDetails.status === "new")
@@ -163,8 +162,8 @@ export default function RapairDetails() {
                     </div>
                     <Divider/>
 
-                    Status:<br/>
-                    - Rozpoczęto naprawę/Twoja naprawa rozpoczęła się i oczekuje na diagnozę<br/>
+                    Status "start":<br/>
+                    - Rozpoczęto / Twoja naprawa rozpoczęła się i oczekuje na diagnozę<br/>
                     <div className={"repairActionsWrapper"}>
                         <div>
                             <Button variant="outlined">Dodaj ekspertyzę</Button><br/><br/>
@@ -178,8 +177,8 @@ export default function RapairDetails() {
                     </div>
                     <Divider/>
 
-                    Status:<br/>
-                    - Ekspertyza/ Technik wycenił naprawę. Twoj ruch, czekamy na decyzję<br/>
+                    Status "expertise:<br/>
+                    - Ekspertyza / Technik wycenił naprawę. Twoj ruch, czekamy na decyzję<br/>
                     <div className={"repairActionsWrapper"}>
                         <div>
                             <Button variant="outlined">Rozpocznij naprawę</Button><br/><br/>
@@ -193,7 +192,7 @@ export default function RapairDetails() {
                     </div>
                     <Divider/>
 
-                    Status:<br/>
+                    Status "repair start":<br/>
                     - W trakcie naprawy / Technik właśnie naprawia urządzenie<br/>
                     <div className={"repairActionsWrapper"}>
                         <div>
@@ -209,9 +208,8 @@ export default function RapairDetails() {
                     </div>
                     <Divider/>
 
-                    Status:<br/>
-                    - Oczekująca / Twoja naprawa oczekuje<br/>
-                    /Oczekuje na części<br/>
+                    Status "waiting spare parts":<br/>
+                    - Oczekująca / Twoja naprawa oczekuje na części<br/>
                     <div className={"repairActionsWrapper"}>
                         <div>
                         <Button variant="outlined">Przyszły części</Button><br/>
@@ -226,10 +224,8 @@ export default function RapairDetails() {
                     </div>
                     <Divider/>
 
-                    Status:<br/>
-                    - Oczekująca / Twoja naprawa oczekuje<br/>
-                    /Przekazano do serwisu zewnętrznego (widziane tylko dla serwisu, dla klienta oczekuje na
-                    części)<br/>
+                    Status "waiting forwarded":<br/>
+                    - Oczekująca / Przekazano do serwisu zewnętrznego (widziane tylko dla serwisu, dla klienta oczekuje na części)<br/>
                     <div className={"repairActionsWrapper"}>
                         <div>
                         <Button variant="outlined">Powrot sprzętu z serwisu</Button><br/><br/>
@@ -244,7 +240,7 @@ export default function RapairDetails() {
                     <Divider/>
 
 
-                    Status:<br/>
+                    Status "repair end":<br/>
                     - Naprawa zakończona / Możesz odebrac urządzenie<br/>
                     <div className={"repairActionsWrapper"}>
                         <div>
@@ -253,7 +249,7 @@ export default function RapairDetails() {
                     </div>
                     <Divider/>
 
-                    Status:<br/>
+                    Status "end":<br/>
                     - Odebrane / To tyle z naszej strony (oby nie) do zobaczenia! :)<br/>
                     <div className={"repairActionsWrapper"}>
                         <div>
