@@ -13,6 +13,7 @@ import Tab from '@material-ui/core/Tab';
 import Box from '@material-ui/core/Box';
 import Button from "@material-ui/core/Button";
 import Divider from '@material-ui/core/Divider';
+import RepairShortSummary from "./RepairShortSummary/RepairShortSummary";
 
 
 function TabPanel(props) {
@@ -92,30 +93,7 @@ export default function RapairDetails() {
             <h1>Szczegóły naprawy</h1>
             <div className={"repairDataWrapper"}>
 
-                <div className={"previewWrapper"}>
-                    Przegląd naprawy:
-                    <div className={"previewData"}>
-                        <ul className={"previewDataContent"}>
-                            <li><b>ID naprawy:</b> {repairDetails.repairId}</li>
-                            <li><b>Producent:</b> {repairDetails.device.manufacturer}</li>
-                            <li><b>Model:</b> {repairDetails.device.model}</li>
-                            <li><b>S/N:</b> {repairDetails.serialNumber}</li>
-                            <li><b>Data przyjęcia:</b> {repairDetails.dateOfAdd}</li>
-                        </ul>
-                        <ul>
-                            <li><b>Klient:</b> {repairDetails.client.name} {repairDetails.client.lastName}</li>
-                            <li><b>Numer do
-                                klienta:</b> {repairDetails.client.contactNumber ? repairDetails.client.contactNumber : "Brak"}
-                            </li>
-                            <li><b>Email do
-                                klienta:</b> {repairDetails.client.email ? repairDetails.client.email : "Brak"}</li>
-                            <li>
-                                <b>Adres:</b> {repairDetails.client.streetAdress}<br/>{repairDetails.client.postalCode} {repairDetails.client.city}
-                            </li>
-
-                        </ul>
-                    </div>
-                </div>
+                <RepairShortSummary repairDetails={repairDetails}/>
 
             </div>
 
@@ -257,22 +235,37 @@ export default function RapairDetails() {
                     </div>
                     <Divider/>
 
+                    Status "registered":<br/>
+                    - Zarejestrowano naprawę / Klient zarejestrował naprawę<br/>
+                    <div className={"repairActionsWrapper"}>
+                        <div>
+                            <Button variant="outlined">Przyjęto do serwisu</Button><br/><br/>
+                            Inne dostępne operacje:<br/>
+                            <Button variant="outlined">Dodaj komentarz</Button>
+                            {(repairDetails.client.email || repairDetails.client.phoneNumber)
+                                ? <Button variant="outlined">Wiadomość do klienta</Button>
+                                : null}
+                        </div>
+                    </div>
+                    <Divider/>
+
                 </TabPanel>
                 <TabPanel value={value} index={1} dir={theme.direction}>
-                    Data rozpoczęcia i data zakończenia naprawy:<br/>
-                    Diagnoza i opis:<br/>
-                    Części:<br/>
-                    Komentarz Serwisu:<br/>
+                    Data rozpoczęcia i data zakończenia naprawy (przycisk "edytuj")<br/>
+                    Diagnoza i opis (przycisk "edytuj")<br/>
+                    Części (przycisk "edytuj")<br/>
+                    Komentarze Serwisu (przycisk "edytuj" i "dodaj")<br/>
 
                 </TabPanel>
                 <TabPanel value={value} index={2} dir={theme.direction}>
-                    Dane klienta:<br/>
-                    Dane urządzenia:
+                    Dane klienta (przycisk "edytuj")<br/>
+                    Dane urządzenia (przycisk "edytuj")
 
                 </TabPanel>
                 <TabPanel value={value} index={3} dir={theme.direction}>
-                    Zużyte części:<br/>
-                    Czas poświęcony na naprawę:
+                    Zużyte części (+ przycisk "Dodaj częśći" i "edytuj"):<br/>
+                    Czas poświęcony na naprawę (przycisk "dodaj" i "edytuj"):
+                    Wyliczony koszt naprawy (+przycisk "Skoryguj koszta" i info jeżeli tak sie stało "Skorygowanko koszta naprawy do kwory xxx zł")
                 </TabPanel>
                 <TabPanel value={value} index={4} dir={theme.direction}>
                     - Dnia 1.1.1111r przyjęto urządzenie do serwisu<br/>
