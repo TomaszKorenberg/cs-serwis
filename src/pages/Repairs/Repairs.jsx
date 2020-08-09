@@ -66,7 +66,6 @@ export default function Repairs2() {
     }, [dispatch]);
 
 
-
     const handleOnRowClick = (repairId) => {
         history.push("/repairs/repair-" + repairId)
     };
@@ -75,13 +74,13 @@ export default function Repairs2() {
     const tableConfiguration = {
 
         columns: [
-            {field: 'repairId', title: 'ID:'},
-            {field: 'device.manufacturer', title: "Producent"},
-            {field: 'device.model', title: 'Model'},
-            {field: 'serialNumber', title: 'Numer seryjny'},
-            {field: 'faultDescription', title: 'Opis usterki'},
+            {field: 'repairId', title: 'ID:', filtering: false},
+            {field: 'device.manufacturer', title: "Producent", filtering: false},
+            {field: 'device.model', title: 'Model', filtering: false},
+            {field: 'serialNumber', title: 'Numer seryjny', filtering: false},
+            {field: 'faultDescription', title: 'Opis usterki', filtering: false},
             {
-                field: 'dateOfAdd', title: 'Data przyjęcia', render: dataRow => <>{
+                field: 'dateOfAdd', title: 'Data przyjęcia', filtering: false, render: dataRow => <>{
                     moment(dataRow.dateOfAdd)
                         .locale("pl")
                         .format("YYYY-MM-DD HH:mm")}</>
@@ -96,17 +95,31 @@ export default function Repairs2() {
                         case "expertise":
                             return (<>Ekspertyza</>);
                         case "repair start":
-                            return (<>>W trakcie naprawy</>);
-                        case ("waiting spare parts" || "waiting forwarded"):
+                            return (<>W trakcie naprawy</>);
+                        case "waiting forwarded":
+                        case "waiting spare parts":
                             return (<>Oczekuje</>);
                         case "repair end":
                             return (<>Naprawa zakończona</>);
                         case "end":
                             return (<>Odebrane</>);
+                        case "registered":
+                            return (<>Zarejestrowana przez klienta</>);
                         default:
                             return (<>{dataRow.status}</>);
                     }
-                }
+                },
+                lookup: {
+                    "new": 'Przyjęto do serwisu',
+                    "start": "Rozpoczęto",
+                    "expertise": "Ekspertyza",
+                    "repair start":"W trakcie naprawy",
+                    "waiting forwarded": "Przekazano",
+                    "waiting spare parts": "Oczekuje",
+                    "repair end": "Naprawa zakończona",
+                    "end": "Odebrane",
+                    "registered": "Zarejestrowana przez klienta"
+                },
             }
         ],
 
@@ -128,6 +141,9 @@ export default function Repairs2() {
         },
         options: {
             emptyRowsWhenPaging: false,
+            pageSize: 20,
+            pageSizeOptions: [5, 10, 20, 50, 100, 200],
+            filtering: true,
             cellStyle: {
                 padding: "0px",
                 fontSize: "15px",
