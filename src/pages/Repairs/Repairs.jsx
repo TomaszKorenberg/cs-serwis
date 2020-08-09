@@ -113,7 +113,7 @@ export default function Repairs2() {
                     "new": 'Przyjęto do serwisu',
                     "start": "Rozpoczęto",
                     "expertise": "Ekspertyza",
-                    "repair start":"W trakcie naprawy",
+                    "repair start": "W trakcie naprawy",
                     "waiting forwarded": "Przekazano",
                     "waiting spare parts": "Oczekuje",
                     "repair end": "Naprawa zakończona",
