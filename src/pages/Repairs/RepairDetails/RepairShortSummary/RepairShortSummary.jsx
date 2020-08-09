@@ -8,7 +8,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
     root: {
         width: '100%',
     }
@@ -18,10 +18,12 @@ const useStyles = makeStyles((theme) => ({
 export default function RepairShortSummary({repairDetails}) {
     const classes = useStyles();
 
-
     return (
         <div className={classes.root}>
-            <Accordion>
+            <Accordion >
+                {
+                    //todo: zrobic tak by "expanded" było zapamiętywane jaki był osatni stan.
+                }
                 <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
                     aria-controls="panel1a-content"
