@@ -1,6 +1,6 @@
 import React from 'react';
 import Button from "@material-ui/core/Button";
-import Divider from "@material-ui/core/Divider";
+import DefaultActionButtons from "../DefaultActionButtons/DefaultActionButtons";
 
 
 
@@ -13,9 +13,9 @@ const RepairEnd = ({repairDetails}) => {
             <div className={"repairActionsWrapper"}>
                 <div>
                     <Button variant="outlined">Odbior sprzętu przez klienta</Button><br/>
+                    <DefaultActionButtons repairDetails={repairDetails}/>
                 </div>
             </div>
-            <Divider/>
         </>
     );
 };
