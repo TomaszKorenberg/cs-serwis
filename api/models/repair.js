@@ -25,6 +25,26 @@ const Repairs = sequelize.define('repair', {
         allowNull: false,
         defaultValue: Sequelize.NOW
     },
+    dateOfStartRepair:{
+        type: Sequelize.DATE,
+        allowNull: true,
+        defaultValue: null
+    },
+    dateOfEndRepair:{
+        type: Sequelize.DATE,
+        allowNull: true,
+        defaultValue: null
+    },
+    dateOfPickup:{
+        type: Sequelize.DATE,
+        allowNull: true,
+        defaultValue: null
+    },
+    dateOfShipment:{
+        type: Sequelize.DATE,
+        allowNull: true,
+        defaultValue: null
+    },
     clientId:{
         type: Sequelize.INTEGER,
         allowNull: true,
