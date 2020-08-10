@@ -74,8 +74,8 @@ export default function Repairs2() {
     const tableConfiguration = {
 
         columns: [
-            {field: 'repairId', title: 'ID:', filtering: false},
-            {field: 'device.manufacturer', title: "Producent", filtering: false},
+            {field: 'repairId', title: 'ID:', filtering: false, width: 25,},
+            {field: 'device.manufacturer', title: "Producent", filtering: false, width: 100,},
             {field: 'device.model', title: 'Model', filtering: false},
             {field: 'serialNumber', title: 'Numer seryjny', filtering: false},
             {field: 'faultDescription', title: 'Opis usterki', filtering: false},
@@ -120,6 +120,7 @@ export default function Repairs2() {
                     "end": "Odebrane",
                     "registered": "Zarejestrowana przez klienta"
                 },
+                filterPlaceholder: "Filtruj",
             }
         ],
 
