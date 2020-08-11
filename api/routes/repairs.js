@@ -1,5 +1,5 @@
 const Repairs = require("./../models/repair");
-const {changeIdsToObjectWithData} = require("../utils/functions")
+const {changeIdsToObjectWithData} = require("../utils/functions");
 
 
 module.exports = (app) => {
@@ -12,7 +12,7 @@ module.exports = (app) => {
                 serialNumber: req.body.serialNumber,
                 faultDescription: req.body.faultDescription,
                 dateOfAdd: new Date(Date.parse(req.body.dateOfAdd)),
-                clientId: req.body.clientID,
+                clientId: req.body.clientId,
                 isWarranty: req.body.isWarranty,
                 comments: req.body.comments,
                 assignedEmployee: req.body.assignedEmployee,
@@ -43,6 +43,20 @@ module.exports = (app) => {
         Repairs.findOne({where: {repairId: req.params.repairId}})
             .then(response => changeIdsToObjectWithData([response]))
             .then(response => res.status(200).send(response))
+            .catch(err => {
+                throw new Error(err)
+            })
+    });
+
+    // CHANGE REPAIR STATUS
+
+    app.put("/repairs/repair-:repairId/change-status", (req, res) => {
+        Repairs.findOne({where: {repairId: req.params.repairId}})
+            .then(response => {
+                response.status = req.body.newStatus;
+                response.save()
+            })
+            .then(res.status(200).send("Repair status changed"))
             .catch(err => {
                 throw new Error(err)
             })
