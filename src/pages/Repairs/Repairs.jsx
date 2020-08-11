@@ -1,8 +1,7 @@
 import React, {useEffect} from 'react';
 import MaterialTable from 'material-table';
 import {forwardRef} from 'react';
-import {useSelector, useDispatch} from "react-redux";
-import {getAllRepairs} from "../../redux/operations";
+import {useSelector} from "react-redux";
 import {leftMenuActions} from "../../redux/actions/index"
 import moment from "moment";
 import {useHistory} from "react-router-dom";
@@ -53,17 +52,14 @@ const leftMenuItems = [
 ];
 
 
-export default function Repairs2() {
-    const dispatch = useDispatch();
+export default function Repairs() {
     const history = useHistory();
     const repairs = useSelector(state => state.repairs);
 
 
     useEffect(() => {
-        dispatch(getAllRepairs());
         leftMenuActions.setLeftMenu([...leftMenuItems]);
-
-    }, [dispatch]);
+    }, []);
 
 
     const handleOnRowClick = (repairId) => {
