@@ -10,8 +10,6 @@ import {makeStyles} from "@material-ui/core/styles";
 
 
 
-
-
 export default function RapairDetails() {
     const dispatch = useDispatch();
     const repairId = useParams().repairId;
