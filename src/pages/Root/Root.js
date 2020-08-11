@@ -1,6 +1,6 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {BrowserRouter, Route, Switch} from "react-router-dom";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import './Root.css';
 import Header from "../../components/Header/Header";
 import LeftMenu from "../../components/LeftMenu/LeftMenu";
@@ -13,9 +13,16 @@ import RepairDetails from "../Repairs/RepairDetails/RepairDetails"
 import Repairs from "../Repairs/Repairs";
 import {ThemeProvider} from '@material-ui/core/styles';
 import theme from "../../theme"
+import {getAllRepairs} from "../../redux/operations";
 
 
 function Root() {
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(getAllRepairs());
+    }, [dispatch]);
+
     const leftMenu = useSelector(state => state.leftMenu);
 
     return (
