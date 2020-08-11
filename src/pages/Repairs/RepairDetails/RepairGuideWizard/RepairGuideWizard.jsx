@@ -16,6 +16,7 @@ import End from "./guideWizardPages/End";
 import RepairEnd from "./guideWizardPages/RepairEnd";
 import WaitingForwarded from "./guideWizardPages/WaitingForwarded";
 import WaitingForSpareParts from "./guideWizardPages/WaitingForSpareParts";
+import {changeRepairStatus} from "../../../../redux/operations";
 
 
 function TabPanel(props) {
@@ -54,6 +55,8 @@ function a11yProps(index) {
 
 
 export default function RapairGuideWizard({repairDetails}) {
+
+
     const theme = useTheme();
     const useStyles = makeStyles(() => ({
         root: {
@@ -66,6 +69,14 @@ export default function RapairGuideWizard({repairDetails}) {
 
     const [value, setValue] = React.useState(0);
 
+    const changeRepairStatus = async (newStatus) => {
+        await fetch("http://localhost:3001/repairs/repair-" + repairDetails.repairId + "/change-status", {
+            method: "PUT",
+            headers: {'Content-Type': "application/json"},
+            body: JSON.stringify({newStatus})
+        });
+        await changeRepairStatus(repairDetails.repairId, "new")
+    };
 
 
     const handleChange = (event, newValue) => {
@@ -135,19 +146,6 @@ export default function RapairGuideWizard({repairDetails}) {
                             : null}
 
                     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
