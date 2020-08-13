@@ -48,15 +48,15 @@ module.exports = (app) => {
             })
     });
 
-    // CHANGE REPAIR STATUS
+    // CHANGE REPAIR DATA
 
-    app.put("/repairs/repair-:repairId/change-status", (req, res) => {
+    app.put("/repairs/repair-:repairId/update-data", (req, res) => {
         Repairs.findOne({where: {repairId: req.params.repairId}})
             .then(response => {
-                response.status = req.body.newStatus;
+                response[req.body.dataName] = req.body.newDataValue;
                 response.save()
             })
-            .then(res.status(200).send("Repair status changed"))
+            .then(res.status(200).send("Repair data updated!"))
             .catch(err => {
                 throw new Error(err)
             })
