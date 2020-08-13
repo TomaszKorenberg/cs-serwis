@@ -39,7 +39,7 @@ export const addRepair = (data) =>
         repairActions.addRepair(data)
     };
 
-export const changeRepairStatus = async (repairId, newStatus) => {
+export const updateRepairData = async (repairId, dataName, newDataValue) => {
     let allRepairs = store.getState().repairs;
     let repairDetails = store.getState().repairDetails
     let repairArrayIndexForUpdate = null;
@@ -49,10 +49,10 @@ export const changeRepairStatus = async (repairId, newStatus) => {
             break
         }
     }
-    allRepairs[repairArrayIndexForUpdate].status = newStatus;
+    allRepairs[repairArrayIndexForUpdate][dataName] = newDataValue;
     repairActions.setRepairs(allRepairs);
 
-    repairDetails[0].status = newStatus;
+    repairDetails[0][dataName] = newDataValue;
     repairActions.setRepairDetails(repairDetails)
 
 };

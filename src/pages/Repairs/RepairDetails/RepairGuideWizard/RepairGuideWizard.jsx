@@ -16,7 +16,7 @@ import End from "./guideWizardPages/End";
 import RepairEnd from "./guideWizardPages/RepairEnd";
 import WaitingForwarded from "./guideWizardPages/WaitingForwarded";
 import WaitingForSpareParts from "./guideWizardPages/WaitingForSpareParts";
-import {changeRepairStatus} from "../../../../redux/operations";
+import {updateRepairData} from "../../../../redux/operations";
 
 
 function TabPanel(props) {
@@ -53,7 +53,6 @@ function a11yProps(index) {
 }
 
 
-
 export default function RapairGuideWizard({repairDetails}) {
 
 
@@ -69,13 +68,13 @@ export default function RapairGuideWizard({repairDetails}) {
 
     const [value, setValue] = React.useState(0);
 
-    const changeRepairStatus = async (newStatus) => {
-        await fetch("http://localhost:3001/repairs/repair-" + repairDetails.repairId + "/change-status", {
+    const handleUpdateRepairData = async (dataName, newDataValue) => {
+        await fetch("http://localhost:3001/repairs/repair-" + repairDetails.repairId + "/update-data", {
             method: "PUT",
             headers: {'Content-Type': "application/json"},
-            body: JSON.stringify({newStatus})
+            body: JSON.stringify({dataName, newDataValue})
         });
-        await changeRepairStatus(repairDetails.repairId, "new")
+        await updateRepairData(repairDetails.repairId, dataName, newDataValue)
     };
 
 
@@ -117,37 +116,44 @@ export default function RapairGuideWizard({repairDetails}) {
 
                     <div className={"repairActionsWrapper"}>
 
+                        {(repairDetails.status === "registered")
+                            ? <Registered repairDetails={repairDetails}
+                                          handleUpdateRepairData={handleUpdateRepairData}/>
+                            : null}
                         {(repairDetails.status === "new")
-                            ? <New repairDetails={repairDetails}/>
+                            ? <New repairDetails={repairDetails}
+                                   handleUpdateRepairData={handleUpdateRepairData}/>
                             : null}
                         {(repairDetails.status === "start")
-                            ? <Start repairDetails={repairDetails}/>
+                            ? <Start repairDetails={repairDetails}
+                                     handleUpdateRepairData={handleUpdateRepairData}/>
                             : null}
                         {(repairDetails.status === "expertise")
-                            ? <Expertise repairDetails={repairDetails}/>
+                            ? <Expertise repairDetails={repairDetails}
+                                         handleUpdateRepairData={handleUpdateRepairData}/>
                             : null}
                         {(repairDetails.status === "repair start")
-                            ? <RepairStart repairDetails={repairDetails}/>
+                            ? <RepairStart repairDetails={repairDetails}
+                                           handleUpdateRepairData={handleUpdateRepairData}/>
                             : null}
                         {(repairDetails.status === "waiting spare parts")
-                            ? <WaitingForSpareParts repairDetails={repairDetails}/>
+                            ? <WaitingForSpareParts repairDetails={repairDetails}
+                                                    handleUpdateRepairData={handleUpdateRepairData}/>
                             : null}
                         {(repairDetails.status === "waiting forwarded")
-                            ? <WaitingForwarded repairDetails={repairDetails}/>
+                            ? <WaitingForwarded repairDetails={repairDetails}
+                                                handleUpdateRepairData={handleUpdateRepairData}/>
                             : null}
                         {(repairDetails.status === "repair end")
-                            ? <RepairEnd repairDetails={repairDetails}/>
+                            ? <RepairEnd repairDetails={repairDetails}
+                                         handleUpdateRepairData={handleUpdateRepairData}/>
                             : null}
                         {(repairDetails.status === "end")
-                            ? <End repairDetails={repairDetails}/>
-                            : null}
-                        {(repairDetails.status === "registered")
-                            ? <Registered repairDetails={repairDetails}/>
+                            ? <End repairDetails={repairDetails}
+                                   handleUpdateRepairData={handleUpdateRepairData}/>
                             : null}
 
                     </div>
-
-
 
 
                 </TabPanel>
@@ -166,7 +172,8 @@ export default function RapairGuideWizard({repairDetails}) {
                 <TabPanel value={value} index={3} dir={theme.direction}>
                     Zużyte części (+ przycisk "Dodaj częśći" i "edytuj"):<br/>
                     Czas poświęcony na naprawę (przycisk "dodaj" i "edytuj"):
-                    Wyliczony koszt naprawy (+przycisk "Skoryguj koszta" i info jeżeli tak sie stało "Skorygowanko koszta naprawy do kwory xxx zł")
+                    Wyliczony koszt naprawy (+przycisk "Skoryguj koszta" i info jeżeli tak sie stało "Skorygowanko
+                    koszta naprawy do kwory xxx zł")
                 </TabPanel>
                 <TabPanel value={value} index={4} dir={theme.direction}>
                     - Dnia 1.1.1111r przyjęto urządzenie do serwisu<br/>

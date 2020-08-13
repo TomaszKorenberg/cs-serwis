@@ -66,9 +66,7 @@ export default function AddNewDeviceModal({openModal, isModalOpen, setValue, han
     };
 
     const handleSave = async () => {
-        console.log(isAnyRequiredInputIsEmpty)
         validateAllEmptyInputs();
-        console.log(isAnyRequiredInputIsEmpty)
 
         if(isAnyRequiredInputIsEmpty){
             return
