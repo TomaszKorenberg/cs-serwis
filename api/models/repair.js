@@ -20,27 +20,37 @@ const Repairs = sequelize.define('repair', {
         type: Sequelize.TEXT,
         allowNull: true
     },
-    dateOfAdd: {
+    dateOfAdd: {                //Date when device was registered to repair
         type: Sequelize.DATE,
         allowNull: false,
         defaultValue: Sequelize.NOW
     },
-    dateOfStartRepair:{
+    dateOfConfirm:{             //Date when service confirm delivery device registered at RMA system
         type: Sequelize.DATE,
         allowNull: true,
         defaultValue: null
     },
-    dateOfEndRepair:{
+    dateOfStartProcessing:{             //Date when service started with order processing
         type: Sequelize.DATE,
         allowNull: true,
         defaultValue: null
     },
-    dateOfPickup:{
+    dateOfStartRepair:{         //Date when service started repair
         type: Sequelize.DATE,
         allowNull: true,
         defaultValue: null
     },
-    dateOfShipment:{
+    dateOfEndRepair:{           //Date when service ended repair
+        type: Sequelize.DATE,
+        allowNull: true,
+        defaultValue: null
+    },
+    dateOfPickup:{              //Date when client picked up device
+        type: Sequelize.DATE,
+        allowNull: true,
+        defaultValue: null
+    },
+    dateOfShipment:{            //Date when service did return shipment
         type: Sequelize.DATE,
         allowNull: true,
         defaultValue: null
@@ -67,7 +77,16 @@ const Repairs = sequelize.define('repair', {
         type: Sequelize.TEXT,
         allowNull: false,
         defaultValue: "new"
-    }
+    },
+    expertise: {
+        type: Sequelize.TEXT,
+        allowNull: true,
+    },
+    expectedCost: {
+        type: Sequelize.TEXT,
+        allowNull: true,
+    },
+
 });
 
 
