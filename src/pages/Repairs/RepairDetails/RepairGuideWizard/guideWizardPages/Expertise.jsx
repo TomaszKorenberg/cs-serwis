@@ -7,6 +7,11 @@ import FormControl from "@material-ui/core/FormControl";
 import TextField from "@material-ui/core/TextField/TextField";
 import {Modal} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
+import moment from "moment";
+import InputAdornment from "@material-ui/core/InputAdornment";
+
+const dateNow = moment().locale("pl").format("YYYY-MM-DD[T]HH:mm");
+
 
 const useStyles = makeStyles((theme) => ({
     modal: {
@@ -24,12 +29,31 @@ const useStyles = makeStyles((theme) => ({
 
 const Expertise = ({repairDetails, handleUpdateRepairData}) => {
     const [openModal, setOpenModal] = useState(false);
-    const [expertiseValue, setExpertiseValue] = useState("");
+    const [dateOfStartRepairValue, setDateOfStartRepairValue] = useState(dateNow);
+    const [dateOfEndRepairValue, setDateOfEndRepairValue] = useState(dateNow);
+    const [externalServiceDataValue, setExternalServiceDataValue] = useState();
+    const [repairCostValue, setRepairCostValue] = useState();
+    const [modalRenderData, setModalRenderData] = useState(null);
 
     const classes = useStyles();
 
     const handleOnChange = (e) => {
-        setExpertiseValue(e.target.value)
+        switch (e.target.name) {
+            case "dateOfStartRepair":
+                setDateOfStartRepairValue(e.target.value);
+                break;
+            case "dateOfEndRepair":
+                setDateOfEndRepairValue(e.target.value);
+                break;
+            case "externalServiceData":
+                setExternalServiceDataValue(e.target.value);
+                break;
+            case "repairCost":
+                setRepairCostValue(e.target.value);
+                break;
+            default:
+                break;
+        }
     };
 
     const handleClose = () => {
@@ -37,8 +61,25 @@ const Expertise = ({repairDetails, handleUpdateRepairData}) => {
     };
 
     const handleSave = async () => {
-        await handleUpdateRepairData("expertise", expertiseValue);
-        await handleUpdateRepairData("status", "expertise");
+        switch (modalRenderData) {
+            case "cost accepted":
+                await handleUpdateRepairData("dateOfStartRepair", dateOfStartRepairValue);
+                await handleUpdateRepairData("status", "repair start");
+                break;
+            case "cost rejected":
+                await handleUpdateRepairData("dateOfEndRepair", dateOfEndRepairValue);
+                await handleUpdateRepairData("repairCost", repairCostValue);
+                await handleUpdateRepairData("status", "repair end");
+                break;
+            case "device forwarded":
+                await handleUpdateRepairData("externalServiceData", externalServiceDataValue);
+                await handleUpdateRepairData("status", "waiting forwarded");
+                break;
+
+
+            default:
+                break;
+        }
         setOpenModal(false);
     };
 
@@ -54,12 +95,132 @@ const Expertise = ({repairDetails, handleUpdateRepairData}) => {
                 <div>
                     <Button variant="outlined"
                             id={"confirmDeviceDelivery"}
-                            onClick={handleOpenModal}>Rozpocznij naprawę</Button><br/><br/>
+                            onClick={() => {
+                                setModalRenderData("cost accepted");
+                                handleOpenModal(true)
+                            }}>Akceptacja kosztów</Button>
+                    <Button variant="outlined"
+                            id={"confirmDeviceDelivery"}
+                            onClick={() => {
+                                setModalRenderData("cost rejected");
+                                handleOpenModal(true)
+                            }}>Rezygnacja z naprawy</Button>
+                    <Button variant="outlined"
+                            id={"confirmDeviceDelivery"}
+                            onClick={() => {
+                                setModalRenderData("device forwarded");
+                                handleOpenModal(true)
+                            }}>Przekazanie do serwisu
+                        zewnętrznego</Button><br/><br/>
                     <DefaultActionButtons repairDetails={repairDetails}/>
                 </div>
             </div>
 
+            <Modal
+                aria-labelledby="transition-modal-title"
+                aria-describedby="transition-modal-description"
+                className={classes.modal}
+                open={openModal}
+                onClose={handleClose}
+                closeAfterTransition
+                BackdropComponent={Backdrop}
+                BackdropProps={{
+                    timeout: 500,
+                }}
+            >
+                <Fade in={openModal}>
+                    <div className={classes.paper}>
+                        {(modalRenderData === "cost accepted") ?
 
+                            (<>
+                                <h2 id="transition-modal-title">Rozpocznij naprawę</h2>
+                                <FormControl
+
+                                    fullWidth={true}>
+                                    <TextField
+                                        type="datetime-local"
+                                        name={"dateOfStartRepair"}
+                                        onChange={handleOnChange}
+                                        size={"small"}
+                                        id="dateOfStartRepair"
+                                        label="Data rozpoczęcia naprawy"
+                                        variant="outlined"
+                                        defaultValue={dateOfStartRepairValue}
+                                    />
+
+                                </FormControl>
+                            </>) : null}
+
+                        {(modalRenderData === "cost rejected") ?
+
+                            (<>
+                                <h2 id="transition-modal-title">Rezygnacja z naprawy</h2>
+                                <FormControl
+
+                                    fullWidth={true}>
+                                    <TextField
+                                        type="datetime-local"
+                                        name={"dateOfEndRepair"}
+                                        onChange={handleOnChange}
+                                        size={"small"}
+                                        id="dateOfEndRepair"
+                                        label="Data zakończenia naprawy"
+                                        variant="outlined"
+                                        defaultValue={dateOfStartRepairValue}
+                                    />
+                                    <TextField
+                                        name={"repairCost"}
+                                        onChange={handleOnChange}
+                                        size={"small"}
+                                        id="repairCost"
+                                        label="Koszt naprawy"
+                                        variant="outlined"
+                                        InputProps={{
+                                            endAdornment: <InputAdornment position="end">zł</InputAdornment>,
+                                        }}
+                                    />
+
+                                </FormControl>
+                            </>) : null}
+
+                        {(modalRenderData === "device forwarded") ?
+
+                            (<>
+                                <h2 id="transition-modal-title">Przekaż do serwisu zewnętrznego</h2>
+                                <FormControl
+
+                                    fullWidth={true}>
+                                    <TextField
+                                        name={"externalServiceData"}
+                                        onChange={handleOnChange}
+                                        size={"small"}
+                                        multiline
+                                        rows={8}
+                                        id="externalServiceData"
+                                        label="Podaj dane serwisu "
+                                        variant="outlined"
+                                    />
+
+                                </FormControl>
+                            </>) : null}
+
+                        <Button
+                            fullWidth={false}
+                            disableElevation={true}
+                            onClick={() => handleSave()}
+                            variant="outlined"
+                            size={"medium"}
+                        >Dodaj</Button>
+                        <Button
+                            fullWidth={false}
+                            disableElevation={true}
+                            onClick={handleClose}
+                            variant="outlined"
+                            size={"medium"}
+                        >Zamknij</Button>
+                    </div>
+                </Fade>
+            </Modal>
         </>
     );
 };
