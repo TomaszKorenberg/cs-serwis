@@ -86,6 +86,15 @@ const Repairs = sequelize.define('repair', {
         type: Sequelize.TEXT,
         allowNull: true,
     },
+    repairCost: {
+        type: Sequelize.TEXT,
+        allowNull: true,
+    },
+    externalServiceData: {
+        type: Sequelize.TEXT,
+        allowNull: true,
+    },
+
 
 });
 
