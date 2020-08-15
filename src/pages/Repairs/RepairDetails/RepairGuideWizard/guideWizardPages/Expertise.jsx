@@ -75,8 +75,6 @@ const Expertise = ({repairDetails, handleUpdateRepairData}) => {
                 await handleUpdateRepairData("externalServiceData", externalServiceDataValue);
                 await handleUpdateRepairData("status", "waiting forwarded");
                 break;
-
-
             default:
                 break;
         }
