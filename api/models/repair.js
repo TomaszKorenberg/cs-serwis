@@ -94,7 +94,18 @@ const Repairs = sequelize.define('repair', {
         type: Sequelize.TEXT,
         allowNull: true,
     },
-
+    partsOrdered: {
+        type: Sequelize.TEXT,
+        allowNull: true,
+    },
+    partsUsed: {
+        type: Sequelize.TEXT,
+        allowNull: true,
+    },
+    repairSummaryDescription: {
+        type: Sequelize.TEXT,
+        allowNull: true,
+    },
 
 });
 
