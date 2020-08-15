@@ -33,7 +33,7 @@ const Registered = ({repairDetails, handleUpdateRepairData}) => {
     const classes = useStyles();
 
     const handleOnChange = (e) => {
-        setDateOfConfirmValue(e.target.value)
+        setDateOfConfirmValue(moment(e.target.value).locale("pl").format("YYYY-MM-DD[T]HH:mm"))
     };
 
     const handleClose = () => {

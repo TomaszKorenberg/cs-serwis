@@ -40,10 +40,10 @@ const Expertise = ({repairDetails, handleUpdateRepairData}) => {
     const handleOnChange = (e) => {
         switch (e.target.name) {
             case "dateOfStartRepair":
-                setDateOfStartRepairValue(e.target.value);
+                setDateOfStartRepairValue(moment(e.target.value).locale("pl").format("YYYY-MM-DD[T]HH:mm"));
                 break;
             case "dateOfEndRepair":
-                setDateOfEndRepairValue(e.target.value);
+                setDateOfEndRepairValue(moment(e.target.value).locale("pl").format("YYYY-MM-DD[T]HH:mm"));
                 break;
             case "externalServiceData":
                 setExternalServiceDataValue(e.target.value);

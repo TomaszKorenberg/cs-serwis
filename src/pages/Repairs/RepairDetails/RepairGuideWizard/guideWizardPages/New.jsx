@@ -32,7 +32,7 @@ const New = ({repairDetails, handleUpdateRepairData}) => {
     const classes = useStyles();
 
     const handleOnChange = (e) => {
-        setDateOfStartProcessingValue(e.target.value)
+        setDateOfStartProcessingValue(moment(e.target.value).locale("pl").format("YYYY-MM-DD[T]HH:mm"))
     };
 
     const handleClose = () => {

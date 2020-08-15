@@ -52,7 +52,7 @@ const RepairStart = ({repairDetails, handleUpdateRepairData}) => {
                 break;
             case "repairSucces":
             case "repairFailure":
-                setDateOfEndRepairValue(e.target.value);
+                setDateOfEndRepairValue(moment(e.target.value).locale("pl").format("YYYY-MM-DD[T]HH:mm"));
                 break;
             case "externalServiceData":
                 setExternalServiceDataValue(e.target.value);
