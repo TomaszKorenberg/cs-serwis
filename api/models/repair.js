@@ -106,6 +106,14 @@ const Repairs = sequelize.define('repair', {
         type: Sequelize.TEXT,
         allowNull: true,
     },
+    repairTechnicianComments: {
+        type: Sequelize.TEXT,
+        allowNull: true,
+    },
+    messagesSendToClient: {
+        type: Sequelize.TEXT,
+        allowNull: true,
+    },
 
 });
 
