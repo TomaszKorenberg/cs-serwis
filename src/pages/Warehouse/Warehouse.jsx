@@ -13,7 +13,12 @@ const Warehouse = () => {
     }, []);
     return (
         <>
-            Hello from messages!
+            Hello from messages!<br/>
+            {process.env.NODE_ENV}<br/>
+            {process.env.API_URL}<br/>
+            {process.env.WDS_SOCKET_PORT}<br/>
+            {process.env.DB_USER}<br/>
+            {process.env.DB_HOST}<br/>
         </>
     );
 };
