@@ -1,0 +1,7 @@
+# DEFAULT
+NODE_ENV=development
+
+# DATABASE
+DB_NAME=
+DB_USER=
+DB_PASSWORD=

@@ -1,19 +1,22 @@
+const path = require('path');
+require("./dotenv")();
 const express = require("express");
 const cors = require("cors");
 const app = express();
 const sequelize = require('./utils/database');
 const config = require('./config');
-const path = require('path');
 
+console.log(process.env)
 
 app.use(cors());
 app.use(express.json());
-app.use(express.static(path.join(__dirname, '../build')));
 
-app.get('/*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../build', 'index.html'));
-});
-
+if (process.env.NODE_ENV === "production") {
+    app.use(express.static(path.join(__dirname, '../build')));
+    app.get('/*', (req, res) => {
+        res.sendFile(path.join(__dirname, '../build', 'index.html'));
+    });
+}
 require('./routes/clients')(app);
 require('./routes/repairs')(app);
 require('./routes/devices')(app);
@@ -28,7 +31,7 @@ sequelize
         throw new Error(err)
     });
 
-const PORT = process.env.PORT || config.server.port;
+const PORT = config.server.port;
 
 const runSerer = port => {
     app.listen(port);
