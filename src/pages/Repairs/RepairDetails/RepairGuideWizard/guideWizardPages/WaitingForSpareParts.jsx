@@ -50,7 +50,8 @@ const WaitingForSpareParts = ({repairDetails, handleUpdateRepairData}) => {
                     <Button variant="outlined"
                             id={"confirmPartsDelivery"}
                             onClick={handleOpenModal}>Dostawa części</Button><br/>
-                    <DefaultActionButtons repairDetails={repairDetails}/>
+                    <DefaultActionButtons repairDetails={repairDetails}
+                                          handleUpdateRepairData={handleUpdateRepairData}/>
                 </div>
             </div>
 

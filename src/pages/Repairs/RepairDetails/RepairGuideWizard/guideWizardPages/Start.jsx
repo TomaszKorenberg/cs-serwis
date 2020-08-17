@@ -65,7 +65,8 @@ const Start = ({repairDetails, handleUpdateRepairData}) => {
                     <Button variant="outlined"
                             id={"confirmDeviceDelivery"}
                             onClick={handleOpenModal}>Dodaj ekspertyzę</Button><br/><br/>
-                    <DefaultActionButtons repairDetails={repairDetails}/>
+                    <DefaultActionButtons repairDetails={repairDetails}
+                                          handleUpdateRepairData={handleUpdateRepairData}/>
                 </div>
             </div>
 

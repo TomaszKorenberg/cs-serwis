@@ -60,7 +60,8 @@ const New = ({repairDetails, handleUpdateRepairData}) => {
                         id={"confirmDeviceDelivery"}
                         onClick={handleOpenModal}>Rozpocznij obsługę zlecenia</Button><br/><br/>
 
-                <DefaultActionButtons repairDetails={repairDetails}/>
+                <DefaultActionButtons repairDetails={repairDetails}
+                                      handleUpdateRepairData={handleUpdateRepairData}/>
                 </div>
             </div>
 

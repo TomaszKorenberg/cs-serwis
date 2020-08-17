@@ -51,7 +51,8 @@ const WaitingForwarded = ({repairDetails, handleUpdateRepairData}) => {
                     <Button variant="outlined"
                             id={"confirmPartsDelivery"}
                             onClick={handleOpenModal}>Powrot sprzętu z serwisu</Button><br/><br/>
-                    <DefaultActionButtons repairDetails={repairDetails}/>
+                    <DefaultActionButtons repairDetails={repairDetails}
+                                          handleUpdateRepairData={handleUpdateRepairData}/>
                 </div>
             </div>
 

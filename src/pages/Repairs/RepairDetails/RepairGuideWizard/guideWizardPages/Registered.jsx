@@ -63,7 +63,8 @@ const Registered = ({repairDetails, handleUpdateRepairData}) => {
                     onClick={handleOpenModal}>Potwierdź otrzymanie urządzenia</Button><br/><br/>
 
 
-                    <DefaultActionButtons repairDetails={repairDetails}/>
+                    <DefaultActionButtons repairDetails={repairDetails}
+                                          handleUpdateRepairData={handleUpdateRepairData}/>
                 </div>
             </div>
             <Modal

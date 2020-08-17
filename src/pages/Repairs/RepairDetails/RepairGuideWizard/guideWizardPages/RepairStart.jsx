@@ -137,7 +137,8 @@ const RepairStart = ({repairDetails, handleUpdateRepairData}) => {
                             }}>Przekazanie do serwisu
                         zewnętrznego</Button><br/><br/>
 
-                    <DefaultActionButtons repairDetails={repairDetails}/>
+                    <DefaultActionButtons repairDetails={repairDetails}
+                                          handleUpdateRepairData={handleUpdateRepairData}/>
                 </div>
             </div>
 

@@ -58,7 +58,8 @@ const RepairEnd = ({repairDetails, handleUpdateRepairData}) => {
                     <Button variant="outlined"
                             id={"confirmDevicePickup"}
                             onClick={handleOpenModal}>Odbior sprzętu przez klienta</Button><br/>
-                    <DefaultActionButtons repairDetails={repairDetails}/>
+                    <DefaultActionButtons repairDetails={repairDetails}
+                                          handleUpdateRepairData={handleUpdateRepairData}/>
                 </div>
             </div>
 
