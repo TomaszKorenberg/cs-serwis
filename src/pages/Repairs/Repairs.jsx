@@ -43,6 +43,8 @@ const tableIcons = {
     ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref}/>)
 };
 
+console.log(process.env)
+
 const leftMenuItems = [
     {path: "/repairs", text: "Aktualne naprawy"},
     {path: "/repairs/newrepair", text: "Dodaj naprawę"},

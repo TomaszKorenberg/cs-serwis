@@ -19,6 +19,7 @@ const Warehouse = () => {
             {process.env.WDS_SOCKET_PORT}<br/>
             {process.env.DB_USER}<br/>
             {process.env.DB_HOST}<br/>
+            {console.log(process.env)}
         </>
     );
 };
