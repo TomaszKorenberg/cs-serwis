@@ -69,7 +69,7 @@ export default function RapairGuideWizard({repairDetails}) {
     const [value, setValue] = React.useState(0);
 
     const handleUpdateRepairData = async (dataName, newDataValue) => {
-        await fetch("http://localhost:3001/repairs/repair-" + repairDetails.repairId + "/update-data", {
+        await fetch("process.env.REACT_APP_API_BASE_URL + process.env.REACT_APP_API_PORT + \"/repairs/repair-" + repairDetails.repairId + "/update-data", {
             method: "PUT",
             headers: {'Content-Type': "application/json"},
             body: JSON.stringify({dataName, newDataValue})

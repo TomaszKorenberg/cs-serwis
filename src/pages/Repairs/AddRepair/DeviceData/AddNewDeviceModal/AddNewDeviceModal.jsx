@@ -23,7 +23,7 @@ const initialNewDeviceInputValues = {
 
 
 const addNewDevice = async (data) => {
-    return await fetch("http://localhost:3001/devices/adddevice", {
+    return await fetch(process.env.REACT_APP_API_BASE_URL + process.env.REACT_APP_API_PORT + "/devices/adddevice", {
         method: "POST",
         headers: {'Content-Type': "application/json"},
         body: JSON.stringify(data),

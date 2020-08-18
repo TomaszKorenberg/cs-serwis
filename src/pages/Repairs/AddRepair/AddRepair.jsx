@@ -34,13 +34,14 @@ const initialInputsErrorValue = {
 };
 
 const addNewClient = async (data) => {
-    await fetch("http://localhost:3001/clients/addclient", {
+    await fetch(process.env.REACT_APP_API_BASE_URL + process.env.REACT_APP_API_PORT + "/clients/addclient", {
         method: "POST",
         headers: {'Content-Type': "application/json"},
         body: JSON.stringify(data),
     });
 };
 
+console.log(process.env.REACT_APP_API_BASE_URL + process.env.REACT_APP_API_PORT + "/clients/addclient")
 
 const reducer = (state, {field, value}) => {
     console.log(field + ": " + value);

@@ -2,7 +2,7 @@ import {repairActions} from "./actions/index";
 import {store} from "./store/store";
 
 const fetchAddRepair = async (data) => {
-        await fetch("http://localhost:3001/repairs/addrepair", {
+        await fetch(process.env.REACT_APP_API_BASE_URL + process.env.REACT_APP_API_PORT + "/repairs/addrepair", {
             method: "POST",
             headers: {'Content-Type': "application/json"},
             body: JSON.stringify(data),
@@ -11,12 +11,12 @@ const fetchAddRepair = async (data) => {
 ;
 
 const fetchGetAllRepairs = async () => {
-    const response = await fetch("http://localhost:3001/repairs/", {method: "GET"});
+    const response = await fetch(process.env.REACT_APP_API_BASE_URL + process.env.REACT_APP_API_PORT + "/repairs/", {method: "GET"});
     return await response.json();
 };
 
 const fetchGetRepairById = async (id) => {
-    const response = await fetch("http://localhost:3001/repairs/repair-" + id, {method: "GET"});
+    const response = await fetch(process.env.REACT_APP_API_BASE_URL + process.env.REACT_APP_API_PORT + "/repairs/repair-" + id, {method: "GET"});
     return await response.json();
 };
 
