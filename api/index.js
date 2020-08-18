@@ -6,6 +6,8 @@ const app = express();
 const sequelize = require('./utils/database');
 const config = require('./config');
 
+console.log(process.env);
+
 app.use(cors());
 app.use(express.json());
 
