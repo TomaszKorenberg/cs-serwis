@@ -53,7 +53,6 @@ const leftMenuItems = [
     {path: "/repairs/faults", text: "Baza usterek"},
 ];
 
-
 export default function Repairs() {
     const history = useHistory();
     const repairs = useSelector(state => state.repairs);

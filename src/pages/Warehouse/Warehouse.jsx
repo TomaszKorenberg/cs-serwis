@@ -18,7 +18,7 @@ const Warehouse = () => {
             {process.env.API_URL}<br/>
             {process.env.WDS_SOCKET_PORT}<br/>
             {process.env.DB_USER}<br/>
-            {process.env.DB_HOST}<br/>
+            {process.env.REACT_APP_API_URL}<br/>
             {console.log(process.env)}
         </>
     );
