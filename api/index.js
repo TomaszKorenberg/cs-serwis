@@ -8,8 +8,13 @@ const config = require('./config');
 
 console.log(process.env);
 
-app.use(cors());
+
 app.use(express.json());
+
+if (process.env.NODE_ENV === "development"){
+    app.use(cors());
+}
+
 
 if (process.env.NODE_ENV === "production") {
     app.use(express.static(path.join(__dirname, '../build')));
