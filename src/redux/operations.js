@@ -12,6 +12,7 @@ const fetchAddRepair = async (data) => {
 
 const fetchGetAllRepairs = async () => {
     const response = await fetch(process.env.REACT_APP_API_BASE_URL + process.env.REACT_APP_API_PORT + "/repairs/", {method: "GET"});
+    console.log(process.env.REACT_APP_API_BASE_URL + process.env.REACT_APP_API_PORT + "/repairs/")
     return await response.json();
 };
 
