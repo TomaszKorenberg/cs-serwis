@@ -6,7 +6,7 @@
     "react-scripts": "^3.4.3"
   },
   "scripts": {
-    "start": "nodemon server",
+    "start": "nodemon ../server",
     "start2": "react-scripts start",
     "build": "react-scripts build && (cd server && npm install)",
     "test": "react-scripts test",
