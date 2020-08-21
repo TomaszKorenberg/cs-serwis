@@ -9,7 +9,6 @@
     "start": "nodemon server",
     "start2": "react-scripts start",
     "heroku-postbuild": "yarn && yarn run build",
-    "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
