@@ -19,7 +19,7 @@
     "redux-thunk": "^2.3.0"
   },
   "scripts": {
-    "start": "nodemon server",
+    "start": "node server",
     "start2": "react-scripts start",
     "build": "react-scripts build && (cd server && npm install)",
     "test": "react-scripts test",
