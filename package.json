@@ -16,10 +16,11 @@
     "react-router-dom": "^5.2.0",
     "react-swipeable-views": "^0.13.9",
     "redux-devtools-extension": "^2.13.8",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "nodemon": "^2.0.4"
   },
   "scripts": {
-    "start": "node server",
+    "start": "nodemon server",
     "start2": "react-scripts start",
     "build": "react-scripts build && (cd server && npm install)",
     "test": "react-scripts test",
