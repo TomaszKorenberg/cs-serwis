@@ -31,9 +31,7 @@ module.exports = (app) => {
     app.get("/repairs", (req, res) => {
         Repairs.findAll()
             .then(response => changeIdsToObjectWithData(response))
-            .then(response => {
-                res.status(200).send(response)
-                console.log(response)})
+            .then(response => res.status(200).send(response))
             .catch(err => {
                 throw new Error(err)
             })

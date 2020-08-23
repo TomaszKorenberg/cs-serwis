@@ -31,6 +31,7 @@ module.exports = (app) => {
                 }}
         })
             .then(devices => {
+                console.log(devices)
                 res.json({devices})
 
 
