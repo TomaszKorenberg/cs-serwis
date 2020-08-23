@@ -14,6 +14,12 @@ if (process.env.NODE_ENV === "development"){
 }
 
 
+
+require('./routes/clients')(app);
+require('./routes/repairs')(app);
+require('./routes/devices')(app);
+require('./routes/auth')(app);
+
 if (process.env.NODE_ENV === "production") {
     app.use(express.static(path.join(__dirname, '../build')));
     app.get('/*', (req, res) => {
@@ -21,10 +27,6 @@ if (process.env.NODE_ENV === "production") {
         res.sendFile(path.join(__dirname, '../build', 'index.html'));
     });
 }
-require('./routes/clients')(app);
-require('./routes/repairs')(app);
-require('./routes/devices')(app);
-require('./routes/auth')(app);
 
 sequelize
     .sync()
