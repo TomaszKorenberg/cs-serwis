@@ -30,11 +30,9 @@ module.exports = (app) => {
                     model: {[Op.iLike]: `%${text}%`}
                 }}
         })
-            .then(devices => {
-                console.log(devices)
-                res.json({devices})
-
-
+            .then(devices => res.json({devices}))
+            .catch(err => {
+                throw new Error(err)
             })
     })
 };
