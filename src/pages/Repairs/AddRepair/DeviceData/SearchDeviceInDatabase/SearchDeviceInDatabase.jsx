@@ -61,7 +61,7 @@ const SearchDeviceInDatabase = ({searchUrl, handleValidateInputOnBlur, handleExi
                         filtered.push({
                             onSelect: () => (setOpenNewDeviceModal(true)),
                             inputValue: params.inputValue,
-                            title: `Add "${params.inputValue}"`
+                            title: `Dodaj "${params.inputValue}" do bazy`
                         });
                     }
 

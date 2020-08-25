@@ -1,5 +1,5 @@
 import React from "react";
-import "../AddRepair/AddRepair.scss"
+import "../AddRepair.scss"
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel/InputLabel";
 import Select from "@material-ui/core/Select/Select";
