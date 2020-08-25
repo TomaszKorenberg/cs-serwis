@@ -1,13 +1,13 @@
 import React, {useReducer, useState} from 'react';
-import {addRepair} from "../../../redux/operations";
+import {addRepair, getAllRepairs} from "../../../redux/operations";
 import {useDispatch} from "react-redux";
 import Button from '@material-ui/core/Button';
-import ClientData from "../ClientData/ClientData";
+import ClientData from "./ClientData/ClientData";
 import {Redirect} from "react-router";
 import DeviceData from "./DeviceData/DeviceData";
 import RepairData from "./RapairData/RepairData";
 import "./AddRepair.scss"
-import EmployeeData from "../EmployeeData/EmployeeData";
+import EmployeeData from "./EmployeeData/EmployeeData";
 import moment from "moment";
 
 const dateNow = moment().format("YYYY-MM-DD[T]HH:mm");
@@ -41,7 +41,6 @@ const addNewClient = async (data) => {
     });
 };
 
-console.log(process.env.REACT_APP_API_BASE_URL + process.env.REACT_APP_API_PORT + "/clients/addclient")
 
 const reducer = (state, {field, value}) => {
     console.log(field + ": " + value);
@@ -59,7 +58,7 @@ export default function AddRepair() {
     const [assignedEmployee, setAssignedEmployee] = useState('');
     const [newClientData, setNewClientData] = useState({});
     const [inputsErrorValues, setInputsErrorValues] = useState(initialInputsErrorValue);
-    const [isAnyRequiredInputIsEmpty, setIsAnyRequiredInputIsEmpty] = useState(true);
+    const [isAnyRequiredInputIsEmpty, setIsAnyRequiredInputIsEmpty] = useState(false);
 
 
 
@@ -114,11 +113,10 @@ export default function AddRepair() {
         }
     };
 
-    const validateAllEmptyInputs = () => {
+    const validateAllEmptyInputs = async () => {
         let emptyInput = false;
-        setIsAnyRequiredInputIsEmpty(false);
+        await setIsAnyRequiredInputIsEmpty(false);
         const errorData = {...inputsErrorValues};
-
         for (let item in errorData) {
             if (!state || !state[item]) {
                 errorData[item] = true;
@@ -132,7 +130,7 @@ export default function AddRepair() {
 
 
     const handleOnSubmit = async () => {
-        validateAllEmptyInputs();
+        await validateAllEmptyInputs();
         if(isAnyRequiredInputIsEmpty){
             return
         }
@@ -149,7 +147,9 @@ export default function AddRepair() {
                 comments: state.comments,
                 assignedEmployee: state.assignedEmployee
             })
-        ).then(setRedirect(true))
+        )
+            .then(dispatch(getAllRepairs()))
+            .then(setRedirect(true))
     };
 
 
@@ -158,7 +158,7 @@ export default function AddRepair() {
     return (
         <div>
             {redirect
-                ? <Redirect to={"/repairs"}/>
+                ? <Redirect to={"/repairs/all"}/>
                 : null
             }
 
