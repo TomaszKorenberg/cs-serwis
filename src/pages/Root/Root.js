@@ -34,7 +34,7 @@ function Root() {
                         <LeftMenu links={leftMenu[0]}/>
                         <Switch>
                             <Route exact path={"/"}><Dashboard/></Route>
-                            <Route exact path={"/repairs"}><Repairs/></Route>
+                            <Route exact path={"/repairs/all"}><Repairs/></Route>
                             <Route exact path={"/messages"}><Messages/></Route>
                             <Route exact path={"/auctions"}><Auctions/></Route>
                             <Route exact path={"/warehouse"}><Warehouse/></Route>

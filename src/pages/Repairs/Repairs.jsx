@@ -43,10 +43,9 @@ const tableIcons = {
     ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref}/>)
 };
 
-console.log(process.env)
 
 const leftMenuItems = [
-    {path: "/repairs", text: "Aktualne naprawy"},
+    {path: "/repairs/all", text: "Aktualne naprawy"},
     {path: "/repairs/newrepair", text: "Dodaj naprawę"},
     {path: "/repairs/clients", text: "Baza klientow"},
     {path: "/repairs/units", text: "Baza urządzeń"},
@@ -77,7 +76,7 @@ export default function Repairs() {
             {field: 'serialNumber', title: 'Numer seryjny', filtering: false},
             {field: 'faultDescription', title: 'Opis usterki', filtering: false},
             {
-                field: 'dateOfAdd', title: 'Data przyjęcia', filtering: false, render: dataRow => <>{
+                field: 'dateOfAdd', title: 'Data przyjęcia', filtering: false,defaultSort:"asc", render: dataRow => <>{
                     moment(dataRow.dateOfAdd)
                         .locale("pl")
                         .format("YYYY-MM-DD HH:mm")}</>
