@@ -18,6 +18,7 @@ const DeviceData = ({onRepairChange, handleExistDeviceSelected, handleNewDeviceS
                 <SearchDeviceInDatabase
                     error={inputsErrorValues.deviceId}
                     searchUrl={searchUrl}
+                    handleValidateInputOnBlur={handleValidateInputOnBlur}
                     handleExistDeviceSelected={handleExistDeviceSelected}
                     handleNewDeviceSelected={handleNewDeviceSelected}
                     handleValidate={handleValidate}/>

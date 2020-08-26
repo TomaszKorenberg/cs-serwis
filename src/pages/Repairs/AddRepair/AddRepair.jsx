@@ -171,17 +171,20 @@ export default function AddRepair() {
                             handleExistDeviceSelected={handleExistDeviceSelected}
                             handleNewDeviceSelected={handleNewDeviceSelected}
                             inputsErrorValues={inputsErrorValues}
-                            handleValidate={handleValidateInputOnBlur}/>
+                            handleValidate={handleValidateInputOnBlur}
+                            validateAllEmptyInputs={validateAllEmptyInputs}/>
 
                 <RepairData handleCheckboxClick={handleCheckboxClick}
                             onRepairChange={onRepairChange}
                             inputsErrorValues={inputsErrorValues}
-                            handleValidate={handleValidateInputOnBlur}/>
+                            handleValidate={handleValidateInputOnBlur}
+                            validateAllEmptyInputs={validateAllEmptyInputs}/>
                 <EmployeeData handleSelectChange={handleSelectChange}
                               assignedEmployee={assignedEmployee}/>
                 <ClientData handleClientChange={handleClientChange}
                             inputsErrorValues={inputsErrorValues}
-                            handleValidate={handleValidateInputOnBlur}/>
+                            handleValidate={handleValidateInputOnBlur}
+                            validateAllEmptyInputs={validateAllEmptyInputs}/>
 
 
             </div>
