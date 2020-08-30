@@ -17,6 +17,7 @@ import RepairEnd from "./guideWizardPages/RepairEnd";
 import WaitingForwarded from "./guideWizardPages/WaitingForwarded";
 import WaitingForSpareParts from "./guideWizardPages/WaitingForSpareParts";
 import {updateRepairData} from "../../../../redux/operations";
+import InfoBox from "../InfoBox/InfoBox";
 
 
 function TabPanel(props) {
@@ -61,6 +62,9 @@ export default function RapairGuideWizard({repairDetails}) {
         root: {
             width: "100%",
         },
+        tabWrapper: {
+            padding: "25px"
+        }
     }));
 
     const classes = useStyles();
@@ -69,7 +73,7 @@ export default function RapairGuideWizard({repairDetails}) {
     const [value, setValue] = React.useState(0);
 
     const handleUpdateRepairData = async (dataName, newDataValue) => {
-        await fetch("process.env.REACT_APP_API_BASE_URL + process.env.REACT_APP_API_PORT + \"/repairs/repair-" + repairDetails.repairId + "/update-data", {
+        await fetch(process.env.REACT_APP_API_BASE_URL + process.env.REACT_APP_API_PORT + "/repairs/repair-" + repairDetails.repairId + "/update-data", {
             method: "PUT",
             headers: {'Content-Type': "application/json"},
             body: JSON.stringify({dataName, newDataValue})
@@ -157,8 +161,11 @@ export default function RapairGuideWizard({repairDetails}) {
 
 
                 </TabPanel>
-                <TabPanel value={value} index={1} dir={theme.direction}>
-                    Data rozpoczęcia i data zakończenia naprawy (przycisk "edytuj")<br/>
+                <TabPanel value={value} index={1} dir={theme.direction} className={classes.tabWrapper}>
+                    <InfoBox data={repairDetails.dateOfAdd}
+                             description={"Data dodania"}/><br/>
+                    <InfoBox data={repairDetails.expertise}
+                             description={"Ekspertyza serwisu"}/><br/>
                     Diagnoza i opis (przycisk "edytuj")<br/>
                     Części (przycisk "edytuj")<br/>
                     Komentarze Serwisu (przycisk "edytuj" i "dodaj")<br/>
