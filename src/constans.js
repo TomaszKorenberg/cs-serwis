@@ -1,4 +1,4 @@
-export const repairStatus = {
+export const repairStatuses = {
     registered: {
         info: "registered",
         shortDescription: "Zarejestrowano",
