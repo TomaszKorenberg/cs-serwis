@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import './Root.css';
+// import './Root.css';
 import Header from "../../components/Header/Header";
 import LeftMenu from "../../components/LeftMenu/LeftMenu";
 import Auctions from "../Auctions/Auctions";
@@ -11,12 +11,29 @@ import AddRepair from "../Repairs/AddRepair/AddRepair";
 import Warehouse from "../Warehouse/Warehouse";
 import RepairDetails from "../Repairs/RepairDetails/RepairDetails"
 import Repairs from "../Repairs/Repairs";
-import {ThemeProvider} from '@material-ui/core/styles';
+import {makeStyles, ThemeProvider} from '@material-ui/core/styles';
 import theme from "../../theme"
 import {getAllRepairs} from "../../redux/operations";
+import CssBaseline from '@material-ui/core/CssBaseline';
+
 
 
 function Root() {
+
+    const useStyles = makeStyles(() => ({
+        appWrapper: {
+            display: "flex",
+            flexDirection: "column"
+        },
+        contentWrapper: {
+        display: "flex",
+        flexDirection: "row",
+    }
+    }));
+
+    const classes = useStyles();
+
+
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -27,10 +44,11 @@ function Root() {
 
     return (
         <ThemeProvider theme={theme}>
+            <CssBaseline/>
             <BrowserRouter>
-                <div className={"appWrapper"}>
+                <div className={classes.appWrapper}>
                     <Header/>
-                    <div className={"contentWrapper"}>
+                    <div className={classes.contentWrapper}>
                         <LeftMenu links={leftMenu[0]}/>
                         <Switch>
                             <Route exact path={"/"}><Dashboard/></Route>
