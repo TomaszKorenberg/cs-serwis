@@ -8,6 +8,7 @@ import TextField from "@material-ui/core/TextField/TextField";
 import {Modal} from "@material-ui/core";
 import moment from "moment";
 import {makeStyles} from "@material-ui/core/styles";
+import {repairStatuses} from "../../../../../constans";
 
 const dateNow = moment().locale("pl").format("YYYY-MM-DD[T]HH:mm");
 
@@ -41,7 +42,7 @@ const New = ({repairDetails, handleUpdateRepairData}) => {
 
     const handleSave = async () => {
         await handleUpdateRepairData("dateOfProcessing", dateOfStartProcessingValue);
-        await handleUpdateRepairData("status", "start");
+        await handleUpdateRepairData("status", repairStatuses.start.info);
         setOpenModal(false);
     };
 
@@ -51,11 +52,9 @@ const New = ({repairDetails, handleUpdateRepairData}) => {
 
     return (
         <>
-            Status "new":<br/>
-            - Przyjęte do serwisu / Oczekuje na naprawę<br/>
+            Aktualny status naprawy: {repairStatuses.new.shortDescription}<br/>
             <div className={"repairActionsWrapper"}>
                 <div>
-                Naprawa ma status "Przyjęto do serwisu".<br/>
                 <Button variant="outlined"
                         id={"confirmDeviceDelivery"}
                         onClick={handleOpenModal}>Rozpocznij obsługę zlecenia</Button><br/><br/>

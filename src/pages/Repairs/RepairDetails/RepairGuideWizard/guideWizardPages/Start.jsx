@@ -8,6 +8,7 @@ import TextField from "@material-ui/core/TextField/TextField";
 import {Modal} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
 import InputAdornment from '@material-ui/core/InputAdornment';
+import {repairStatuses} from "../../../../../constans";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -48,7 +49,7 @@ const Start = ({repairDetails, handleUpdateRepairData}) => {
     const handleSave = async () => {
         await handleUpdateRepairData("expertise", expertiseValue);
         await handleUpdateRepairData("expectedCost", expectedCostValue);
-        await handleUpdateRepairData("status", "expertise");
+        await handleUpdateRepairData("status", repairStatuses.expertise.info);
         setOpenModal(false);
     };
 

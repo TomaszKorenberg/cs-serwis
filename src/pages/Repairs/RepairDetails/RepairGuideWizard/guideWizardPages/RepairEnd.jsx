@@ -8,6 +8,7 @@ import Fade from "@material-ui/core/Fade/Fade";
 import FormControl from "@material-ui/core/FormControl";
 import TextField from "@material-ui/core/TextField/TextField";
 import {Modal} from "@material-ui/core";
+import {repairStatuses} from "../../../../../constans";
 
 const dateNow = moment().locale("pl").format("YYYY-MM-DD[T]HH:mm");
 
@@ -41,7 +42,7 @@ const RepairEnd = ({repairDetails, handleUpdateRepairData}) => {
 
     const handleSave = async () => {
         await handleUpdateRepairData("dateOfPickup", dateOfPickupValue);
-        await handleUpdateRepairData("status", "end");
+        await handleUpdateRepairData("status", repairStatuses.end.info);
         setOpenModal(false);
     };
 

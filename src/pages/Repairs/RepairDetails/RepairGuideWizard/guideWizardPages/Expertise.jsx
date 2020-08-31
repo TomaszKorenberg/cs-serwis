@@ -9,6 +9,7 @@ import {Modal} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
 import moment from "moment";
 import InputAdornment from "@material-ui/core/InputAdornment";
+import {repairStatuses} from "../../../../../constans";
 
 const dateNow = moment().locale("pl").format("YYYY-MM-DD[T]HH:mm");
 
@@ -64,16 +65,16 @@ const Expertise = ({repairDetails, handleUpdateRepairData}) => {
         switch (modalRenderData) {
             case "cost accepted":
                 await handleUpdateRepairData("dateOfStartRepair", dateOfStartRepairValue);
-                await handleUpdateRepairData("status", "repair start");
+                await handleUpdateRepairData("status", repairStatuses.repairStart.info);
                 break;
             case "cost rejected":
                 await handleUpdateRepairData("dateOfEndRepair", dateOfEndRepairValue);
                 await handleUpdateRepairData("repairCost", repairCostValue);
-                await handleUpdateRepairData("status", "repair end");
+                await handleUpdateRepairData("status", repairStatuses.repairEnd.info);
                 break;
             case "device forwarded":
                 await handleUpdateRepairData("externalServiceData", externalServiceDataValue);
-                await handleUpdateRepairData("status", "waiting forwarded");
+                await handleUpdateRepairData("status", repairStatuses.waitingForwarded.info);
                 break;
             default:
                 break;

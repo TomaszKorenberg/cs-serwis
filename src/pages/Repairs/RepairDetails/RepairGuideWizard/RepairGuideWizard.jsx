@@ -18,6 +18,7 @@ import WaitingForwarded from "./guideWizardPages/WaitingForwarded";
 import WaitingForSpareParts from "./guideWizardPages/WaitingForSpareParts";
 import {updateRepairData} from "../../../../redux/operations";
 import InfoBox from "../InfoBox/InfoBox";
+import {repairStatuses} from "../../../../constans"
 
 
 function TabPanel(props) {
@@ -120,39 +121,39 @@ export default function RapairGuideWizard({repairDetails}) {
 
                     <div className={"repairActionsWrapper"}>
 
-                        {(repairDetails.status === "registered")
+                        {(repairDetails.status === repairStatuses.registered.info)
                             ? <Registered repairDetails={repairDetails}
                                           handleUpdateRepairData={handleUpdateRepairData}/>
                             : null}
-                        {(repairDetails.status === "new")
+                        {(repairDetails.status === repairStatuses.new.info)
                             ? <New repairDetails={repairDetails}
                                    handleUpdateRepairData={handleUpdateRepairData}/>
                             : null}
-                        {(repairDetails.status === "start")
+                        {(repairDetails.status === repairStatuses.start.info)
                             ? <Start repairDetails={repairDetails}
                                      handleUpdateRepairData={handleUpdateRepairData}/>
                             : null}
-                        {(repairDetails.status === "expertise")
+                        {(repairDetails.status === repairStatuses.expertise.info)
                             ? <Expertise repairDetails={repairDetails}
                                          handleUpdateRepairData={handleUpdateRepairData}/>
                             : null}
-                        {(repairDetails.status === "repair start")
+                        {(repairDetails.status === repairStatuses.repairStart.info)
                             ? <RepairStart repairDetails={repairDetails}
                                            handleUpdateRepairData={handleUpdateRepairData}/>
                             : null}
-                        {(repairDetails.status === "waiting spare parts")
+                        {(repairDetails.status === repairStatuses.waitingSpareParts.info)
                             ? <WaitingForSpareParts repairDetails={repairDetails}
                                                     handleUpdateRepairData={handleUpdateRepairData}/>
                             : null}
-                        {(repairDetails.status === "waiting forwarded")
+                        {(repairDetails.status === repairStatuses.waitingForwarded.info)
                             ? <WaitingForwarded repairDetails={repairDetails}
                                                 handleUpdateRepairData={handleUpdateRepairData}/>
                             : null}
-                        {(repairDetails.status === "repair end")
+                        {(repairDetails.status === repairStatuses.repairEnd.info)
                             ? <RepairEnd repairDetails={repairDetails}
                                          handleUpdateRepairData={handleUpdateRepairData}/>
                             : null}
-                        {(repairDetails.status === "end")
+                        {(repairDetails.status === repairStatuses.end.info)
                             ? <End repairDetails={repairDetails}
                                    handleUpdateRepairData={handleUpdateRepairData}/>
                             : null}

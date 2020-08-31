@@ -5,6 +5,7 @@ import {useSelector} from "react-redux";
 import {leftMenuActions} from "../../redux/actions/index"
 import moment from "moment";
 import {useHistory} from "react-router-dom";
+import {repairStatuses} from "../../constans";
 
 
 import AddBox from '@material-ui/icons/AddBox';
@@ -84,37 +85,38 @@ export default function Repairs() {
             {
                 field: 'status', title: 'Status', render: dataRow => {
                     switch (dataRow.status) {
-                        case "new":
-                            return (<>Przyjęto do serwisu</>);
-                        case "start":
-                            return (<>Rozpoczęto</>);
-                        case "expertise":
-                            return (<>Ekspertyza</>);
-                        case "repair start":
-                            return (<>W trakcie naprawy</>);
-                        case "waiting forwarded":
-                        case "waiting spare parts":
-                            return (<>Oczekuje</>);
-                        case "repair end":
-                            return (<>Naprawa zakończona</>);
-                        case "end":
-                            return (<>Odebrane</>);
-                        case "registered":
-                            return (<>Zarejestrowana przez klienta</>);
+                        case repairStatuses.new.info:
+                            return (<>{repairStatuses.new.shortDescription}</>);
+                        case repairStatuses.start.info:
+                            return (<>{repairStatuses.start.shortDescription}</>);
+                        case repairStatuses.expertise.info:
+                            return (<>{repairStatuses.expertise.shortDescription}</>);
+                        case repairStatuses.repairStart.info:
+                            return (<>{repairStatuses.repairStart.shortDescription}</>);
+                        case repairStatuses.waitingForwarded.info:
+                            return(<>{repairStatuses.waitingForwarded.shortDescription}</>);
+                        case repairStatuses.waitingSpareParts.info:
+                            return (<>{repairStatuses.waitingSpareParts.shortDescription}</>);
+                        case repairStatuses.repairEnd.info:
+                            return (<>{repairStatuses.repairEnd.shortDescription}</>);
+                        case repairStatuses.end.info:
+                            return (<>{repairStatuses.end.shortDescription}</>);
+                        case repairStatuses.registered.info:
+                            return (<>{repairStatuses.registered.shortDescription}</>);
                         default:
                             return (<>{dataRow.status}</>);
                     }
                 },
                 lookup: {
-                    "new": 'Przyjęto do serwisu',
-                    "start": "Rozpoczęto",
-                    "expertise": "Ekspertyza",
-                    "repair start": "W trakcie naprawy",
-                    "waiting forwarded": "Przekazano",
-                    "waiting spare parts": "Oczekuje",
-                    "repair end": "Naprawa zakończona",
-                    "end": "Odebrane",
-                    "registered": "Zarejestrowana przez klienta"
+                    "new": repairStatuses.new.shortDescription,
+                    "start": repairStatuses.start.shortDescription,
+                    "expertise": repairStatuses.expertise.shortDescription,
+                    "repair start": repairStatuses.repairStart.shortDescription,
+                    "waiting forwarded": repairStatuses.waitingForwarded.shortDescription,
+                    "waiting spare parts": repairStatuses.waitingSpareParts.shortDescription,
+                    "repair end": repairStatuses.repairEnd.shortDescription,
+                    "end": repairStatuses.end.shortDescription,
+                    "registered": repairStatuses.registered.shortDescription
                 },
                 filterPlaceholder: "Filtruj",
             }

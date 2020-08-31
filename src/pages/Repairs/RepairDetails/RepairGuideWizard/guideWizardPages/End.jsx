@@ -4,6 +4,7 @@ import Backdrop from "@material-ui/core/Backdrop/Backdrop";
 import Fade from "@material-ui/core/Fade/Fade";
 import {Modal} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
+import {repairStatuses} from "../../../../../constans";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -32,7 +33,7 @@ const End = ({repairDetails, handleUpdateRepairData}) => {
     };
 
     const handleSave = async () => {
-        await handleUpdateRepairData("status", "archive");
+        await handleUpdateRepairData("status", repairStatuses.archive.info);
         setOpenModal(false);
     };
 

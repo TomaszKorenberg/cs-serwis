@@ -9,6 +9,7 @@ import TextField from "@material-ui/core/TextField/TextField";
 import {Modal} from "@material-ui/core";
 import moment from "moment";
 import InputAdornment from "@material-ui/core/InputAdornment";
+import {repairStatuses} from "../../../../../constans";
 
 
 const dateNow = moment().locale("pl").format("YYYY-MM-DD[T]HH:mm");
@@ -76,7 +77,7 @@ const RepairStart = ({repairDetails, handleUpdateRepairData}) => {
         switch (modalRenderData) {
             case "parts ordered":
                 await handleUpdateRepairData("partsOrdered", partsOrderedValue);
-                await handleUpdateRepairData("status", "waiting spare parts");
+                await handleUpdateRepairData("status", repairStatuses.waitingSpareParts.info);
                 break;
             case "parts used":
                 await handleUpdateRepairData("partsUsed", partsUsedValue);
@@ -84,13 +85,13 @@ const RepairStart = ({repairDetails, handleUpdateRepairData}) => {
             case "repair succes":
             case "repair failure":
                 await handleUpdateRepairData("dateOfEndRepair", dateOfEndRepairValue);
-                await handleUpdateRepairData("status", "repair end");
+                await handleUpdateRepairData("status", repairStatuses.repairEnd.info);
                 await handleUpdateRepairData("repairSummaryDescription", repairSummaryDescriptionValue);
                 await handleUpdateRepairData("repairCost", repairCostValue);
                 break;
             case "device forwarded":
                 await handleUpdateRepairData("externalServiceData", externalServiceDataValue);
-                await handleUpdateRepairData("status", "waiting forwarded");
+                await handleUpdateRepairData("status", repairStatuses.waitingForwarded.info);
                 break;
             default:
                 break;

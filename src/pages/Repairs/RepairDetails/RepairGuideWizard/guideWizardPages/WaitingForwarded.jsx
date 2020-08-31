@@ -5,6 +5,7 @@ import Backdrop from "@material-ui/core/Backdrop/Backdrop";
 import Fade from "@material-ui/core/Fade/Fade";
 import {Modal} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
+import {repairStatuses} from "../../../../../constans";
 
 
 
@@ -34,7 +35,7 @@ const WaitingForwarded = ({repairDetails, handleUpdateRepairData}) => {
     };
 
     const handleSave = async () => {
-        await handleUpdateRepairData("status", "repair start");
+        await handleUpdateRepairData("status", repairStatuses.repairStart.info);
         setOpenModal(false);
     };
 
