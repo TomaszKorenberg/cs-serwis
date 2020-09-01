@@ -87,8 +87,8 @@ const SearchDeviceInDatabase = ({searchUrl, handleValidateInputOnBlur, handleExi
                         label="Producent i model"
                         margin="normal"
                         // fixme: poprawić walidację aby działała
-                        error={error}
-                        // onBlur={handleValidate}
+                        // error={error}
+                        // onBlur={handleValidateInputOnBlur}
                         onChange={handleInputChange}
                         variant="outlined"
                         InputProps={{...params.InputProps, type: 'search'}}
