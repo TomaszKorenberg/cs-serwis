@@ -1,5 +1,4 @@
 import React, {} from 'react';
-import "../RepairDetails.scss"
 import PropTypes from 'prop-types';
 import SwipeableViews from 'react-swipeable-views';
 import {makeStyles, useTheme} from '@material-ui/core/styles';
@@ -65,6 +64,12 @@ export default function RapairGuideWizard({repairDetails}) {
         },
         tabWrapper: {
             padding: "25px"
+        },
+        repairActionsWrapper: {
+            display: "flex",
+            flexWrap: "wrap",
+            padding: "25px",
+            width: "100%",
         }
     }));
 
@@ -119,7 +124,7 @@ export default function RapairGuideWizard({repairDetails}) {
                 <TabPanel value={value} index={0} dir={theme.direction}>
 
 
-                    <div className={"repairActionsWrapper"}>
+                    <div className={classes.repairActionsWrapper}>
 
                         {(repairDetails.status === repairStatuses.registered.info)
                             ? <Registered repairDetails={repairDetails}

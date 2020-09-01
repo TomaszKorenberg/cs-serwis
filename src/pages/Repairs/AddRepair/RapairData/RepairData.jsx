@@ -2,20 +2,36 @@ import React from "react";
 import TextField from "@material-ui/core/TextField/TextField";
 import FormControlLabel from "@material-ui/core/FormControlLabel/FormControlLabel";
 import {Checkbox} from "@material-ui/core";
-import "../AddRepair.scss"
 import FormControl from "@material-ui/core/FormControl";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import moment from "moment";
 import settings from "../../../../settings"
+import {makeStyles} from "@material-ui/core/styles";
 
 const dateNow = moment().locale("pl").format("YYYY-MM-DD[T]HH:mm");
 const dateFuture = moment().locale("pl").add(settings.rapairs.daysToEndOfRepair, "days").format("YYYY-MM-DD[T]HH:mm");
 
+
+const useStyles = makeStyles(() => ({
+    sectionWrapper: {
+        display: "flex",
+        flexDirection: "column",
+        width: "40%",
+        padding: "25px",
+        border: "1px solid gray",
+        borderRadius: "10px",
+        margin: "10px",
+        maxWidth: "535px",
+
+    }
+}));
+
 const RepairData = ({onRepairChange, handleCheckboxClick, inputsErrorValues, handleValidate}) => {
+    const classes = useStyles();
 
     return (
         <>
-            <div className={"sectionWrapper"}>
+            <div className={classes.sectionWrapper}>
 
                 Dane naprawy:
 

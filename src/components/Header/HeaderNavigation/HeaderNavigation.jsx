@@ -1,16 +1,42 @@
 import React from 'react';
-import "./HeaderNavigation.scss"
 import {NavLink} from "react-router-dom";
+import {makeStyles} from "@material-ui/core/styles";
+
+const useStyles = makeStyles(() => ({
+    menuItem: {
+        display: "inline-block",
+        listStyle: "none",
+        marginRight: "15px",
+        textDecoration: "none",
+        color: "white",
+    },
+
+    navLinkActive: {
+        fontWeight: "700",
+    }
+}));
 
 const HeaderNavigation = () => {
+    const classes = useStyles();
+
     return (
         <nav>
             <ul>
-                <NavLink exact to={"/"} activeClassName={"navLinkActive"}><li className={"menuItem"} >Dashboard</li></NavLink>
-                <NavLink to={"/repairs/all"} activeClassName={"navLinkActive"}><li className={"menuItem"}>Naprawy</li></NavLink>
-                <NavLink to={"/messages"} activeClassName={"navLinkActive"}><li className={"menuItem"}>Wiadomości</li></NavLink>
-                <NavLink to={"/auctions"} activeClassName={"navLinkActive"}><li className={"menuItem"}>Aukcje</li></NavLink>
-                <NavLink to={"/warehouse"} activeClassName={"navLinkActive"}><li className={"menuItem"}>Magazyn</li></NavLink>
+                <NavLink exact to={"/"} activeClassName={classes.navLinkActive}>
+                    <li className={classes.menuItem}>Dashboard</li>
+                </NavLink>
+                <NavLink to={"/repairs/all"} activeClassName={classes.navLinkActive}>
+                    <li className={classes.menuItem}>Naprawy</li>
+                </NavLink>
+                <NavLink to={"/messages"} activeClassName={classes.navLinkActive}>
+                    <li className={classes.menuItem}>Wiadomości</li>
+                </NavLink>
+                <NavLink to={"/auctions"} activeClassName={classes.navLinkActive}>
+                    <li className={classes.menuItem}>Aukcje</li>
+                </NavLink>
+                <NavLink to={"/warehouse"} activeClassName={classes.navLinkActive}>
+                    <li className={classes.menuItem}>Magazyn</li>
+                </NavLink>
             </ul>
         </nav>
     );

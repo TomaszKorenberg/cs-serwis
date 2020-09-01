@@ -7,7 +7,6 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { makeStyles } from '@material-ui/core/styles';
 
 
-
 const useStyles = makeStyles(() => ({
     root: {
         width: '100%',
@@ -32,7 +31,7 @@ export default function RepairShortSummary({repairDetails}) {
                     <Typography>Szybki podgląd danych zlecenia</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                    <div className={"previewWrapper"}>
+                    <div>
                         Przegląd naprawy:
                         <div className={"previewData"}>
                             <ul className={"previewDataContent"}>

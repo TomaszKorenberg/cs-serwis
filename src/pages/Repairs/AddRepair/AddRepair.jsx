@@ -6,11 +6,22 @@ import ClientData from "./ClientData/ClientData";
 import {Redirect} from "react-router";
 import DeviceData from "./DeviceData/DeviceData";
 import RepairData from "./RapairData/RepairData";
-import "./AddRepair.scss"
 import EmployeeData from "./EmployeeData/EmployeeData";
 import moment from "moment";
+import {makeStyles} from "@material-ui/core/styles";
 
 const dateNow = moment().format("YYYY-MM-DD[T]HH:mm");
+
+const useStyles = makeStyles(() => ({
+    wrapper: {
+        display: "flex",
+        flexWrap: "wrap",
+        flexDirection: "column",
+        width: "90vw",
+        height: "700px",
+        maxWidth: "1200px",
+    },
+}));
 
 const initialRepairState = {
     serialNumber: null,
@@ -52,6 +63,7 @@ const reducer = (state, {field, value}) => {
 
 
 export default function AddRepair() {
+    const classes = useStyles();
     const dispatch = useDispatch();
     const [state, dispatchState] = useReducer(reducer, initialRepairState);
     const [redirect, setRedirect] = useState(false);
@@ -59,7 +71,6 @@ export default function AddRepair() {
     const [newClientData, setNewClientData] = useState({});
     const [inputsErrorValues, setInputsErrorValues] = useState(initialInputsErrorValue);
     const [isAnyRequiredInputIsEmpty, setIsAnyRequiredInputIsEmpty] = useState(false);
-
 
 
     const handleClientChange = (e) => {
@@ -128,10 +139,9 @@ export default function AddRepair() {
     };
 
 
-
     const handleOnSubmit = async () => {
         await validateAllEmptyInputs();
-        if(isAnyRequiredInputIsEmpty){
+        if (isAnyRequiredInputIsEmpty) {
             return
         }
         await addNewClient(newClientData);
@@ -153,8 +163,6 @@ export default function AddRepair() {
     };
 
 
-
-
     return (
         <div>
             {redirect
@@ -164,7 +172,7 @@ export default function AddRepair() {
 
 
             <h2 id="transition-modal-title">Dodaj nową naprawę</h2>
-            <div className={"wrapper"}>
+            <div className={classes.wrapper}>
 
 
                 <DeviceData onRepairChange={onRepairChange}

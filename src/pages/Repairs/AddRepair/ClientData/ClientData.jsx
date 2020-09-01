@@ -7,9 +7,22 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Box from '@material-ui/core/Box';
 import TextField from "@material-ui/core/TextField/TextField";
-import "../AddRepair.scss"
+import {makeStyles} from "@material-ui/core/styles";
 
 
+const useStyles = makeStyles(() => ({
+    sectionWrapper: {
+        display: "flex",
+        flexDirection: "column",
+        width: "40%",
+        padding: "25px",
+        border: "1px solid gray",
+        borderRadius: "10px",
+        margin: "10px",
+        maxWidth: "535px",
+
+    }
+}));
 
 
 function TabPanel(props) {
@@ -48,6 +61,7 @@ function a11yProps(index) {
 export default function ClientData({handleClientChange, inputsErrorValues, handleValidate}) {
     const [value, setValue] = React.useState(0);
 
+    const classes = useStyles();
 
 
     const handleChange = (event, newValue) => {
@@ -55,7 +69,7 @@ export default function ClientData({handleClientChange, inputsErrorValues, handl
     };
 
     return (
-        <div className={"sectionWrapper"}>
+        <div className={classes.sectionWrapper}>
             Dane klienta:
             <AppBar position="static" color="default">
                 <Tabs

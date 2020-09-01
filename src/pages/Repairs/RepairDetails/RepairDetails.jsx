@@ -2,12 +2,10 @@ import React, {useEffect} from 'react';
 import {useParams} from "react-router-dom";
 import {getRepairById} from "../../../redux/operations";
 import {useDispatch, useSelector} from "react-redux";
-import "./RepairDetails.scss"
 import RepairShortSummary from "./RepairShortSummary/RepairShortSummary";
 import RapairGuideWizard from "./RepairGuideWizard/RepairGuideWizard";
 import CircularProgress from "@material-ui/core/CircularProgress/CircularProgress";
 import {makeStyles} from "@material-ui/core/styles";
-
 
 
 export default function RapairDetails() {
@@ -24,10 +22,19 @@ export default function RapairDetails() {
         root: {
             width: "100%",
         },
+        repairDataWrapper: {
+            display: "flex",
+            flexWrap: "wrap",
+            flexDirection: "row",
+            justifyContent: "center",
+            alignItems: "center",
+            padding: "0 25px",
+
+
+        },
     }));
 
     const classes = useStyles();
-
 
 
     if (!repairDetails) {
@@ -40,7 +47,7 @@ export default function RapairDetails() {
     return (
         <div className={classes.root}>
             <h1>Szczegóły naprawy</h1>
-            <div className={"repairDataWrapper"}>
+            <div className={classes.repairDataWrapper}>
 
                 <RepairShortSummary repairDetails={repairDetails}/>
                 <RapairGuideWizard repairDetails={repairDetails}/>

@@ -1,14 +1,30 @@
 import React from "react";
-import "../AddRepair.scss"
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel/InputLabel";
 import Select from "@material-ui/core/Select/Select";
 import MenuItem from "@material-ui/core/MenuItem";
+import {makeStyles} from "@material-ui/core/styles";
+
+const useStyles = makeStyles(() => ({
+    sectionWrapper: {
+        display: "flex",
+        flexDirection: "column",
+        width: "40%",
+        padding: "25px",
+        border: "1px solid gray",
+        borderRadius: "10px",
+        margin: "10px",
+        maxWidth: "535px",
+
+    }
+}));
 
 const EmployeeData = ({onRepairChange, handleSelectChange, assignedEmployee}) => {
+    const classes = useStyles();
+
     return (
         <>
-            <div className={"sectionWrapper"}>
+            <div className={classes.sectionWrapper}>
                 Pracownik przypisany do naprawy:
                 <FormControl >
                     <InputLabel id="Pracownik">Wybierz pracownika</InputLabel>

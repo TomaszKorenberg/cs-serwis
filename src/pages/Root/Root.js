@@ -1,7 +1,6 @@
 import React, {useEffect} from 'react';
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-// import './Root.css';
 import Header from "../../components/Header/Header";
 import LeftMenu from "../../components/LeftMenu/LeftMenu";
 import Auctions from "../Auctions/Auctions";
@@ -15,6 +14,7 @@ import {makeStyles, ThemeProvider} from '@material-ui/core/styles';
 import theme from "../../theme"
 import {getAllRepairs} from "../../redux/operations";
 import CssBaseline from '@material-ui/core/CssBaseline';
+import "./Root.css"
 
 
 

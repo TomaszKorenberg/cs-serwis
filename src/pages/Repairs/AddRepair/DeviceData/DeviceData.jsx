@@ -1,16 +1,31 @@
 import React from "react";
 import TextField from "@material-ui/core/TextField/TextField";
 import SearchDeviceInDatabase from "./SearchDeviceInDatabase/SearchDeviceInDatabase";
-import "../AddRepair.scss"
 import FormControl from "@material-ui/core/FormControl";
 import FormHelperText from "@material-ui/core/FormHelperText";
+import {makeStyles} from "@material-ui/core/styles";
+
+const useStyles = makeStyles(() => ({
+    sectionWrapper: {
+    display: "flex",
+    flexDirection: "column",
+    width: "40%",
+    padding: "25px",
+    border: "1px solid gray",
+    borderRadius: "10px",
+    margin: "10px",
+    maxWidth: "535px",
+
+}
+}));
 
 
 const DeviceData = ({onRepairChange, handleExistDeviceSelected, handleNewDeviceSelected, inputsErrorValues, handleValidateInputOnBlur, handleValidate}) => {
+    const classes = useStyles();
     const searchUrl = process.env.REACT_APP_API_BASE_URL + process.env.REACT_APP_API_PORT + "/devices/search?text=";
     return (
 
-        <div className={"sectionWrapper"}>
+        <div className={classes.sectionWrapper}>
             Dane urządzenia:
             <FormControl
                 error={inputsErrorValues.deviceId}
