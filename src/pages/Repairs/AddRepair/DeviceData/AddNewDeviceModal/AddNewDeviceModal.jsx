@@ -8,8 +8,6 @@ import FormControl from "@material-ui/core/FormControl";
 import Button from "@material-ui/core/Button";
 import FormHelperText from "@material-ui/core/FormHelperText";
 
-// walidacja obowiązkowych pól
-// stylowanie
 
 const initialInputsErrorValue = {
     manufacturer: false,
@@ -43,12 +41,14 @@ const useStyles = makeStyles((theme) => ({
         boxShadow: theme.shadows[5],
         padding: theme.spacing(2, 4, 3),
     },
+    input: {
+        marginBottom: "10px"
+    }
 }));
 
 export default function AddNewDeviceModal({openModal, isModalOpen, setValue, handleNewDeviceSelected}) {
     const [newDeviceDataInputs, setNewDeviceDataInputs] = useState(initialNewDeviceInputValues);
     const [inputsErrorValues, setInputsErrorValues] = useState(initialInputsErrorValue);
-    const [isAnyRequiredInputIsEmpty, setIsAnyRequiredInputIsEmpty] = useState(true);
 
 
     const classes = useStyles();
@@ -66,9 +66,9 @@ export default function AddNewDeviceModal({openModal, isModalOpen, setValue, han
     };
 
     const handleSave = async () => {
-        validateAllEmptyInputs();
+        let isAnyInputEmpty = await validateAllEmptyInputs();
 
-        if(isAnyRequiredInputIsEmpty){
+        if(isAnyInputEmpty){
             return
         }
 
@@ -92,11 +92,10 @@ export default function AddNewDeviceModal({openModal, isModalOpen, setValue, han
         }
     };
 
-    const validateAllEmptyInputs = () => {
+    const validateAllEmptyInputs = async () => {
         let emptyInput = false;
-        setIsAnyRequiredInputIsEmpty(false);
         const errorData = {...inputsErrorValues};
-
+        console.log(inputsErrorValues);
 
 
         for (let item in errorData) {
@@ -106,8 +105,7 @@ export default function AddNewDeviceModal({openModal, isModalOpen, setValue, han
                 emptyInput = true;
             }
         }
-        setIsAnyRequiredInputIsEmpty(emptyInput);
-
+        return emptyInput
     };
 
     return (
@@ -132,6 +130,7 @@ export default function AddNewDeviceModal({openModal, isModalOpen, setValue, han
                             fullWidth={true}>
                             <TextField
                                 m={200}
+                                className={classes.input}
                                 name={"manufacturer"}
                                 size={"small"}
                                 onChange={handleOnChange}
@@ -147,6 +146,7 @@ export default function AddNewDeviceModal({openModal, isModalOpen, setValue, han
 
                             <TextField
                                 m={200}
+                                className={classes.input}
                                 name={"model"}
                                 size={"small"}
                                 onChange={handleOnChange}
@@ -162,6 +162,7 @@ export default function AddNewDeviceModal({openModal, isModalOpen, setValue, han
 
                             <TextField
                                 m={200}
+                                className={classes.input}
                                 name={"type"}
                                 size={"small"}
                                 onChange={handleOnChange}
@@ -172,6 +173,7 @@ export default function AddNewDeviceModal({openModal, isModalOpen, setValue, han
 
                             <TextField
                                 m={200}
+                                className={classes.input}
                                 name={"description"}
                                 size={"small"}
                                 onChange={handleOnChange}
