@@ -56,3 +56,29 @@ export const updateRepairData = async (repairId, dataName, newDataValue) => {
     repairActions.setRepairDetails(repairDetails)
 
 };
+
+const fetchGetAllProductsFromWarehouse = async () => {
+    const wfirmaApiUrl = process.env.REACT_APP_WFIRMA_API_URL;
+    const wfirmaUsername = process.env.REACT_APP_WFIRMA_USERNAME;
+    const wfirmaPassword = process.env.REACT_APP_WFIRMA_PASSWORD;
+    const encodedString = new Buffer(wfirmaUsername + ":" + wfirmaPassword).toString('base64');
+
+
+
+    const headers = new Headers();
+    headers.set('Authorization', 'Basic ' + encodedString);
+
+    const response = await fetch(wfirmaApiUrl, {
+        method: "POST",
+        headers
+    });
+
+    return await response.json();
+};
+
+export const getAllProductsFromWarehouse = () =>
+    async () => {
+        const products = await fetchGetAllProductsFromWarehouse();
+        console.log(products)
+        //repairActions.setRepairs(repairs)
+    };
