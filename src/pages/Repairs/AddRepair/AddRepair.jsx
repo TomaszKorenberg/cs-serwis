@@ -10,9 +10,13 @@ import EmployeeData from "./EmployeeData/EmployeeData";
 import moment from "moment";
 import {makeStyles} from "@material-ui/core/styles";
 
-const dateNow = moment().format("YYYY-MM-DD[T]HH:mm");
+const getCurrentDate = () => moment().format("YYYY-MM-DD[T]HH:mm");
 
 const useStyles = makeStyles(() => ({
+    page: {
+        padding: "15px",
+        borderLeft: "1px solid gray"
+    },
     wrapper: {
         display: "flex",
         flexWrap: "wrap",
@@ -28,7 +32,7 @@ const initialRepairState = {
     firstName: null,
     lastName: null,
     faultDescription: null,
-    dateOfAdd: dateNow,
+    dateOfAdd: getCurrentDate,
     clientId: 0,
     isWarranty: false,
     comments: null,
@@ -44,12 +48,17 @@ const initialInputsErrorValue = {
     dateOfAdd: false
 };
 
+let typeOfClientToAdd = "new";
+let responseClientId = null;
+
 const addNewClient = async (data) => {
     await fetch(process.env.REACT_APP_API_BASE_URL + process.env.REACT_APP_API_PORT + "/clients/addclient", {
         method: "POST",
         headers: {'Content-Type': "application/json"},
         body: JSON.stringify(data),
-    });
+    })
+        .then(response => response.json())
+        .then(response => responseClientId = response[1].clientId);
 };
 
 
@@ -144,7 +153,21 @@ export default function AddRepair() {
         if (isAnyRequiredInputIsEmpty) {
             return
         }
-        await addNewClient(newClientData);
+        switch (typeOfClientToAdd) {
+            case "new":
+                await addNewClient(newClientData);
+                break;
+            case "anonymous":
+                responseClientId = 0;
+                break;
+            case "exist":
+                // tu będzie dodane id po stworzeniu komponentu searchClientInDatabase
+                break;
+            default:
+                await addNewClient(newClientData);
+                break;
+        }
+
         dispatch(await addRepair(
             {
                 deviceId: state.deviceId,
@@ -152,7 +175,7 @@ export default function AddRepair() {
                 faultDescription: state.faultDescription,
                 dateOfAdd: state.dateOfAdd,
                 dateOfEnd: state.dateOfEnd,
-                clientId: state.clientId,
+                clientId: responseClientId,
                 isWarranty: state.isWarranty,
                 comments: state.comments,
                 assignedEmployee: state.assignedEmployee
@@ -164,7 +187,7 @@ export default function AddRepair() {
 
 
     return (
-        <div>
+        <div className={classes.page}>
             {redirect
                 ? <Redirect to={"/repairs/all"}/>
                 : null
@@ -192,7 +215,9 @@ export default function AddRepair() {
                 <ClientData handleClientChange={handleClientChange}
                             inputsErrorValues={inputsErrorValues}
                             handleValidate={handleValidateInputOnBlur}
-                            validateAllEmptyInputs={validateAllEmptyInputs}/>
+                            validateAllEmptyInputs={validateAllEmptyInputs}
+                            typeOfClientToAdd={typeOfClientToAdd}
+                            setInputsErrorValues={setInputsErrorValues}/>
 
 
             </div>
