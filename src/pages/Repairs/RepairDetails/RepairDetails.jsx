@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useParams} from "react-router-dom";
 import {getRepairById} from "../../../redux/operations";
 import {useDispatch, useSelector} from "react-redux";
@@ -12,6 +12,7 @@ export default function RapairDetails() {
     const dispatch = useDispatch();
     const repairId = useParams().repairId;
     const repairDetails = useSelector(state => state.repairDetails)[0];
+    const [shortSummaryFullWidth, setShortSummaryFullWidth] = useState(false)
 
 
     useEffect(() => {
@@ -21,17 +22,20 @@ export default function RapairDetails() {
     const useStyles = makeStyles(() => ({
         root: {
             width: "100%",
+            padding: "0 25px",
+            borderLeft: "1px solid gray",
         },
         repairDataWrapper: {
             display: "flex",
             flexWrap: "wrap",
             flexDirection: "row",
-            justifyContent: "center",
             alignItems: "center",
-            padding: "0 25px",
-
-
         },
+        repairShortSummary: {
+            marginBottom: "20px",
+            width: shortSummaryFullWidth ? "100%" : "30%",
+            transition: "0.5s"
+        }
     }));
 
     const classes = useStyles();
@@ -49,7 +53,9 @@ export default function RapairDetails() {
             <h1>Szczegóły naprawy</h1>
             <div className={classes.repairDataWrapper}>
 
-                <RepairShortSummary repairDetails={repairDetails}/>
+                <div onClick={() => setShortSummaryFullWidth(!shortSummaryFullWidth)} className={classes.repairShortSummary}>
+                    <RepairShortSummary repairDetails={repairDetails}/>
+                </div>
                 <RapairGuideWizard repairDetails={repairDetails}/>
             </div>
 
