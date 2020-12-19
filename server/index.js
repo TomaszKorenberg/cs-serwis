@@ -19,11 +19,13 @@ require('./routes/clients')(app);
 require('./routes/repairs')(app);
 require('./routes/devices')(app);
 require('./routes/auth')(app);
+require('./routes/warehouse')(app);
+
 
 if (process.env.NODE_ENV === "production") {
     app.use(express.static(path.join(__dirname, '../build')));
     app.get('/*', (req, res) => {
-        console.log("test");
+        console.log("This is production");
         res.sendFile(path.join(__dirname, '../build', 'index.html'));
     });
 }

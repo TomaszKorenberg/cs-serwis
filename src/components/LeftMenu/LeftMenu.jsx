@@ -15,7 +15,6 @@ const useStyles = makeStyles(() => ({
     },
 
     leftMenuWrapper: {
-        borderRight: "1px solid gray",
         height: "100vh",
         minWidth: "170px"
     }

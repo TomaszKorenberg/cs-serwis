@@ -68,9 +68,7 @@ export default function AddNewDeviceModal({openModal, isModalOpen, setValue, han
     const handleSave = async () => {
         let isAnyInputEmpty = await validateAllEmptyInputs();
 
-        if(isAnyInputEmpty){
-            return
-        }
+        if(isAnyInputEmpty)return;
 
         const newDeviceData = await addNewDevice(newDeviceDataInputs);
         setValue(newDeviceData[1].manufacturer + " " + newDeviceData[1].model);
