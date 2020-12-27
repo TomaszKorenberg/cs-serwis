@@ -19,7 +19,7 @@ module.exports = (app) => {
             })
     });
 
-    app.get("/users", (req, res) => {
+    app.get("/users/getall", (req, res) => {
         Users.findAll()
             .then(response => res.status(200).send(response))
             .catch(err => {

@@ -12,8 +12,8 @@ module.exports = (app) => {
             postalCode: null,
             city: null
         })
-            .then(() => {
-                res.status(200).send("Created new client")
+            .then((result) => {
+                res.status(200).send(["Created new client", result])
             })
             .catch(err => {
                 throw new Error(err)

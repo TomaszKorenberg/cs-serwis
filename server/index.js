@@ -5,14 +5,15 @@ const cors = require("cors");
 const app = express();
 const sequelize = require('./utils/database');
 const config = require('./config');
-
+const passport = require('./auth/auth')
 
 app.use(express.json());
+app.use(passport.initialize());
+app.use(passport.session());
 
 if (process.env.NODE_ENV === "development"){
     app.use(cors());
 }
-
 
 
 require('./routes/clients')(app);

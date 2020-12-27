@@ -1,19 +1,19 @@
-
+const passport = require('passport');
 
 module.exports = (app) => {
-    app.post("/login", (req, res) => {
 
-        const login = "tkoras@o2.pl";
-        const password = "1234";
+    app.get('/auth/facebook',
+        passport.authenticate('facebook', {scope: ['email']}));
 
-        if (login === req.body.login && password === req.body.password) {
-            console.log("logowanie");
-            res.status(200).send("Logged");}
-            })
+    app.get('/auth/facebook/callback',
+        passport.authenticate('facebook', {
+            failureRedirect: '/login',
+        }),
+        function(req, res) {
+        console.log(req.user);
+        //if user in database => redirect to
+            res.redirect('/');
+        //if user not in database => register user and redirect to
+        });
 
 };
-
-/*
-token trzymać w redux - poczytac o redux redux-persist
-
- */
