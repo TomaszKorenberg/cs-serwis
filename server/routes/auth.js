@@ -16,4 +16,10 @@ module.exports = (app) => {
         //if user not in database => register user and redirect to
         });
 
+    app.post('/auth/local',
+        passport.authenticate('local', { successRedirect: '/',
+            failureRedirect: '/login',
+            failureFlash: true }),
+    );
+
 };

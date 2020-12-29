@@ -6,15 +6,24 @@ const app = express();
 const sequelize = require('./utils/database');
 const config = require('./config');
 const passport = require('./auth/auth')
+const flash = require('flash');
+var session = require('express-session');
+
 
 app.use(express.json());
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(session({
+    secret: "fd34s@!@dfa453f3DF#$D&W",
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: !true }
+}));
+app.use(flash());
 
 if (process.env.NODE_ENV === "development"){
     app.use(cors());
 }
-
 
 require('./routes/clients')(app);
 require('./routes/repairs')(app);
